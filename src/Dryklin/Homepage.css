@@ -1,0 +1,124 @@
+
+
+.homepage {
+    font-family: Arial, sans-serif;
+  }
+  
+  .top-bar {
+    background-color: #e86317;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+ .imge {
+    width: 10%;
+    height: 10%;
+  }
+  
+  .nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  li :hover {
+    font: #e86317;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .auth-buttons button {
+    cursor: pointer;
+
+  }
+  
+  .logins-btn {
+    background-color: #ffffff;
+    color: #e86317;
+    border: 2px solid #e86317;
+    font-size: 15px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .logins-btn:hover
+  {
+    background-color: #e86317;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 0 1px; 
+  }
+
+  .fa-user
+  {
+    font-size: 15px;
+  }
+  
+  .get-started-btn {
+    background-color: #e86317;
+    color: #ffffff;
+    font-size: 15px;
+    border: none;
+    font-weight: 400;
+  }
+
+  .get-started-btn:hover
+  {
+    background-color: #e86317;
+    color: #ffffff;
+  }
+
+  .fa-arrow-right
+  {
+    
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  
+  .main-content {
+    text-align: center;
+    padding: 100px 20px;
+  }
+  
+  .main-content h2 {
+    font-size: 45px;
+    color: black;
+    font-weight: 700;
+  }
+  
+  .main-content .brand-new {
+    color: #e86317;
+    font-style: italic;
+  }
+  
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .cta-buttons button {
+    cursor: pointer;
+  }
+  
+  .containes
+  {
+    background-color: #f9dbb8;
+    color: #e86317;
+    margin-inline: 400px;
+    font-size: 14px;
+    padding: 3px;
+  }

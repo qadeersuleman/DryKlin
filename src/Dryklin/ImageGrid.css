@@ -1,0 +1,12 @@
+.contains
+{
+    border: 2px solid black;
+}
+.object-fit-cover {
+    object-fit: cover;
+    
+  }
+  .img-shadow {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
