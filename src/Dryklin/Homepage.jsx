@@ -21,7 +21,7 @@ function Homepage() {
             <li>Contact</li>
           </ul>
           <div className="auth-buttons">
-            <Button className='logins-btn px-2'><i className='fas fa-user px-2'></i>Log in</Button>
+            {/* <Button className='logins-btn px-2'><i className='fas fa-user px-2'></i>Log in</Button> */}
             <Button className="get-started-btn px-3">Get started <i className='fas fa-arrow-right'></i></Button>
           </div>
         </nav>
