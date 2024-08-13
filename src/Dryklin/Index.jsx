@@ -1,6 +1,6 @@
 import Homepage from "./Homepage"
 import ImageGrid from "./ImageGrid"
-import PriceCalculator from "./PriceCalculator
+import PriceCalculator from "./PriceCalculator"
 import DryKlinLanding from "./DryKlinLanding"
 import GetInTouch from "./GetInTouch"
 import Footer from "./Footer"
