@@ -9,10 +9,6 @@
     color: #f57c00;
 }
 
-.outline-danger
-{
-    border: #d66a00;
-}
 .quantity-box {
     width: 40px;
     text-align: center;
@@ -59,4 +55,20 @@
     margin-top: 100px;
 }
 
+.btn-hov
+{
+    border :1px solid #e86317;
+}
 
+.btn-hov:hover{
+    background-color: #e86317;
+}
+
+@media (max-width : 700px) {
+    .terms-text
+    {
+        margin-top: 10px;
+        margin-left: 25px;
+        font-size: 13px;
+    }
+}

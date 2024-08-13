@@ -50,14 +50,13 @@
     font-size: 15px;
     text-align: center;
     font-weight: 700;
+  
   }
 
   .logins-btn:hover
   {
     background-color: #e86317;
     color: #ffffff;
-    border: none;
-    box-shadow: 0 0 1px; 
   }
 
   .fa-user
@@ -101,6 +100,20 @@
   .main-content .brand-new {
     color: #e86317;
     font-style: italic;
+    animation: shine 2s ease-out;
+  }
+
+  @keyframes shine {
+    0% 
+    {
+      opacity: 0;
+      transform : translateY(-20px);
+  }
+  100%
+  {
+    opacity: 1;
+    transform: translateY(0);
+  }
   }
   
   .cta-buttons {
@@ -121,4 +134,61 @@
     margin-inline: 400px;
     font-size: 14px;
     padding: 3px;
+  }
+
+  .nav-item
+  {
+    position: relative;
+    text-decoration: none;
+    color: rgb(54, 53, 53);
+    transition: color o.3s ease-in-out;
+  }
+
+  .nav-item:hover
+  {
+    color: #e86317;
+  }
+
+  .nav-item::after
+  {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #e86317;
+    bottom: -5px;
+    left: 0;
+    transition: width .3s ease-in-out;
+  }
+
+  .nav-item:hover::after
+  {
+    width: 100%;
+  }
+
+  main .badge {
+    background-color: #fae0b2;
+    color: #e86317;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  @media  (max-width: 656px){ 
+    .home-btns
+    {
+      width: 100px !important;
+     height: 50px;
+     font-size: 12px;
+    }
+    .resp-btn
+    {
+      font-size: 10px;
+    }
+    .imge
+    {
+      width: 100px;
+    }
   }

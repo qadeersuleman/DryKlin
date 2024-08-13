@@ -1,60 +1,75 @@
 .footer {
-    background-color: #ff6600;
-    color: white;
-    padding: 40px 0;
-  }
-  
-  .footer-brand .footer-logo {
-    width: 100px;
-    margin-bottom: 20px;
-  }
-  
-  .footer-text {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  .footer-address {
-    font-size: 14px;
-    margin-top: 15px;
-  }
-  
-  .footer-links {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links li {
-    margin-bottom: 10px;
-  }
-  
-  .footer-links a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
-  
-  .social-icons {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 15px;
-  }
-  
-  .social-icons li {
-    margin-left: 15px;
-  }
-  
-  .social-icons a {
-    color: white;
-    font-size: 20px;
-  }
-  
+  background-color: #ff6600;
+  color: white;
+  padding: 40px 0;
+}
+
+.footer-brand .footer-logo {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+.footer-text {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-address {
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Center icons on small screens */
+  margin-bottom: 15px;
+}
+
+.social-icons li {
+  margin-left: 15px;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 20px;
+}
+
 .footer-copyright {
-    font-size: 14px;
-    margin-top: 15px;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 576px) {
+  .footer-brand {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .text-md-right {
+    text-align: center;
+  }
 }

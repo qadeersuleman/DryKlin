@@ -4,11 +4,11 @@ import './PriceCalculator.css';  // Custom CSS for styling
 
 const PriceCalculator = () => {
     const [items, setItems] = useState([
-        { id: 1, name: 'Shirt/Blouse', price: 1000, quantity: 2 },
-        { id: 2, name: 'Pant Trouser', price: 1200, quantity: 2 },
-        { id: 3, name: 'Shorts/Skirts', price: 1000, quantity: 5 },
+        { id: 1, name: 'Shirt/Blouse', price: 1000, quantity: 1 },
+        { id: 2, name: 'Pant Trouser', price: 1200, quantity: 1 },
+        { id: 3, name: 'Shorts/Skirts', price: 1000, quantity: 1 },
         { id: 4, name: 'Jean Trouser', price: 1000, quantity: 1 },
-        { id: 5, name: 'Sweatshirt', price: 1200, quantity: 3 },
+        { id: 5, name: 'Sweatshirt', price: 1200, quantity: 1 },
         { id: 6, name: 'Iro and Buba', price: 1500, quantity: 1 },
     ]);
 
@@ -45,9 +45,9 @@ const PriceCalculator = () => {
                                 <span className="text-muted">₦{item.price}</span>
                             </Col>
                             <Col xs={6} className="d-flex justify-content-end">
-                                <Button variant="outline-danger" style={ {borderColor : "orange" } } onClick={() => handleDecrement(item.id)}>-</Button>
+                                <Button variant="outline-danger" className='btn-hov' onClick={() => handleDecrement(item.id)}>-</Button>
                                 <div className="quantity-box">{item.quantity}</div>
-                                <Button variant="outline-secondary" style={ {borderColor : "orange" } } onClick={() => handleIncrement(item.id)}>+</Button>
+                                <Button variant="outline-secondary" className='btn-hov' onClick={() => handleIncrement(item.id)}>+</Button>
                             </Col>
                         </Row>
                     ))}

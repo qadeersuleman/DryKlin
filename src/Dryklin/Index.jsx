@@ -1,11 +1,11 @@
 import Homepage from "./Homepage"
 import ImageGrid from "./ImageGrid"
-import PriceCalculator from "./PriceCalculator"
-import Qadeer from "./Footer"
+import PriceCalculator from "./PriceCalculator
 import DryKlinLanding from "./DryKlinLanding"
 import GetInTouch from "./GetInTouch"
 import Footer from "./Footer"
 import Testimonials from "./Testimonials"
+
 
 const Index = () => {
     return (
@@ -18,6 +18,7 @@ const Index = () => {
             <DryKlinLanding />
             <GetInTouch />
             <Footer />
+            
         </div>
     )
 }

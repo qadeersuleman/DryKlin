@@ -68,13 +68,16 @@ strong {
 }
 
 
-.fa-chevron-left
+.fa-chevron-left , .fa-chevron-right
 {
-    color: #e86317;
-        
+    color: black;
+    font-size: 20px;
 }
 
-.fa-chevron-right
-{
-    color: #e86317;;
+
+@media (max-width : 576px) {
+  .review-text
+  {
+    font-size: 12px;
+  }
 }
