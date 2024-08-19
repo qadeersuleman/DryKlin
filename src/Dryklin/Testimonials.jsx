@@ -14,7 +14,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    image: "/mens.jpeg",
+    image: "/sa.jpg",
     name: "Fu’ad Oladipupo",
     review:
       "DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!",

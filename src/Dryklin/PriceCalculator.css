@@ -1,3 +1,18 @@
+/* Scrollbar for items list - always visible on the right side */
+.items-list {
+    max-height: 400px;  /* Set the max height to control when the content starts to scroll */
+    overflow-y: scroll;  /* Always show the vertical scrollbar */
+    overflow-x: hidden;  /* Hide horizontal scrolling */
+    padding-right: 10px;  /* Optional: add padding to make space for the scrollbar */
+    margin-right: -10px;  /* Shift the content slightly to align it correctly with the scrollbar */
+}
+
+/* Centering text */
+.text-center {
+    text-align: center;
+}
+
+/* Other existing styles */
 .price-calculator {
     padding: 30px;
     background-color: #fff;
@@ -14,7 +29,7 @@
     text-align: center;
     font-size: 16px;
     margin: 0 10px;
-    border: #d66a00;
+    border: 1px solid #d66a00;
 }
 
 .summary-box {
@@ -55,20 +70,23 @@
     margin-top: 100px;
 }
 
-.btn-hov
-{
-    border :1px solid #e86317;
+.btn-hov {
+    border: 1px solid #e86317;
 }
 
-.btn-hov:hover{
+.btn-hov:hover {
     background-color: #e86317;
 }
 
-@media (max-width : 700px) {
-    .terms-text
-    {
+@media (max-width: 700px) {
+    .terms-text {
         margin-top: 10px;
         margin-left: 25px;
         font-size: 13px;
     }
+}
+
+.text-muteds {
+    font-weight: 700;
+    color: rgb(59, 58, 58);
 }

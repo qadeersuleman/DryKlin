@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Homepage.css';
 import { Button, Image } from 'react-bootstrap';
-import { Link , Route, Routes ,Outlet} from 'react-router-dom';
-import SignupForm from './SignupForm';
-import Page404 from './Page404';
+import { Link } from 'react-router-dom';
+
 function Homepage() {
   const [showclothes, Setshowclothes] = useState(false)
   useEffect(() => {
@@ -16,7 +15,7 @@ function Homepage() {
   
   return (
     <div className="homepage">
-      <header className="header">
+      {/* <header className="header">
         <div className="top-bar">
           <span>helpdesk@dryklin.com</span>
           <span>234 700 000 9274</span>
@@ -41,7 +40,7 @@ function Homepage() {
             <Button className="btn get-started-btn px-3 home-btns resp-btn">Get started <i className='fas fa-arrow-right resp-btn'></i></Button>
           </div>
         </nav>
-      </header>
+      </header> */}
 
       <main className="main-content container">
         <div className="badge">NO1 LAUNDARY SERVICE BRAND ⭐</div>
@@ -56,7 +55,7 @@ function Homepage() {
         <p>Pickup - Wash - Iron - Package - Deliver <br /> All within 24 hours!!!</p>
         <div className="cta-buttons">
         <Button className="get-started-btn px-3">Request Pickup <i className='fas fa-arrow-right'></i></Button>
-        <Button className='logins-btn px-2'>Check Price List</Button>
+        <Link to="/pricelist"><Button className='logins-btn px-2'>Check Price List</Button></Link>
         </div>
       </main>
     </div>

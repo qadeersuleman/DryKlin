@@ -1,0 +1,28 @@
+.modal-body {
+    font-size: 16px;
+  }
+  
+  .modal-body div {
+    padding: 5px 0;
+  }
+  
+  hr {
+    margin: 15px 0;
+  }
+  
+  .text-warning {
+    color: #ff7b00; /* The orange color */
+  }
+
+  .new-btn
+  {
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #ff7b00;
+    color: black;
+    padding-inline: 65px;
+  }
+  .new-btn:hover
+  {
+    border-color: #ff7b00;
+    background-color: #ff7b00;
+  }

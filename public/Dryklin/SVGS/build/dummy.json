@@ -1,0 +1,17 @@
+[
+    {
+        "user" : 1,
+        "name" : "Shakeel",
+        "Department" : "Computer Science"
+    },
+    {
+        "user" : 2,
+        "name" : "Wazeer",
+        "Department" : "Cyber Security"
+    },
+    {
+        "user" : 3,
+        "name" : "Nadia",
+        "Department" : "Software Engineering"
+    }
+]

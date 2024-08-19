@@ -1,0 +1,141 @@
+.sidebar {
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0;
+}
+
+.logo img {
+  max-width: 100px;
+}
+
+.sidebar-item {
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+}
+
+.sidebar-item:hover, .sidebar-item.active {
+  background-color: #ff6b00;
+  color: #fff;
+}
+
+.profile-section {
+  padding-bottom: 20px;
+}
+
+.profile-section img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.profile-section p, .profile-section small {
+  color: #c5c5c5;
+  text-align: center;
+}
+
+.wallet-img
+{
+ margin-left: 50px;
+ margin-top: 10px;
+}
+
+.bg-orange
+{
+  background-color:  #ff6b00;
+  border: none;
+}
+
+.bg-orange :hover
+{
+  background-color:  #ff6b00 !important;
+}
+
+.welcome-text {
+  font-size: 1.25rem; /* Adjust the size to match the image */
+  color: #333;
+}
+
+.user-name {
+  font-size: 1rem;
+  color: #666;
+}
+
+.ml-3 {
+  margin-left: 15px; /* Space between image and text */
+}
+
+.d-flex.align-items-center {
+  flex-grow: 1; /* Ensures the text and image align properly */
+}
+
+
+/* Add this to your Wallet.css */
+
+.btn-clicked {
+  background-color: rgb(255, 255, 255);
+  color: #ff6b00;
+  border-color: #ff6b00 !important;
+}
+
+.btn-clicked:hover {
+  background-color: #e65c00 !important; /* Darker shade on hover */
+  border-color: #e65c00 !important;
+}
+
+
+.btn-click {
+  background-color: #ff6b00;
+  
+  border-color: #ff6b00 !important;
+}
+
+.btn-click:hover {
+  background-color: #e65c00 !important; /* Darker shade on hover */
+  border-color: #e65c00 !important;
+}
+
+.balance-type , .fa-eye-slash{
+  font-size: 12px;
+}
+
+.profile-section
+{
+  
+  padding-top: 160%;
+}
+
+
+.card-back {
+  position: relative; /* Ensure the pseudo-element is positioned relative to the card */
+  overflow: hidden; /* Hide any overflow to keep the blur effect contained */
+  background-image: url('/public/wavy.jpg'); /* Replace with your image */
+  background-size: cover;
+  background-position: center;
+}
+
+.card-back::before {
+  content: ""; /* Necessary for the pseudo-element to work */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit; /* Inherit the background image from the parent */
+  background-size: inherit; /* Keep the same size */
+  background-position: inherit; /* Keep the same position */
+  filter: blur(1px); /* Apply the blur effect */
+  z-index: 1; /* Place the blur effect behind the text */
+}
+
+.card-back .card-body {
+  position: relative;
+  z-index: 2; /* Ensure the text and button are above the blur effect */
+  background-color: rgba(255, 255, 255, 0.75); /* Optional: Add a slight white background with opacity */
+  border-radius: 10px; /* Optional: Give some padding or rounding to the card */
+}
