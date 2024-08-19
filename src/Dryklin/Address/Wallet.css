@@ -1,141 +1,120 @@
-.sidebar {
-  background-color: #fff;
-  border-right: 1px solid #ddd;
+/* Sidebar styling */
+.sidebar-container {
   position: fixed;
   top: 0;
-  bottom: 0;
   left: 0;
-  z-index: 1000;
-  padding: 0;
+  height: 100%;
+  width: 250px; /* Width of the sidebar */
+  background-color: #fff;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%); /* Hidden by default */
+  z-index: 1000; /* Ensure it's above other content */
 }
 
-.logo img {
-  max-width: 100px;
+/* Show sidebar when open */
+.sidebar-container.open {
+  transform: translateX(0); /* Show when open */
 }
 
-.sidebar-item {
+/* Sidebar close button */
+.sidebar-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
   cursor: pointer;
-  padding: 10px 20px;
-  border: none;
 }
 
-.sidebar-item:hover, .sidebar-item.active {
-  background-color: #ff6b00;
-  color: #fff;
+/* Sidebar toggle button for mobile */
+.sidebar-toggle-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1001; /* Ensure it’s above the sidebar */
 }
 
-.profile-section {
-  padding-bottom: 20px;
+/* Hide sidebar toggle button on desktop */
+.d-md-none {
+  display: none;
 }
 
-.profile-section img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
+@media (max-width: 767px) {
+  .d-md-none {
+    display: block;
+  }
 }
 
-.profile-section p, .profile-section small {
-  color: #c5c5c5;
-  text-align: center;
+/* Main content styling */
+.main-content {
+  margin-left: 0; /* No offset on mobile */
+  transition: margin-left 0.3s ease;
 }
 
-.wallet-img
-{
- margin-left: 50px;
- margin-top: 10px;
+/* When sidebar is open, the main content stays in place */
+.sidebar-container.open ~ .main-content {
+  margin-left: 0;
+  opacity: 0.8; /* Slight dimming effect */
 }
 
-.bg-orange
-{
-  background-color:  #ff6b00;
-  border: none;
-}
-
-.bg-orange :hover
-{
-  background-color:  #ff6b00 !important;
-}
-
-.welcome-text {
-  font-size: 1.25rem; /* Adjust the size to match the image */
-  color: #333;
-}
-
-.user-name {
-  font-size: 1rem;
-  color: #666;
-}
-
-.ml-3 {
-  margin-left: 15px; /* Space between image and text */
-}
-
-.d-flex.align-items-center {
-  flex-grow: 1; /* Ensures the text and image align properly */
+/* When the sidebar is open, the content is unclickable */
+.sidebar-container.open ~ .main-content {
+  pointer-events: none; /* Disable interactions with the content */
 }
 
 
-/* Add this to your Wallet.css */
-
-.btn-clicked {
-  background-color: rgb(255, 255, 255);
-  color: #ff6b00;
-  border-color: #ff6b00 !important;
+@media (min-width : 1024px) {
+  .full-sidebar
+  {
+    display: block !important;
+  }
+  .wallet-img
+  {
+    width: 80%;
+    height: 50%;
+    padding-left: 20px;
+  }
 }
 
-.btn-clicked:hover {
-  background-color: #e65c00 !important; /* Darker shade on hover */
-  border-color: #e65c00 !important;
-}
-
-
-.btn-click {
-  background-color: #ff6b00;
+@media (min-width : 500px) {
   
-  border-color: #ff6b00 !important;
+  .wallet-img
+  {
+    width: 60%;
+    height: 50%;
+    margin: 20px;
+    padding-top: 20px;
+  }
 }
 
-.btn-click:hover {
-  background-color: #e65c00 !important; /* Darker shade on hover */
-  border-color: #e65c00 !important;
+.sidebar-item
+{
+  border: none;
+  font-size: 14px;
 }
 
-.balance-type , .fa-eye-slash{
-  font-size: 12px;
+.sidebar-item:hover
+{
+  background-color: #e86317;
+  color: white;
 }
 
 .profile-section
 {
-  
-  padding-top: 160%;
+  margin-top: 150%;
+
 }
 
-
-.card-back {
-  position: relative; /* Ensure the pseudo-element is positioned relative to the card */
-  overflow: hidden; /* Hide any overflow to keep the blur effect contained */
-  background-image: url('/public/wavy.jpg'); /* Replace with your image */
-  background-size: cover;
-  background-position: center;
+.sidebar-profile
+{
+  font-size: 14px;
+  padding-left: 10px;
 }
 
-.card-back::before {
-  content: ""; /* Necessary for the pseudo-element to work */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: inherit; /* Inherit the background image from the parent */
-  background-size: inherit; /* Keep the same size */
-  background-position: inherit; /* Keep the same position */
-  filter: blur(1px); /* Apply the blur effect */
-  z-index: 1; /* Place the blur effect behind the text */
-}
-
-.card-back .card-body {
-  position: relative;
-  z-index: 2; /* Ensure the text and button are above the blur effect */
-  background-color: rgba(255, 255, 255, 0.75); /* Optional: Add a slight white background with opacity */
-  border-radius: 10px; /* Optional: Give some padding or rounding to the card */
+.sidebar-close-btn
+{
+  background-color: #e86317;
+  padding: 2px !important;
 }

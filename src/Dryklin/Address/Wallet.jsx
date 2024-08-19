@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Row,
@@ -9,15 +9,74 @@ import {
   Image,
 } from "react-bootstrap";
 import "./Wallet.css";
+
 const Wallet = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
   return (
     <Container fluid className="p-3">
       <Row>
-        {/* This col is sidebar */}
+        {/* Sidebar */}
+        <Col
+          md={3}
+          lg={2}
+          className={`sidebar-container ${sidebarOpen ? 'open' : ''}`}
+          style={{ borderRight: "1px solid #c5c5c5" }}
+        >
+          <div className="logo mb-4 text-center">
+          <Image
+              src="/Dryklin/PNGS/12.png"
+              alt="DryKlin Logo"
+              className="wallet-img pl-2"
+            />
+          </div>
+          <ListGroup className="w-100">
+            <ListGroup.Item className="d-flex justify-content-start align-items-center sidebar-item">
+              <i className="fa fa-home mr-2 px-2"></i> Home
+            </ListGroup.Item>
+            <ListGroup.Item className="d-flex justify-content-start align-items-center sidebar-item">
+              <i className="fa fa-map-marker mr-2 px-2"></i> Address Management
+            </ListGroup.Item>
+            <ListGroup.Item className="d-flex justify-content-start align-items-center sidebar-item">
+              <i className="fa fa-user mr-2 px-2"></i> Account
+            </ListGroup.Item>
+          </ListGroup>
+          <hr className="profile-section" />
+          <div className="d-flex align-items-center mx-2">
+            <img
+              src="/girls.jpeg"
+              alt="user"
+              className="rounded-circle mb-2"
+              style={{ width: "60px", height: "60px" }}
+            />
+            
+            <div className="ml-3">
+              <span className="d-block user-name sidebar-profile">
+                <b>James Macintosh</b>
+              </span>
+              <span
+                className="d-block welcome-text sidebar-profile"
+                style={{ fontSize: "12px" }}
+              >
+                James@Macintosh.com
+              </span>
+            </div>
+          </div>
+          <Button
+            className="sidebar-close-btn"
+            onClick={toggleSidebar}
+          >
+            <i className="fa fa-times"></i>
+          </Button>
+        </Col>
+
         <Col
           md={2}
-          className=" vh-100 p-0"
-          style={{ borderRight: "1px solid #c5c5c5" }}
+          className=" vh-100 p-0 full-sidebar"
+          style={{ borderRight: "1px solid #c5c5c5" , display : "none"} }
+          
         >
           <div className="logo mb-4">
             <Image
@@ -48,8 +107,18 @@ const Wallet = () => {
             </div>
         </Col>
 
-        {/* This is other dashboard part */}
-        <Col md={10} xm={10} lg={10} sm={10}>
+
+
+        {/* Main Content */}
+        <Col md={9} lg={10} sm={12} className="main-content">
+          {/* Show toggle button only on mobile */}
+          <Button
+            className="sidebar-toggle-btn d-md-none bg-orange"
+            style={ {border : "none"}}
+            onClick={toggleSidebar}
+          >
+            <i className="fa fa-bars text-light bg-orange"></i>
+          </Button>
           <div className="d-flex justify-content-between align-items-center p-3">
             <div className="d-flex align-items-center">
               <img src="/girls.jpeg" alt="user" className="rounded-circle mb-2" style={ {width : "60px", height : "60px"} } />
@@ -65,7 +134,7 @@ const Wallet = () => {
             </Button>
           </div>
           <Row>
-            <Col className="" md={9}>
+            <Col md={9} sm={12}>
               <Card className="mb-3 card-back">
                 <Card.Body className="d-flex justify-content-between align-items-center">
                   <div>
@@ -80,12 +149,12 @@ const Wallet = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col md={3}>
+            <Col md={3} sm={12}>
               <Card className="mb-3 card-back">
-                <Card.Body className="d-flex justify-content-between align-items-center">
+                <Card.Body>
                   <div>
                     <p className="balance-type">Your Location</p>
-                    <p style={{ marginTop: " -15px" }}>
+                    <p style={{ marginTop: "-15px" }}>
                       <i
                         className="fa fa-map-marker"
                         style={{ paddingRight: "10px" }}
@@ -94,7 +163,7 @@ const Wallet = () => {
                     </p>
                     <p
                       className="text-orange balance-type"
-                      style={{ marginTop: " -15px", marginBottom: "0px" }}
+                      style={{ marginTop: "-15px", marginBottom: "0px" }}
                     >
                       Change Locations
                     </p>
@@ -104,20 +173,14 @@ const Wallet = () => {
             </Col>
           </Row>
 
-          <Card className="p-3" style={ {marginRight : "315px"} }>
+          <Card className="p-3 transaction-history-card">
             <h5>History</h5>
-
             <ListGroup variant="flush">
-            <ListGroup.Item
-                  
-                  className="d-flex justify-content-between align-items-center"
-                >
-                  <span>Description</span>
-                  <span>
-                    Status
-                  </span>
-                  <span>Date</span>
-                </ListGroup.Item>
+              <ListGroup.Item className="d-flex justify-content-between align-items-center">
+                <span>Description</span>
+                <span>Status</span>
+                <span>Date</span>
+              </ListGroup.Item>
               {[
                 {
                   description: "Free Pickup",
@@ -129,41 +192,7 @@ const Wallet = () => {
                   status: "Successful",
                   date: "Dec 30, 09:42 PM",
                 },
-                {
-                  description: "Free Pickup",
-                  status: "Successful",
-                  date: "Dec 30, 09:42 PM",
-                },
-                {
-                  description: "Free Pickup",
-                  status: "Successful",
-                  date: "Dec 30, 09:42 PM",
-                },
-                {
-                  description: "Free Pickup",
-                  status: "Successful",
-                  date: "Dec 30, 09:42 PM",
-                },
-                {
-                    description: "Free Pickup",
-                    status: "Successful",
-                    date: "Dec 30, 09:42 PM",
-                  },
-                  {
-                    description: "Free Pickup",
-                    status: "Successful",
-                    date: "Dec 30, 09:42 PM",
-                  },
-                  {
-                    description: "Free Pickup",
-                    status: "Successful",
-                    date: "Dec 30, 09:42 PM",
-                  },
-                  {
-                    description: "Free Pickup",
-                    status: "Successful",
-                    date: "Dec 30, 09:42 PM",
-                  },
+                // ...more items
               ].map((item, index) => (
                 <ListGroup.Item
                   key={index}
