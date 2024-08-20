@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import { Modal, Button, Row, Col,Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import "./RequestOrder.css"
 const RequestOrder = ({ show, handleNext, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -49,15 +49,15 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
           Choose payment method
         </h3>
         <div>
-          <Row>
+          <Row className='desktop-row'>
             <Col md={5} className='mx-4'>
             <Card
         onClick={() => handleSelect('normal')}
-        className={`delivery-card ${selectedOption === 'normal' ? 'selected' : ''}`}
+        className={`delivery-cards ${selectedOption === 'normal' ? 'selected' : ''}`}
       >
         <Row>
           <Col md={2} xm={2} className='mt-2 mx-3'>
-          <div className="delivery-checkbox" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
+          <div className="delivery-checkboxs" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
           {selectedOption === 'normal' && <i className="fa fa-check"></i>}
         </div>
           </Col>
@@ -72,11 +72,11 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
             <Col md={5}>
             <Card
         onClick={() => handleSelect('express')}
-        className={`delivery-card ${selectedOption === 'express' ? 'selected' : ''}`}
+        className={`delivery-cards ${selectedOption === 'express' ? 'selected' : ''}`}
       >
         <Row>
           <Col md={2} xm={2} sm={2} lg={2} className='mt-2 mx-3'>
-          <div className="delivery-checkbox" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
+          <div className="delivery-checkboxs" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
           {selectedOption === 'express' && <i className="fa fa-check"></i>}
         </div>
           </Col>
