@@ -2,10 +2,12 @@ import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import './AboutUs.css'; // Import custom CSS
 import Footer from './Footer';
+import CustomNavbar from './CustomNavbar';
 
 const AboutUs = () => {
   return (
     <>
+    <CustomNavbar />
     <Container className="about-us-container my-5">
       <Row>
         <Col md={6} className="about-image-container">

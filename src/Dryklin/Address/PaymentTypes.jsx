@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-
+import "./PaymentTypes.css"
 const PaymentTypes = ({ show, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('Card');
 
@@ -86,8 +86,8 @@ const PaymentTypes = ({ show, handleClose }) => {
           </Form.Group>
         </Form>
         <Button
-          className="w-100 mt-3 mt-5"
-          style={{ backgroundColor: '#ff6b00', borderColor: '#ff6b00' }}
+          className="w-100 mt-3 mt-5 Payment-Type-btn"
+          
           onClick={() => alert(`Proceed with ${selectedOption}`)}
         >
           Proceed to pay

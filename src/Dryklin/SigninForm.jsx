@@ -55,7 +55,9 @@ const SigninForm = () => {
         // Fetch CSRF token
         const csrfResponse = await axios.get('http://127.0.0.1:8000/api/login/');
         const csrfToken = csrfResponse.data.csrfToken;
-        
+        console.warn('CSRF Token:', csrfToken);
+        console.warn('Form Data:', formData);
+
   
         // Send login request
         const response = await axios.post('http://127.0.0.1:8000/api/login/', formData, {

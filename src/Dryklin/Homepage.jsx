@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Homepage.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import ModalFlowManager from "./Request/ModalFlowManager"
 function Homepage() {
   const [showclothes, Setshowclothes] = useState(false)
   useEffect(() => {
@@ -54,7 +54,7 @@ function Homepage() {
           </h2>
         <p>Pickup - Wash - Iron - Package - Deliver <br /> All within 24 hours!!!</p>
         <div className="cta-buttons">
-        <Button className="get-started-btn px-3">Request Pickup <i className='fas fa-arrow-right'></i></Button>
+        <ModalFlowManager />
         <Link to="/pricelist"><Button className='logins-btn px-2'>Check Price List</Button></Link>
         </div>
       </main>

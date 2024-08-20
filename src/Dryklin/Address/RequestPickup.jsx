@@ -1,41 +1,66 @@
 import React, { useState } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const RequestPickup = ({ handleNext }) => {
   const [showModal, setShowModal] = useState(true);
 
   const handleClose = () => {
     setShowModal(false);
-    handleNext(); // Move to the next step
+     // Move to the next step, which will show the PaymentTypes modal
   };
 
   return (
     <Modal show={showModal} onHide={handleClose} centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Request Pickup</Modal.Title>
-      </Modal.Header>
       <Modal.Body>
-        <p>You are in a hurry and have your clothes packed already. Fill your details below to request for pickup.</p>
+        <div className="form-heading">
+          
+            <button style={{ border: "none" }} className="bg-light" onClick={handleClose}>
+              <i className="fas fa-chevron-left pt-3"></i>
+            </button>
+          
+          <span className="mx-3">Back</span>
+          <h3 className='mt-2'>Request Pickup</h3>
+          <p>Fill in your details below to request a pickup.</p>
+        </div>
         <Form>
-          <Form.Group>
-            <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter first name" />
+          <Form.Group controlId="formFirstName">
+            <Form.Label className="input-labels">First Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="first_name"
+              placeholder="Enter first name"
+              className="input-data"
+            />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control type="text" placeholder="Enter last name" />
+
+          <Form.Group controlId="formLastName">
+            <Form.Label className="input-labels">Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="last_name"
+              placeholder="Enter last name"
+              className="input-data"
+            />
           </Form.Group>
-          <Form.Group>
-            <Form.Label>Pickup Location</Form.Label>
-            <Form.Control type="text" placeholder="Enter pickup address" />
+
+          <Form.Group controlId="formCityState">
+            <Form.Label className="input-labels">City, State</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Pickup Address"
+              className="input-data"
+            />
           </Form.Group>
+
           <Form.Group>
-            <Form.Check type="checkbox" label="Save for future use" />
+            <Form.Check type="checkbox" label="Save for future use" className='px-4' />
           </Form.Group>
-          <Button
-            variant="primary"
-            onClick={handleClose}
-            style={{ backgroundColor: '#ff6b00', borderColor: '#ff6b00' }}
+
+          <Button 
+            type="submit" 
+            className="signup-button mt-5 bg-orange"
+            onClick={handleNext}
           >
             Request Pickup
           </Button>

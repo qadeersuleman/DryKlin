@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WashBtn from "../WashBtn"
 import {
   Container,
   Row,
@@ -14,6 +15,13 @@ const Wallet = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+
+
+  const [showFlow, setShowFlow] = useState(false);
+
+  const handleRequestPickupClick = () => {
+    setShowFlow(true); // This triggers the MainFlow component
+  };
 
   return (
     <Container fluid className="p-3">
@@ -102,7 +110,7 @@ const Wallet = () => {
               <span className="d-block user-name">
                   <b>James Macintosh</b>
                 </span>
-                <span className="d-block welcome-text" style={ { fontSize : "12px"}}>James@Macintosh.com</span>
+                <span className="d-block welcome-text px-2" style={ { fontSize : "12px"}}>James@Macintosh.com</span>
               </div>
             </div>
         </Col>
@@ -119,19 +127,21 @@ const Wallet = () => {
           >
             <i className="fa fa-bars text-light bg-orange"></i>
           </Button>
-          <div className="d-flex justify-content-between align-items-center p-3">
+          <div className="d-flex justify-content-between align-items-center p-3 wallet-main">
             <div className="d-flex align-items-center">
               <img src="/girls.jpeg" alt="user" className="rounded-circle mb-2" style={ {width : "60px", height : "60px"} } />
               <div className="ml-3">
                 <span className="d-block welcome-text">Welcome 👏</span>
                 <span className="d-block user-name">
-                  <b>James Macintosh</b>
+                  <b className="px-2">James Macintosh</b>
                 </span>
               </div>
             </div>
-            <Button className="btn-clicked bg-light">
+            <Button className="wallet-btn " onClick={handleRequestPickupClick}>
               Request Pickup <i className="fas fa-arrow-right"></i>
             </Button>
+          
+                    {showFlow && <WashBtn openFlow={showFlow} />} 
           </div>
           <Row>
             <Col md={9} sm={12}>
@@ -143,7 +153,7 @@ const Wallet = () => {
                     </span>
                     <h3>₦53,228.00</h3>
                   </div>
-                  <Button className="btn-click">
+                  <Button className="btn-click bg-orange">
                     <i className="fas fa-plus mx-1 "></i>Add Money
                   </Button>
                 </Card.Body>
@@ -159,7 +169,8 @@ const Wallet = () => {
                         className="fa fa-map-marker"
                         style={{ paddingRight: "10px" }}
                       ></i>
-                      Bembo Street, Ibadan
+                      <b>Bembo Street, Ibadan</b>
+                      
                     </p>
                     <p
                       className="text-orange balance-type"

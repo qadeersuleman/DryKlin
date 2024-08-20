@@ -22,8 +22,8 @@ const CustomNavbar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             <Nav.Link href="/" className='nav-item'>Home</Nav.Link>
-            <Nav.Link href="/about" className='nav-item'>About Us</Nav.Link>
-            <Nav.Link href="/contact" className='nav-item'>Contact Us</Nav.Link>
+            <Nav.Link href="/aboutus" className='nav-item'>About Us</Nav.Link>
+            <Nav.Link href="/contactus" className='nav-item'>Contact Us</Nav.Link>
           </Nav>
           <Nav className="ml-auto profile-dropdown">
             <NavDropdown
@@ -37,12 +37,12 @@ const CustomNavbar = () => {
               }
               id="basic-nav-dropdown"
             >
-              <NavDropdown.Item href="#wallet">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Item href="/wallet">Wallet</NavDropdown.Item>
-              <NavDropdown.Item href="#orders">Orders</NavDropdown.Item>
+              <NavDropdown.Item href="/rders">Orders</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
-              <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

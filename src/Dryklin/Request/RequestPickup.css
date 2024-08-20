@@ -1,0 +1,111 @@
+/* General Form Styles */
+.form-heading {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-heading h3 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .input-labels {
+    font-weight: bold;
+    margin-top: 1rem;
+  }
+  
+  .input-data {
+    padding: 10px;
+    margin-top: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Date Picker Styles */
+  .date-picker {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+  }
+  
+  .date-container {
+    flex-grow: 1;
+    display: flex;
+    overflow-x: auto;
+    padding: 10px;
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+  }
+  
+  .date-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit (Chrome, Safari) */
+  }
+  
+  .date-item {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .date-item.selected {
+    background-color: #ff6600;
+    color: #fff;
+  }
+  
+  /* Scroll Buttons */
+  .date-picker button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px;
+    color: #555;
+    transition: color 0.3s ease;
+  }
+  
+  .date-picker button:hover {
+    color: #000;
+  }
+  
+  /* Time Slot Picker */
+  .form-group select.input-data {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 0.5rem;
+  }
+  
+  /* Save Checkbox */
+  .px-4 {
+    margin-top: 1rem;
+  }
+  
+  /* Submit Button */
+  .signup-button {
+    background-color: #ff6600;
+    border: none;
+    width: 100%;
+    padding: 15px;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-button:hover {
+    background-color: #e65c00;
+  }
+  .btn-click :hover
+  {
+    background-color: #e65c00 !important;
+    color: white !important;
+    border-radius: 20px !important;
+  }
+
+  .btn-click:active
+  {
+    background-color: #e65c00 !important;
+  }

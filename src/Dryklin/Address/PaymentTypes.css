@@ -1,0 +1,18 @@
+.Payment-Type-btn
+{
+    background-color: #e86317;
+    border: none;
+  
+}
+
+.Payment-Type-btn:active
+{
+    background-color: #e86317 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.Payment-Type-btn:hover
+{
+    background-color: #e86317 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
