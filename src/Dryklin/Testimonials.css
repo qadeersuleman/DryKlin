@@ -80,4 +80,46 @@ strong {
   {
     font-size: 12px;
   }
+  .testimonial-slider
+  {
+    display: none;
+  }
+  .testimonial-mobile
+  {
+    display: block !important;
+  }
+}
+
+
+
+
+
+.testimonial-card {
+   /* Adjust this value for mobile size */
+  margin: auto;
+  background-color: white;
+  border: 0px;
+  margin-inline: -50px;
+}
+
+.testimonial-image {
+  width: 250px;
+  height: 200px;
+  border-radius: 30px !important;
+}
+
+.star-rating {
+  font-size: 1.2rem; /* Adjust the star size */
+  color: #e86317 !important;
+}
+
+.testimonial-text {
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.testimonial-author {
+  font-size: 1rem;
+  margin-top: 10px;
+  font-weight: 700;
 }

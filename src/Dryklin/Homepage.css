@@ -191,4 +191,12 @@
     {
       width: 100px;
     }
+    
+  }
+
+  @media (min-width : 1000px) {
+    .main-content
+    {
+      margin-left: 100px !important;
+    }
   }

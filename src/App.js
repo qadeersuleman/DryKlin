@@ -8,21 +8,25 @@ import SigninForm from './Dryklin/SigninForm';
 import ContactUs from './Dryklin/ContactUs';
 import AboutUs from './Dryklin/AboutUs';
 
-import UserForm from './simple';
 import PriceCalculator from './Dryklin/PriceCalculator';
 import Address from './Dryklin/Address/Address';
 import Wallet from './Dryklin/Address/Wallet'
 import EmailVerification from "./Dryklin/EmailVerification"
 import ForgotPassword from './Dryklin/ForgotPassword';
-import Forget from './Dryklin/Forget';
+
 import Page404 from "./Dryklin/Page404"
 import BillingModal from './Dryklin/BillingModal';
-
-
+import MyForm from './MyForm';
+import TermsAndConditions from './Dryklin/TermsAndConditions';
+import CustomCare from "./Dryklin/CustomerCare"
+import PrivacyPolicy from './Dryklin/PrivacyPolicy';
+import Faq from './Dryklin/Faq';
+import Profile from './Dryklin/Address/Profile';
 function App() {
   return (
     <div className="App" >
-        
+
+       
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/signup" element={<SignupForm />} />
@@ -31,10 +35,15 @@ function App() {
           <Route path="/emails" element={<EmailVerification />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path='/profile' element={<Profile /> } />
           <Route path='/pricelist' element={<PriceCalculator />} />
           <Route path='/address' element={<Address/>} />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/paynow" element={<BillingModal />} />
+          <Route path='/terms' element={<TermsAndConditions />} />
+          <Route path='/customcare' element={<CustomCare />} />
+          <Route path='/privacy' element={<PrivacyPolicy />} />
+          <Route path="/faq" element={<Faq />} />
           <Route path='*' element={<Page404 /> } />
         </Routes>
       </div>

@@ -6,6 +6,7 @@ import GetInTouch from "./GetInTouch"
 import Footer from "./Footer"
 import Testimonials from "./Testimonials"
 import CustomNavbar from "./CustomNavbar"
+import Faq from "./Faq"
 
 
 const Index = () => {
@@ -18,6 +19,7 @@ const Index = () => {
             <Testimonials />
 
             <DryKlinLanding />
+           <Faq />
             <GetInTouch />
             <Footer />
             

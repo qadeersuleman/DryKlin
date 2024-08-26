@@ -36,7 +36,7 @@
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 10px;
-    margin-top: 40px;
+    
 }
 
 .summary-box div {
@@ -75,6 +75,10 @@
 }
 
 .btn-hov:hover {
+    background-color: #e86317 !important;
+}
+.btn-hov:active
+{
     background-color: #e86317;
 }
 
@@ -83,6 +87,10 @@
         margin-top: 10px;
         margin-left: 25px;
         font-size: 13px;
+    }
+    .summary-box
+    {
+        margin-top: 15px;
     }
 }
 

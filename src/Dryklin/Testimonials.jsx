@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "./Testimonials.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Card, Image } from "react-bootstrap";
 
 const testimonials = [
   {
@@ -69,7 +69,8 @@ const Testimonials = () => {
         </h2>
         <p > Check out reviews and what people are saying about our services.</p>
       </div>
-      <Slider {...settings}>
+      <div className="testimonial-slider">
+      <Slider {...settings} >
         {testimonials.map((testimonial, index) => (
             <div key={index} className="testimonial-slide">
             <Row>
@@ -95,6 +96,45 @@ const Testimonials = () => {
                       </div>
         ))}
       </Slider>
+      </div>
+      <div className="testimonial-mobile" style={{display : "none"}}>
+      <Card className="text-center p-3 testimonial-card">
+      <Image 
+        src="./girl.webp" 
+        roundedCircle 
+        className="mx-auto mb-3 testimonial-image"
+      />
+      <div className="star-rating mb-2">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className="text-orange">&#9733;</span>
+        ))}
+      </div>
+      <Card.Text className="testimonial-text">
+        DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!
+      </Card.Text>
+      <Card.Text className="testimonial-author font-weight-bold">
+        - Mazeedat Afape
+      </Card.Text>
+    </Card> 
+    <Card className="text-center p-3 testimonial-card">
+      <Image 
+        src="./sa.jpg" 
+        roundedCircle 
+        className="mx-auto mb-3 testimonial-image"
+      />
+      <div className="star-rating mb-2">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className="text-orange">&#9733;</span>
+        ))}
+      </div>
+      <Card.Text className="testimonial-text">
+        DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!
+      </Card.Text>
+      <Card.Text className="testimonial-author font-weight-bold">
+        - Fu'ad Oladipupo
+      </Card.Text>
+    </Card> 
+      </div>
     </div>
   );
 };

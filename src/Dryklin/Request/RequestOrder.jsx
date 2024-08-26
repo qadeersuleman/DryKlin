@@ -1,26 +1,24 @@
-import React,{useState} from 'react';
-import { Modal, Button, Row, Col,Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import "./RequestOrder.css"
+import React, { useState } from "react";
+import { Modal, Button, Row, Col, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "./RequestOrder.css";
 const RequestOrder = ({ show, handleNext, handleClose }) => {
-  const [selectedOption, setSelectedOption] = useState('');
-
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelect = (option) => {
     setSelectedOption(option);
   };
-    return (
-        <Modal show={show} onHide={handleClose} centered>
+  return (
+    <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
         <div className="form-heading">
-          <Link to="/">
-            <button
-              style={{ border: "none", backgroundColor: "white" }}
-              onClick={handleClose}
-            >
-              <i className="fas fa-chevron-left pt-3"></i>
-            </button>
-          </Link>
+          <button
+            style={{ border: "none", backgroundColor: "white" }}
+            onClick={handleClose}
+          >
+            <i className="fas fa-chevron-left pt-3"></i>
+          </button>
+
           <span className="mx-3">Back</span>
           <h3 className="mt-4">Order Summary</h3>
           <p style={{ fontSize: "14px" }}>
@@ -49,63 +47,169 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
           Choose payment method
         </h3>
         <div>
-          <Row className='desktop-row'>
-            <Col md={5} className='mx-4'>
-            <Card
-        onClick={() => handleSelect('normal')}
-        className={`delivery-cards ${selectedOption === 'normal' ? 'selected' : ''}`}
-      >
-        <Row>
-          <Col md={2} xm={2} className='mt-2 mx-3'>
-          <div className="delivery-checkboxs" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
-          {selectedOption === 'normal' && <i className="fa fa-check"></i>}
-        </div>
-          </Col>
-            <Col md={8}>
-            <h3 style={{fontSize : "16px"}} className='pt-2'>Pay Now</h3>
-            </Col>
-        </Row>
-        
-      </Card>
+          <Row className="desktop-row">
+            <Col md={5} className="mx-4">
+              <Card
+                onClick={() => handleSelect("normal")}
+                className={`delivery-card ${
+                  selectedOption === "normal" ? "selected" : ""
+                }`}
+              >
+                <Row>
+                  <Col md={2} xm={2} className="mt-2 mx-3">
+                    <div
+                      className="delivery-checkbox"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "30px",
+                      }}
+                    >
+                      {selectedOption === "normal" && (
+                        <i className="fa fa-check"></i>
+                      )}
+                    </div>
+                  </Col>
+                  <Col md={8}>
+                    <h3 style={{ fontSize: "14px" }} className="pt-2">
+                    wallet (N 53228.00)
+                    </h3>
+                  </Col>
+                </Row>
+              </Card>
             </Col>
 
             <Col md={5}>
-            <Card
-        onClick={() => handleSelect('express')}
-        className={`delivery-cards ${selectedOption === 'express' ? 'selected' : ''}`}
-      >
-        <Row>
-          <Col md={2} xm={2} sm={2} lg={2} className='mt-2 mx-3'>
-          <div className="delivery-checkboxs" style={{width : "20px", height: "20px",marginLeft : "30px"}}>
-          {selectedOption === 'express' && <i className="fa fa-check"></i>}
-        </div>
-          </Col>
-            <Col md={8} xm={8} sm={8} lg={8}>
-              <h3 style={{fontSize : "16px"}} className='pt-2 px-2'>Pay Now</h3>
-            </Col>
-        </Row>
-        
-      </Card>
+              <Card
+                onClick={() => handleSelect("express")}
+                className={`delivery-card ${
+                  selectedOption === "express" ? "selected" : ""
+                }`}
+              >
+                <Row>
+                  <Col md={2} xm={2} sm={2} lg={2} className="mt-2 mx-3">
+                    <div
+                      className="delivery-checkbox"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        marginLeft: "30px",
+                      }}
+                    >
+                      {selectedOption === "express" && (
+                        <i className="fa fa-check"></i>
+                      )}
+                    </div>
+                  </Col>
+                  <Col md={8} xm={8} sm={8} lg={8}>
+                    <h3 style={{ fontSize: "16px" }} className="pt-2 px-2">
+                      Pay Online
+                    </h3>
+                  </Col>
+                </Row>
+              </Card>
             </Col>
           </Row>
+
+          <Card
+            onClick={() => handleSelect("normal")}
+            className={`delivery-card-custom ${
+              selectedOption === "normal" ? "selected-custom" : ""
+            }`}
+            style={{
+              padding: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              className="delivery-checkbox-custom"
+              style={{
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px solid #ccc",
+                borderRadius: "20%",
+                backgroundColor:
+                  selectedOption === "normal" ? "#ff6b00" : "transparent",
+                marginBottom: "10px",
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              {selectedOption === "normal" && (
+                <i className="fa fa-check" style={{ color: "#fff" }}></i>
+              )}
+            </div>
+            <p
+              className="delivery-content-custom"
+              style={{ fontSize: "16px", margin: 0 }}
+            >
+              wallet (N 53228.00 )
+            </p>
+          </Card>
+
+          <Card
+            onClick={() => handleSelect("express")}
+            className={`delivery-card-custom ${
+              selectedOption === "express" ? "selected-custom" : ""
+            }`}
+            style={{
+              padding: "10px",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              className="delivery-checkbox-custom"
+              style={{
+                width: "20px",
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px solid #ccc",
+                borderRadius: "20%",
+                backgroundColor:
+                  selectedOption === "express" ? "#ff6b00" : "transparent",
+                marginBottom: "10px",
+                transition: "background-color 0.3s ease",
+              }}
+            >
+              {selectedOption === "express" && (
+                <i className="fa fa-check" style={{ color: "#fff" }}></i>
+              )}
+            </div>
+            <h3
+              className="delivery-content-custom"
+              style={{ fontSize: "16px", margin: 0 }}
+            >
+              Pay Online
+            </h3>
+          </Card>
           <div className="d-flex justify-content-between pt-3">
-            <p style={{ fontSize: "13px" }}>
-              By clicking on "Proceed", you agree to our
-              <span className="text-orange">Terms of Use</span>
-              and <span className="text-orange">Privacy Policy</span>.
+            <p style={{ fontSize: "12px" }}>
+              By clicking on "Pay Now", you agree to our
+              <span className="text-orange"> Terms of Use </span>
+              and <span className="text-orange"> Privacy Policy</span>.
             </p>
           </div>
         </div>
-        <Button 
-            type="submit" 
-            className="signup-button mt-5 bg-orange"
-            onClick={handleNext}
-          >
-            Pay Now
-          </Button>
+        <Button
+          type="submit"
+          className="signup-button mt-2 bg-orange"
+          onClick={handleNext}
+        >
+          Pay Now
+        </Button>
       </Modal.Body>
     </Modal>
-    );
+  );
 };
 
 export default RequestOrder;

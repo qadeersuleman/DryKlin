@@ -1,8 +1,59 @@
-
+.delivery-card-custom {
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .delivery-card-custom:hover {
+    border-color: #ff6b00;
+  }
+  
+  .selected-custom {
+    border-color: #ff6b00;
+    background-color: #fff3e0;
+  }
+  
+  .delivery-checkbox-custom {
+    transition: background-color 0.3s ease;
+  }
+  
+  .delivery-content-custom {
+    text-align: center;
+  }
+  
+  @media (max-width: 576px) {
+    .delivery-card-custom {
+      padding: 10px 5px;
+    }
+  
+    .delivery-checkbox-custom {
+      margin-bottom: 15px;
+    }
+  
+    .delivery-content-custom {
+      font-size: 14px;
+    }
+  }
+  
 
 @media (max-width : 576px) {
     .desktop-row
 {
     display: none;
+}
+.delivery-card-custom
+{
+    display: flex !important;
+}
+}
+
+
+@media (min-width : 1000px) {
+    
+.delivery-card-custom
+{
+    display: none !important;
 }
 }

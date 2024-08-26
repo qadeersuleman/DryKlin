@@ -1,22 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Modal, Button, Form, ListGroup, Container } from 'react-bootstrap';
 import "./Address.css";
 
-const Address = ({ show, handleClose, handleShowPaymentTypes }) => {
+const Address = ({ show, handleClose }) => {
   const [address, setAddress] = useState('');
   const [suggestions, setSuggestions] = useState([
     'Alfa Muibi Street, Sanyo, Ibadan',
     'Sanyo, Ibadan, Nigeria',
   ]);
+  const [csrfToken, setCsrfToken] = useState('');
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/csrfs/');
+        setCsrfToken(response.data.csrfToken);
+        console.warn('CSRF Token:', response.data.csrfToken);
+      } catch (error) {
+        console.error('Error fetching CSRF token:', error.response ? error.response.data : error.message);
+      }
+    };
+
+    const fetchUserEmail = () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user && user.email) {
+        setEmail(user.email);
+      } else {
+        console.error('No user email found in localStorage');
+      }
+    };
+
+    fetchCsrfToken();
+    fetchUserEmail();
+  }, []);
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          const simulatedAddress = `Current Location: ${lat}, ${lng}`;
-          setAddress(simulatedAddress);
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const response = await axios.get('https://api.opencagedata.com/geocode/v1/json', {
+              params: {
+                q: `${latitude},${longitude}`,
+                key: 'fdf3314d4bb34e7fa1a1a5ac632db75d',
+              },
+            });
+            const results = response.data.results;
+            if (results.length > 0) {
+              setAddress(results[0].formatted);
+            } else {
+              setAddress('Address not found.');
+            }
+          } catch (error) {
+            console.error('Error fetching address:', error);
+            setAddress('Error fetching address.');
+          }
         },
         (error) => {
           console.error('Error fetching location:', error);
@@ -32,15 +73,33 @@ const Address = ({ show, handleClose, handleShowPaymentTypes }) => {
 
   const handleSelectSuggestion = (suggestion) => setAddress(suggestion);
 
-  const handleRequestPickup = () => {
-    alert(`Request Pickup at: ${address}`);
-    handleClose(); // Close Address component modal
-    handleShowPaymentTypes(); // Show PaymentTypes component modal
+  const handleRequestPickup = async () => {
+    try {
+      const data = {
+        email: email,   // Include the user's email from localStorage
+        address: address,
+      };
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/address/',
+        data,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken,
+          },
+        }
+      );
+      alert(`Successfully Request Pickup at: ${address}`);
+      handleClose();
+    } catch (error) {
+      console.error('Error saving address:', error.response ? error.response.data : error.message);
+      alert('Error saving address');
+    }
   };
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <Container className='Address-modal '>
+      <Container className='Address-modal'>
         <Modal.Body>
           <div className="form-heading">
             <button 
@@ -60,7 +119,6 @@ const Address = ({ show, handleClose, handleShowPaymentTypes }) => {
               value={address}
               onChange={handleAddressChange}
             />
-
             <ListGroup className="mt-3">
               <ListGroup.Item 
                 action 

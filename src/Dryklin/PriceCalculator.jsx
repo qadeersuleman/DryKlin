@@ -23,8 +23,7 @@ const PriceCalculator = () => {
         { id: 6, name: 'Iro and Buba', price: 1500, quantity: 1 },
     ]);
 
-    const deliveryFee = 800;
-    const serviceCharge = 500;
+    const deliveryFee = 1000;
 
     const handleIncrement = (id) => {
         const updatedItems = items.map(item => 
@@ -41,15 +40,12 @@ const PriceCalculator = () => {
     };
 
     const subTotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
-    const total = subTotal + deliveryFee + serviceCharge;
+    const total = subTotal + deliveryFee ;
 
 
-    // Through this we handle all modals show one by one 
-    const [showFlow, setShowFlow] = useState(false);
+ 
 
-  const handleRequestPickupClick = () => {
-    setShowFlow(true); // This triggers the MainFlow component
-  };
+ 
   const [show, setShow] = useState(false);
 
   const handleShow = () => setShow(true);
@@ -72,7 +68,7 @@ const PriceCalculator = () => {
                             </Col>
                             <Col xs={6} className="d-flex justify-content-end">
                                 <Button variant="outline-danger" className='btn-hov' onClick={() => handleDecrement(item.id)}>-</Button>
-                                <div className="quantity-box">{item.quantity}</div>
+                                <div className="mx-4 mt-2">{item.quantity}</div>
                                 <Button variant="outline-secondary" className='btn-hov' onClick={() => handleIncrement(item.id)}>+</Button>
                             </Col>
                         </Row>
@@ -82,17 +78,14 @@ const PriceCalculator = () => {
                     <div className="summary-box">
                         <div>Sub-total <span className="text-right">₦{subTotal}</span></div>
                         <div>Delivery Fee <span className="text-right">₦{deliveryFee}</span></div>
-                        <div>Service Charge <span className="text-right">₦{serviceCharge}</span></div>
+                        <hr className='mt-5'></hr>
                         <div>Total <span className="total-price text-orange">₦{total}</span></div>
                     </div>
-                    <p className="terms-text">By clicking on "Proceed", you agree to our <span className="text-orange">Terms of Use</span> and <span className="text-orange">Privacy Policy</span>.</p>
+                    <p className="terms-text text-center">By clicking on "Proceed", you agree to our <span className="text-orange">Terms of Use</span> and <span className="text-orange">Privacy Policy</span>.</p>
                     {/* <Button className=" proceed-btn" onClick={handleRequestPickupClick}>Proceed to was </Button>
                     {showFlow && <Washbnt openFlow={showFlow} />} */}
                     
-                    <Button className=" proceed-btn" onClick={handleShow}>Proceed to was </Button>
-                    <BillingModal show={show} handleClose={handleClose} />
-                    
-                    
+                    <Button className=" proceed-btn mt-4">Proceed to wash </Button>
                 </Col>
             </Row>
         </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 
 const locations = [
@@ -9,22 +9,27 @@ const locations = [
   'Phoenix, AZ'
 ];
 
-const dates = [
-  { day: 'Sun', date: '17' },
-  { day: 'Mon', date: '18' },
-  { day: 'Tue', date: '19' },
-  { day: 'Wed', date: '20' },
-  { day: 'Thu', date: '21' },
-  { day: 'Fri', date: '22' },
-  { day: 'Sat', date: '23' },
-  { day: 'Sun', date: '17' },
-  { day: 'Mon', date: '18' },
-  { day: 'Tue', date: '19' },
-  { day: 'Wed', date: '20' },
-  { day: 'Thu', date: '21' },
-  { day: 'Fri', date: '22' },
-  { day: 'Sat', date: '23' },
-];
+const getDayName = (date) => {
+  const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  return daysOfWeek[date.getDay()];
+};
+
+const generateUpcomingDates = () => {
+  const dates = [];
+  const today = new Date();
+
+  for (let i = 0; i < 15; i++) {
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + i);
+
+    const dayName = getDayName(futureDate);
+    const dateNumber = futureDate.getDate();
+
+    dates.push({ day: dayName, date: dateNumber.toString() });
+  }
+
+  return dates;
+};
 
 const times = ['10AM - 12PM', '12PM - 2PM', '2PM - 4PM', '4PM - 6PM'];
 
@@ -32,6 +37,11 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [location, setLocation] = useState('');
   const [selectedDate, setSelectedDate] = useState('18');
   const [selectedTime, setSelectedTime] = useState(times[0]);
+  const [dates, setDates] = useState([]);
+
+  useEffect(() => {
+    setDates(generateUpcomingDates());
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,24 +113,25 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
           {/* Date Picker with Horizontal Scrolling */}
           <div className="date-picker">
+            
             <div id="dateContainer" className="date-container" style={{ overflowX: 'scroll', whiteSpace: 'nowrap' }}>
               {dates.map((date, index) => (
                 <div 
-                key={index} 
-                className={`date-item ${selectedDate === date.date ? 'selected' : ''}`} 
-                onClick={() => setSelectedDate(date.date)}
-                style={{
-                  display: 'inline-block',
-                  width: '60px',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  marginRight : "10px",
-                  backgroundColor: selectedDate === date.date ? '#ff6600' : 'transparent',
-                  color: selectedDate === date.date ? '#fff' : '#000',
-                  borderRadius: '8px',
-                  border: selectedDate === date.date ? '2px solid #ff6600' : '1px solid #ccc',
-                }}
-              >
+                  key={index} 
+                  className={`date-item ${selectedDate === date.date ? 'selected' : ''}`} 
+                  onClick={() => setSelectedDate(date.date)}
+                  style={{
+                    display: 'inline-block',
+                    width: '60px',
+                    textAlign: 'center',
+                    cursor: 'pointer',
+                    marginRight: '10px',
+                    backgroundColor: selectedDate === date.date ? '#ff6600' : 'transparent',
+                    color: selectedDate === date.date ? '#fff' : '#000',
+                    borderRadius: '8px',
+                    border: selectedDate === date.date ? '2px solid #ff6600' : '1px solid #ccc',
+                  }}
+                >
                   <div>{date.day}</div>
                   <div>{date.date}</div>
                 </div>
@@ -137,8 +148,6 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
               ))}
             </Form.Control>
           </Form.Group>
-
-          
 
           {/* Submit Button */}
           <Button 

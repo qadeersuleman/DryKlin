@@ -203,3 +203,92 @@
   z-index: 2;
   background-color: rgba(255, 255, 255, 0.75);
 }
+
+
+/* Css About Profil */
+.profile-sec
+{
+  font-size: 12px;
+}
+
+.profile-btn
+{
+  padding-inline: 170px;
+  padding-block: 15px;
+}
+
+.btn1
+{
+  border-color: #e86317;
+  color: #e86317;
+}
+
+.btn1:hover
+{
+  background-color: #e86317;
+  color: white;
+}
+
+.btn2
+{
+  background-color: #e86317;
+}
+
+.btn:hover
+{
+  background-color: #e86317;
+}
+
+.profile-btn:active
+{
+  background-color: #e86317 !important;
+  color: white;
+}
+
+
+
+@media (max-width : 576px) {
+  .profile-btn
+  {
+    padding-inline: 50px;
+    padding-block: 10px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .btn1{
+    padding-inline: 84px;
+    margin-left: 50px !important;
+  }
+  .btn2{
+    padding-inline: 100px;
+  }
+}
+
+.profile-change-btn:hover
+{
+  background-color: #e86317;
+  color: #fff !important;
+}
+
+
+@media (max-width : 576px) {
+  .respo-text
+  {
+    font-size: 18px;
+    padding-block: 10px;
+    padding-left: 80px !important;
+  }
+  .respo-btn
+  {
+    font-size: 12px !important;
+    
+  }
+  .mobile-view
+  {
+    display: block !important;
+  }
+  .pc-view
+  {
+    display: none !important;
+  }
+}

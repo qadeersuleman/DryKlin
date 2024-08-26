@@ -1,0 +1,43 @@
+.privacy-container {
+    padding: 40px;
+    background-color: #ffffff;
+    text-align: left;
+  }
+  
+  .privacy-card {
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  .privacy-title {
+    font-size: 2.5em;
+    color: #f7941e;
+    margin-bottom: 20px;
+  }
+  
+  .privacy-card h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    color: #333;
+  }
+  
+  .privacy-card p {
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
+  .privacy-card ul {
+    padding-left: 20px;
+    color: #555;
+  }
+  
+  .privacy-card ul li {
+    margin-bottom: 10px;
+  }
+  
+  .privacy-card ul li::marker {
+    color: #f7941e;
+  }
+  

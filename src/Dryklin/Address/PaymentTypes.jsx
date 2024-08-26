@@ -8,6 +8,11 @@ const PaymentTypes = ({ show, handleClose }) => {
     setSelectedOption(e.target.value);
   };
 
+  const New = () => {
+   alert(`Proceed with ${selectedOption}`, {handleClose});
+   handleClose();
+  }
+
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
@@ -88,7 +93,7 @@ const PaymentTypes = ({ show, handleClose }) => {
         <Button
           className="w-100 mt-3 mt-5 Payment-Type-btn"
           
-          onClick={() => alert(`Proceed with ${selectedOption}`)}
+          onClick={New}
         >
           Proceed to pay
         </Button>
