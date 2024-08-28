@@ -15,7 +15,7 @@ const Address = ({ show, handleClose }) => {
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/csrfs/');
+        const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/');
         setCsrfToken(response.data.csrfToken);
         console.warn('CSRF Token:', response.data.csrfToken);
       } catch (error) {
@@ -80,7 +80,7 @@ const Address = ({ show, handleClose }) => {
         address: address,
       };
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/address/',
+        'https://dryklin-e853d5ecea30.herokuapp.com/api/address/',
         data,
         {
           headers: {

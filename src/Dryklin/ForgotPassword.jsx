@@ -3,16 +3,19 @@ import './SigninForm.css'; // Assuming you create this file for custom CSS
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const [csrfToken, setCsrfToken] = useState('');
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/csrfs/');
+        const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/');
         setCsrfToken(response.data.csrfToken);
       } catch (error) {
         console.error('Error fetching CSRF token:', error);
@@ -26,14 +29,44 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/send-otp/',
+        'https://dryklin-e853d5ecea30.herokuapp.com/api/send-otp/',
         { email },
         { headers: { 'X-CSRFToken': csrfToken } }
       );
-      setMessage(response.data.message);
+      if (response.status === 200 && response.data.success) {
+        toast.success('OTP Sended successfully!', {
+          position: 'top-center', // Use string 'top-center' here
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          onClose: () => navigate('/emails', { state: { email } }),
+        });
+      } else {
+        toast.error('Failed to submit the form. Please try again.', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          
+        });
+      }
     } catch (error) {
-      setMessage('Error sending OTP. Please try again.');
-    }
+      toast.error('An error occurred. Please try again later.', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+      });
+  }
   };
 
   return (
@@ -78,7 +111,7 @@ const ForgotPassword = () => {
               <Button variant="primary" type="submit" className="signup-button mt-5">
                 Send OTP
               </Button>
-              {message && <p>{message}</p>}
+              
             </Form>
           </Col>
         </Row>
@@ -108,17 +141,14 @@ const ForgotPassword = () => {
                   
                 />
               </Form.Group>
-              {message &&
-              <Alert className='my-5' >
-               <p>{message}</p>
-              </Alert>
-              }
+              
               <Button variant="primary" type="submit" className="signup-button mt-5 fs-6">
                 Send Link
               </Button>
               
             </Form>
           </Container>
+          <ToastContainer />
     </>
   );
 };

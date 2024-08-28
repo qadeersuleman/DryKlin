@@ -44,3 +44,15 @@
     margin-right: 0;
   }
 }
+
+
+@media (max-width : 600px) {
+  .mobile-view
+  {
+    display: block;
+  }
+  .pc-view
+  {
+    display: none;
+  }
+}

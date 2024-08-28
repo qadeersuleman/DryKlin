@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Image, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css'; // Import your custom CSS for styling
 
 const CustomNavbar = () => {
+  const [user, setUser] = useState(null);
   const navigate = useNavigate(); // Correctly invoke useNavigate
 
+  // Fetch user data from localStorage once when component mounts
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error);
+      }
+    }
+  }, []);
+
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the token from localStorage
-    localStorage.removeItem("user"); // Remove the token from localStorage
-    alert("User Successfully Logged out");
-    navigate("/"); // Redirect to the login page
+    localStorage.removeItem('token'); // Remove the token from localStorage
+    localStorage.removeItem('user'); // Remove the user data from localStorage
+    alert('User Successfully Logged out');  
+    navigate('/signin'); // Redirect to the login page
   };
 
   return (
     <>
-      <div className="top-bar">
+      <div className="top-bar pc-view">
         <span>helpdesk@dryklin.com</span>
         <span>234 700 000 9274</span>
         <span>Customer Support</span>
+      </div>
+      <div className="top-bar mobile-view" style={{ display: 'none' }}>
+        <span style={{ fontSize: '13px' }}>helpdesk@dryklin.com</span>
+        <span style={{ fontSize: '13px' }} className='mx-4'>234 700 000 9274</span>
+        <span style={{ fontSize: '13px' }}>Customer Support</span>
       </div>
       <Navbar expand="lg" className="custom-navbar">
         <Container>
@@ -51,8 +69,11 @@ const CustomNavbar = () => {
                 <NavDropdown.Item href="/wallet">Wallet</NavDropdown.Item>
                 <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href='/signin'>Login</NavDropdown.Item>
-                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                {user ? (
+                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                ) : (
+                  <NavDropdown.Item href="/signin">Login</NavDropdown.Item>
+                )}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

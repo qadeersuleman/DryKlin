@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Button, Row, Col, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import "./RequestOrder.css";
-const RequestOrder = ({ show, handleNext, handleClose }) => {
-  const [selectedOption, setSelectedOption] = useState("");
+
+const RequestOrder = ({ show, handleNext, handleClose, deliveryOption, paymentOption }) => {
+  const [selectedOption, setSelectedOption] = useState(paymentOption || '');
+
+  useEffect(() => {
+    console.warn("Delivery Option:", deliveryOption); // Log delivery option
+    console.warn("Payment Option:", selectedOption); // Log selected payment option
+  }, [deliveryOption, selectedOption]);
 
   const handleSelect = (option) => {
     setSelectedOption(option);
   };
+
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
@@ -22,11 +28,11 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
           <span className="mx-3">Back</span>
           <h3 className="mt-4">Order Summary</h3>
           <p style={{ fontSize: "14px" }}>
-            check out the details of what you're paying below
+            Check out the details of what you're paying below
           </p>
         </div>
         <div className="d-flex justify-content-between">
-          <span> Sub-total</span>
+          <span>Sub-total</span>
           <span className="fw-bold">₦13800</span>
         </div>
         <div className="d-flex justify-content-between mt-2">
@@ -50,13 +56,13 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
           <Row className="desktop-row">
             <Col md={5} className="mx-4">
               <Card
-                onClick={() => handleSelect("normal")}
+                onClick={() => handleSelect("wallet")}
                 className={`delivery-card ${
-                  selectedOption === "normal" ? "selected" : ""
+                  selectedOption === "wallet" ? "selected" : ""
                 }`}
               >
                 <Row>
-                  <Col md={2} xm={2} className="mt-2 mx-3">
+                  <Col md={2} className="mt-2 mx-3">
                     <div
                       className="delivery-checkbox"
                       style={{
@@ -65,14 +71,14 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
                         marginLeft: "30px",
                       }}
                     >
-                      {selectedOption === "normal" && (
+                      {selectedOption === "wallet" && (
                         <i className="fa fa-check"></i>
                       )}
                     </div>
                   </Col>
                   <Col md={8}>
                     <h3 style={{ fontSize: "14px" }} className="pt-2">
-                    wallet (N 53228.00)
+                      Wallet (₦53228.00)
                     </h3>
                   </Col>
                 </Row>
@@ -81,13 +87,13 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
 
             <Col md={5}>
               <Card
-                onClick={() => handleSelect("express")}
+                onClick={() => handleSelect("online")}
                 className={`delivery-card ${
-                  selectedOption === "express" ? "selected" : ""
+                  selectedOption === "online" ? "selected" : ""
                 }`}
               >
                 <Row>
-                  <Col md={2} xm={2} sm={2} lg={2} className="mt-2 mx-3">
+                  <Col md={2} className="mt-2 mx-3">
                     <div
                       className="delivery-checkbox"
                       style={{
@@ -96,12 +102,12 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
                         marginLeft: "30px",
                       }}
                     >
-                      {selectedOption === "express" && (
+                      {selectedOption === "online" && (
                         <i className="fa fa-check"></i>
                       )}
                     </div>
                   </Col>
-                  <Col md={8} xm={8} sm={8} lg={8}>
+                  <Col md={8}>
                     <h3 style={{ fontSize: "16px" }} className="pt-2 px-2">
                       Pay Online
                     </h3>
@@ -112,9 +118,9 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
           </Row>
 
           <Card
-            onClick={() => handleSelect("normal")}
+            onClick={() => handleSelect("wallet")}
             className={`delivery-card-custom ${
-              selectedOption === "normal" ? "selected-custom" : ""
+              selectedOption === "wallet" ? "selected-custom" : ""
             }`}
             style={{
               padding: "10px",
@@ -135,12 +141,12 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
                 border: "1px solid #ccc",
                 borderRadius: "20%",
                 backgroundColor:
-                  selectedOption === "normal" ? "#ff6b00" : "transparent",
+                  selectedOption === "wallet" ? "#ff6b00" : "transparent",
                 marginBottom: "10px",
                 transition: "background-color 0.3s ease",
               }}
             >
-              {selectedOption === "normal" && (
+              {selectedOption === "wallet" && (
                 <i className="fa fa-check" style={{ color: "#fff" }}></i>
               )}
             </div>
@@ -148,14 +154,14 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
               className="delivery-content-custom"
               style={{ fontSize: "16px", margin: 0 }}
             >
-              wallet (N 53228.00 )
+              Wallet (₦53228.00)
             </p>
           </Card>
 
           <Card
-            onClick={() => handleSelect("express")}
+            onClick={() => handleSelect("online")}
             className={`delivery-card-custom ${
-              selectedOption === "express" ? "selected-custom" : ""
+              selectedOption === "online" ? "selected-custom" : ""
             }`}
             style={{
               padding: "10px",
@@ -176,12 +182,12 @@ const RequestOrder = ({ show, handleNext, handleClose }) => {
                 border: "1px solid #ccc",
                 borderRadius: "20%",
                 backgroundColor:
-                  selectedOption === "express" ? "#ff6b00" : "transparent",
+                  selectedOption === "online" ? "#ff6b00" : "transparent",
                 marginBottom: "10px",
                 transition: "background-color 0.3s ease",
               }}
             >
-              {selectedOption === "express" && (
+              {selectedOption === "online" && (
                 <i className="fa fa-check" style={{ color: "#fff" }}></i>
               )}
             </div>

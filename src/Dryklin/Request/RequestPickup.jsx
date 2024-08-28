@@ -38,6 +38,8 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [selectedDate, setSelectedDate] = useState('18');
   const [selectedTime, setSelectedTime] = useState(times[0]);
   const [dates, setDates] = useState([]);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   useEffect(() => {
     setDates(generateUpcomingDates());
@@ -45,15 +47,14 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNext(); // Move to the next step, which will show the next modal
-  };
-
-  const scrollDates = (direction) => {
-    const dateContainer = document.getElementById('dateContainer');
-    dateContainer.scrollBy({
-      left: direction === 'left' ? -100 : 100,
-      behavior: 'smooth'
-    });
+    const data = {
+      firstName,
+      lastName,
+      location,
+      selectedDate,
+      selectedTime
+    };
+    handleNext(data); // Pass all data to the next step
   };
 
   return (
@@ -73,7 +74,8 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
             <Form.Label className="input-labels">First Name</Form.Label>
             <Form.Control
               type="text"
-              name="first_name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               placeholder="Enter first name"
               className="input-data"
             />
@@ -84,7 +86,8 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
             <Form.Label className="input-labels">Last Name</Form.Label>
             <Form.Control
               type="text"
-              name="last_name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
               placeholder="Enter last name"
               className="input-data"
             />
@@ -113,7 +116,6 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
           {/* Date Picker with Horizontal Scrolling */}
           <div className="date-picker">
-            
             <div id="dateContainer" className="date-container" style={{ overflowX: 'scroll', whiteSpace: 'nowrap' }}>
               {dates.map((date, index) => (
                 <div 

@@ -76,7 +76,7 @@ const SignupForm = () => {
   
         // Check response status instead of response.ok
         if (response.status === 200 && response.data.success) {
-          toast.success('Your form has been submitted successfully!', {
+          toast.success('User Created Successfully', {
             position: 'top-center', // Use string 'top-center' here
             autoClose: 1000,
             hideProgressBar: true,
@@ -87,7 +87,7 @@ const SignupForm = () => {
             onClose: () => navigate("/"),
           });
         } else {
-          toast.error(response.data.message || 'Failed to submit the form. Please try again.', {
+          toast.error('Failed to submit the form. Please try again.', {
             position: 'top-center',
             autoClose: 3000,
             hideProgressBar: true,
@@ -285,17 +285,16 @@ const SignupForm = () => {
     {/* That is for Mobile Size */}
     <Container className="mobile-view mt-3" style={{display : "none"}}>
     <Row>
-          <div className="col text-center">
-            <Image
-              src="./Dryklin/PNGS/12.png"
-              style={{ width: "150px", height: "40px" }}
-              className="mx-auto d-block"
-            />
-            <h4 className="pt-4">Login to Your Account</h4>
-            <p style={{ marginTop: "-5px" }}>
-              Start making your dreams cometrue
-            </p>
-          </div>
+    <div className="form-heading px-4">
+              <Link to="/">
+                <button style={{ border: "none" }} className="bg-light">
+                  <i className="fas fa-chevron-left pt-3"></i>
+                </button>
+              </Link>
+              <span className="mx-3">Back</span>
+              <h3 className="mt-2">Signup</h3>
+              <p>Fill in your details below to Register you Account.</p>
+            </div>
         </Row>
         <Form className="w-100" onSubmit={handleSubmit}>
             <Form.Group controlId="formFirstName">
@@ -417,9 +416,12 @@ const SignupForm = () => {
                       {" "}
                       <b>Privacy Policy.</b>
                     </span>
+                    
                   </>
+                  
                 }
-                className="terms-condition"
+                className="terms-condition mt-2"
+                style={{fontSize : "13px"}}
               />
             </Form.Group>
 

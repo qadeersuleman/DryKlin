@@ -95,7 +95,7 @@ const SigninForm = () => {
   
         // Check response status instead of response.ok
         if (response.status === 200 && response.data.success) {
-          toast.success('Your form has been submitted successfully!', {
+          toast.success('Successfully Logged In!', {
             position: 'top-center', // Use string 'top-center' here
             autoClose: 1000,
             hideProgressBar: true,
@@ -312,214 +312,175 @@ const SigninForm = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="mobile-view mt-3" style={{ display: "none" }}>
-        <Row>
-          <div className="col text-center">
-            <Image
-              src="./Dryklin/PNGS/12.png"
-              style={{ width: "150px", height: "40px" }}
-              className="mx-auto d-block"
-            />
-            <h4 className="pt-4">Login to Your Account</h4>
-            <p style={{ marginTop: "-5px" }}>
-              Start making your dreams cometrue
+
+
+
+
+      
+
+      <Container className="signup-form-container my-5 mobile-view" style={{display : "none"}}>
+            <div className="form-heading px-3">
+              <Link to="/">
+                <button style={{ border: "none" }} className="bg-light">
+                  <i className="fas fa-chevron-left pt-3"></i>
+                </button>
+              </Link>
+              <span className="mx-3">Back</span>
+              <h3 className="mt-2">Login</h3>
+              <p>Fill in your details below to sign in.</p>
+            </div>
+            <Tabs
+              id="signin-tabs"
+              activeKey={key}
+              onSelect={(k) => setKey(k)}
+              className="mb-3"
+            >
+              <Tab eventKey="email" title="Email">
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="formEmail">
+                    <Form.Label className="input-labels">Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      placeholder="Enter your email address"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="input-data"
+                    />
+                    {errors.email && (
+                      <div className="error-text">{errors.email}</div>
+                    )}
+                  </Form.Group>
+
+                  <Form.Group controlId="formPassword">
+                    <Form.Label className="input-labels">Password</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        placeholder="Enter your password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="input-data"
+                      />
+                      <InputGroup.Text
+                        onClick={togglePasswordVisibility}
+                        className="password-toggle"
+                      >
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEyeSlash : faEye}
+                        />
+                      </InputGroup.Text>
+                    </InputGroup>
+                    {errors.password && (
+                      <div className="error-text">{errors.password}</div>
+                    )}
+                  </Form.Group>
+                  {successMessage && (
+                    <Alert className="success-text mt-3">
+                      {successMessage}
+                    </Alert>
+                  )}
+                  {errors.general && (
+                    <Alert className="error-text mt-3">{errors.general}</Alert>
+                  )}
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="signup-button mt-3"
+                  >
+                    Login
+                  </Button>
+                </Form>
+              </Tab>
+
+              {/* That is a Phone Tab */}
+              <Tab eventKey="phone" title="Phone Number">
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="formPhoneNumber">
+                    <Form.Label className="input-labels">
+                      Phone Number
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="phone_number"
+                      placeholder="+234 Enter your phone number"
+                      value={formData.phone_number}
+                      onChange={handleChange}
+                      className="input-data"
+                    />
+                    {errors.phone_number && (
+                      <div className="error-text">{errors.phone_number}</div>
+                    )}
+                  </Form.Group>
+
+                  <Form.Group controlId="formPassword">
+                    <Form.Label className="input-labels">Password</Form.Label>
+                    <InputGroup>
+                      <Form.Control
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        placeholder="Enter your password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        className="input-data"
+                      />
+                      <InputGroup.Text
+                        onClick={togglePasswordVisibility}
+                        className="password-toggle"
+                      >
+                        <FontAwesomeIcon
+                          icon={showPassword ? faEyeSlash : faEye}
+                        />
+                      </InputGroup.Text>
+                    </InputGroup>
+                    {errors.password && (
+                      <div className="error-text">{errors.password}</div>
+                    )}
+                  </Form.Group>
+                  {successMessage && (
+                    <Alert className="success-text mt-3">
+                      {successMessage}
+                    </Alert>
+                  )}
+                  {errors.general && (
+                    <Alert className="error-text mt-3">{errors.general}</Alert>
+                  )}
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="signup-button mt-3"
+                  >
+                    Login
+                  </Button>
+                </Form>
+              </Tab>
+            </Tabs>
+
+            <div className="d-flex mt-3">
+              <Form.Check
+                type="checkbox"
+                label="Save us for Now"
+                className=""
+                style={{ fontSize: "15px" }}
+              />
+              <span>
+                <Link
+                  to="/forgetpass"
+                  className="text-orange "
+                  style={{ textDecoration: "none", paddingLeft: "150px" }}
+                >
+                  Forgot Password?
+                </Link>
+              </span>
+            </div>
+
+            <p className="login-link">
+              Don't have an account? <Link to="/signup">Sign Up</Link>
             </p>
-          </div>
-        </Row>
-        <Tabs
-          id="signin-tabs"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-          className="mb-3"
-        >
-          <Tab eventKey="email" title="Email">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formEmail">
-                <Form.Label
-                  className="input-labels px-2"
-                  style={{ fontSize: "18px", fontWeight: "400" }}
-                >
-                  Email
-                </Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email address"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="input-data "
-                  style={{
-                    paddingBlock: "20px",
-                    border: "1px solid black",
-                    fontSize: "15px",
-                  }}
-                />
-                {errors.email && (
-                  <div className="error-text">{errors.email}</div>
-                )}
-              </Form.Group>
+          </Container>
 
-              <Form.Group controlId="formPassword" className="mt-2">
-                <Form.Label
-                  className="input-labels"
-                  style={{ fontSize: "18px", fontWeight: "400" }}
-                >
-                  Password
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="input-data"
-                    style={{
-                      paddingBlock: "20px",
-                      border: "1px solid black",
-                      fontSize: "15px",
-                    }}
-                  />
-                  <InputGroup.Text
-                    onClick={togglePasswordVisibility}
-                    className="password-toggle"
-                  >
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                  </InputGroup.Text>
-                </InputGroup>
-                {errors.password && (
-                  <div className="error-text">{errors.password}</div>
-                )}
-              </Form.Group>
-              <Box p={5} maxW="400px" mx="auto">
-                <Flex direction="column" spacing={4}>
-                  {/* Your form fields here */}
 
-                  <Flex justify="space-between" align="center" mt={4}>
-                    <Form.Check type="checkbox" label="Save us for Now" />
-                    <Link
-                      to="/forgetpass"
-                      className="text-orange"
-                      style={{ textDecoration: "none" }}
-                    >
-                      Forgot Password?
-                    </Link>
-                  </Flex>
-                </Flex>
-              </Box>
-              {successMessage && (
-                <Alert className="success-text mt-3">{successMessage}</Alert>
-              )}
-              {errors.general && (
-                <Alert className="error-text mt-3">{errors.general}</Alert>
-              )}
-              <Button
-                variant="primary"
-                type="submit"
-                className="signup-button mt-3"
-              >
-                Login
-              </Button>
-            </Form>
-          </Tab>
-
-          {/* Mobile size phone Tab */}
-          <Tab eventKey="phone" title="Phone Number">
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formPhoneNumber">
-                <Form.Label
-                  className="input-labels"
-                  style={{ fontSize: "18px", fontWeight: "400" }}
-                >
-                  Phone Number
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  name="phone_number"
-                  placeholder="+234 Enter your phone number"
-                  value={formData.phone_number}
-                  onChange={handleChange}
-                  className="input-data"
-                  style={{
-                    paddingBlock: "20px",
-                    border: "1px solid black",
-                    fontSize: "15px",
-                  }}
-                />
-                {errors.phone_number && (
-                  <div className="error-text">{errors.phone_number}</div>
-                )}
-              </Form.Group>
-
-              <Form.Group controlId="formPassword">
-                <Form.Label
-                  className="input-labels"
-                  style={{
-                    fontSize: "18px",
-                    fontWeight: "400",
-                    marginTop: "10px",
-                  }}
-                >
-                  Password
-                </Form.Label>
-                <InputGroup>
-                  <Form.Control
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Enter your password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="input-data"
-                    style={{
-                      paddingBlock: "20px",
-                      border: "1px solid black",
-                      fontSize: "15px",
-                    }}
-                  />
-                  <InputGroup.Text
-                    onClick={togglePasswordVisibility}
-                    className="password-toggle"
-                  >
-                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                  </InputGroup.Text>
-                </InputGroup>
-                {errors.password && (
-                  <div className="error-text">{errors.password}</div>
-                )}
-              </Form.Group>
-              <Box p={5} maxW="400px" mx="auto">
-                <Flex direction="column" spacing={4}>
-                  {/* Your form fields here */}
-
-                  <Flex justify="space-between" align="center" mt={4}>
-                    <Form.Check type="checkbox" label="Save us for Now" />
-                    <Link
-                      to="/forgetpass"
-                      className="text-orange"
-                      style={{ textDecoration: "none" }}
-                    >
-                      Forgot Password?
-                    </Link>
-                  </Flex>
-                </Flex>
-              </Box>
-              {successMessage && (
-                <Alert className="success-text mt-3">{successMessage}</Alert>
-              )}
-              {errors.general && (
-                <Alert className="error-text mt-3">{errors.general}</Alert>
-              )}
-              <Button
-                variant="primary"
-                type="submit"
-                className="signup-button mt-3"
-              >
-                Login
-              </Button>
-            </Form>
-          </Tab>
-        </Tabs>
-      </Container>
       <ToastContainer />
     </>
   );

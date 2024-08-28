@@ -47,7 +47,7 @@ const ContactUs = () => {
       };
 
       // Sending data to backend
-      const response = await axios.post('http://127.0.0.1:8000/api/contactus/', data, {
+      const response = await axios.post('https://dryklin-e853d5ecea30.herokuapp.com/api/contactus/', data, {
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken, // Add CSRF token if required by Django

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';;
 const locations = [
   'Ibadan, Nigeria',
   'Los Angeles, CA',
@@ -26,23 +27,54 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
     event.preventDefault();
   
     try {
-      const response = await axios.put('http://localhost:8000/api/update_profile/', {
+      const response = await axios.put('https://dryklin-e853d5ecea30.herokuapp.com/api/update_profile/', {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
         phone_number: user.phone_number,
       });
-      console.log(response.data);
-      alert("Successfully Submitted Data");
-      handleClose();  // Close modal on successful update
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
+      
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      if (response.status === 200 && response.data.success) {
+        toast.success('Your form has been submitted successfully!', {
+          position: 'top-center', // Use string 'top-center' here
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+          onClose: () => handleClose(),
+        });
+      } else {
+        toast.error('Failed to submit the form. Please try again.', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          
+        });
+      }
+      } catch (error) {
+          toast.error('An error occurred. Please try again later.', {
+              position: 'top-center',
+              autoClose: 3000,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: false,
+              progress: undefined,
+          });
+      }
   };
   
   
 
   return (
+    <>
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
         <div className="form-heading">
@@ -150,6 +182,9 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
         </Form>
       </Modal.Body>
     </Modal>
+    <ToastContainer />
+    </>
+    
   );
 };
 

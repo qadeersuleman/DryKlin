@@ -3,24 +3,26 @@ import { Button, Row, Col, Card, ListGroup } from "react-bootstrap";
 import FundWallet from "./FundWallet";
 import { useState, useEffect } from "react";
 import axios from "axios";
+
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
-   // State for wallet balance
-
-  // Function to open the modal
-  const handleShow = () => setShowModal(true);
-
-  // Function to close the modal
-  const handleClose = () => setShowModal(false);
-
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(null);
   const [walletBalance, setWalletBalance] = useState(0);
 
+  // Fetch user data from localStorage once when component mounts
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // Fetch wallet data if user exists
   useEffect(() => {
     const fetchWalletData = async () => {
       if (user && user.email) {
         try {
-          const response = await axios.get('http://127.0.0.1:8000/api/wallet/', {
+          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/wallet/', {
             params: { email: user.email },
           });
   
@@ -31,7 +33,6 @@ const Home = () => {
   
             // Check if walletData is an array and has elements
             if (Array.isArray(walletData) && walletData.length > 0) {
-              // Assuming walletData is an array of wallet objects
               setWalletBalance(walletData[0].balance);  // Adjust based on actual data structure
             } else {
               console.error('No wallet data available for this user.');
@@ -49,11 +50,12 @@ const Home = () => {
   
     fetchWalletData();
   }, [user]);
-  
-  // Function to fetch wallet data
- // Updated fetchWalletData function
 
+  // Function to open the modal
+  const handleShow = () => setShowModal(true);
 
+  // Function to close the modal
+  const handleClose = () => setShowModal(false);
 
   return (
     <>
@@ -67,20 +69,17 @@ const Home = () => {
           />
           <div className="ml-3">
             <span className="d-block welcome-text px-3">Welcome 👏</span>
-            {
-              user ? 
+            {user ? (
               <span className="d-block user-name">
-              <b className="px-2">
-                {user.first_name} {user.last_name}
-              </b>
-            </span>
-            :
-            <span className="d-block user-name">
-            <b className="px-2">
-               Haseeb Latif
-            </b>
-          </span>
-          }
+                <b className="px-2">
+                  {user.first_name} {user.last_name}
+                </b>
+              </span>
+            ) : (
+              <span className="d-block user-name">
+                <b className="px-2">Haseeb Latif</b>
+              </span>
+            )}
           </div>
         </div>
         <ModalFlowManager />
@@ -107,7 +106,7 @@ const Home = () => {
             <Card.Body>
               <div>
                 <p className="balance-type">Your Location</p>
-               
+                {user ? (
                   <>
                     <p style={{ marginTop: "-15px" }}>
                       <i
@@ -123,7 +122,9 @@ const Home = () => {
                       Change Locations
                     </p>
                   </>
-             
+                ) : (
+                  <p>No user data available.</p>
+                )}
               </div>
             </Card.Body>
           </Card>

@@ -22,11 +22,13 @@ import CustomCare from "./Dryklin/CustomerCare"
 import PrivacyPolicy from './Dryklin/PrivacyPolicy';
 import Faq from './Dryklin/Faq';
 import Profile from './Dryklin/Address/Profile';
-function App() {
-  return (
-    <div className="App" >
 
-       
+function App() {
+  
+
+  return (
+
+       <div>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/signup" element={<SignupForm />} />
