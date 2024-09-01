@@ -10,9 +10,40 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  @media (min-width : 576px) {
+  @media (max-width : 600px) {
    .col1
    {
     margin-right: 20px;
    } 
+   .pc-img-grid
+   {
+    display: none !important;
+   }
+   .mob-img-grid
+   {
+    display: block !important;
+   }
   }
+
+ 
+/* ImageGrid.css */
+
+.image-grid {
+  width: 100%;
+  max-width: 600px; /* Adjust this as needed */
+  margin: auto;
+  overflow: hidden;
+}
+
+.slider-image {
+  width: 100%; /* Full width of the container */
+  height: 300px; /* Set a fixed height */
+  object-fit: cover; /* Ensures image covers the container without distortion */
+  object-position: center; /* Center the image if it needs to be cropped */
+}
+
+@media (max-width: 600px) {
+  .slider-image {
+    height: 200px; /* Adjust height for smaller screens */
+  }
+}

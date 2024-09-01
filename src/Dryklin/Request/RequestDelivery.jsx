@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
-import { Modal, Button, Card, Row, Col,Form } from 'react-bootstrap';
+import { Modal, Button, Card, Row, Col, Form, Alert } from 'react-bootstrap';
 import './RequestDelivery.css';
 
 const RequestDelivery = ({ show, handleNext, handleClose }) => {
   const [selectedOption, setSelectedOption] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // State to hold the error message
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNext(selectedOption); // Pass the selected option to the next step
+    if (!selectedOption) {
+      setErrorMessage('Please select a delivery mode.'); // Set error message if no option is selected
+    } else {
+      setErrorMessage(''); // Clear error message if validation passes
+      handleNext(selectedOption); // Pass the selected option to the next step
+    }
   };
 
   const handleSelect = (option) => {
     setSelectedOption(option);
+    setErrorMessage(''); // Clear error message when an option is selected
   };
 
   return (
@@ -25,6 +32,13 @@ const RequestDelivery = ({ show, handleNext, handleClose }) => {
           <h3 className="">Available Delivery Mode</h3>
           <p>Select your preferred Delivery mode.</p>
         </div>
+
+        {/* Display error message if exists */}
+        {errorMessage && (
+          <Alert variant="danger" className="mt-2 text-center">
+            {errorMessage}
+          </Alert>
+        )}
 
         <Card
           onClick={() => handleSelect('normal')}

@@ -34,9 +34,9 @@ const CustomNavbar = () => {
         <span>Customer Support</span>
       </div>
       <div className="top-bar mobile-view" style={{ display: 'none' }}>
-        <span style={{ fontSize: '13px' }}>helpdesk@dryklin.com</span>
-        <span style={{ fontSize: '13px' }} className='mx-4'>234 700 000 9274</span>
-        <span style={{ fontSize: '13px' }}>Customer Support</span>
+        <span style={{ fontSize: '11px' }}>helpdesk@dryklin.com</span>
+        <span style={{ fontSize: '11px' }} className='mx-3'>234 700 000 9274</span>
+        <span style={{ fontSize: '11px' }}>Customer Support</span>
       </div>
       <Navbar expand="lg" className="custom-navbar">
         <Container>

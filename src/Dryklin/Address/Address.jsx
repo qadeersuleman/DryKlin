@@ -123,17 +123,17 @@ const Address = ({ show, handleClose }) => {
               <ListGroup.Item 
                 action 
                 onClick={getCurrentLocation} 
-                style={{ border: 'none' }} 
-                className='py-3'
+                style={{ border: 'none', fontSize : "13px",paddingTop : "15px" }} 
+                
               >
-                <i className="fas fa-location-crosshairs text-orange"></i> Use current location
+                <i className="fas fa-location-crosshairs text-orange" style={{ paddingRight: "10px" }}></i>  Use current location
               </ListGroup.Item>
               {suggestions.map((suggestion, index) => (
                 <ListGroup.Item
                   key={index}
                   action
                   onClick={() => handleSelectSuggestion(suggestion)}
-                  style={{ border: 'none' }}
+                  style={{ border: 'none', fontSize : "13px" }}
                 >
                   <i className="fas fa-map-marker-alt text-orange" style={{ paddingRight: "10px" }}></i>{suggestion}
                 </ListGroup.Item>
@@ -144,6 +144,7 @@ const Address = ({ show, handleClose }) => {
         <Button 
           className="Request-button bg-orange" 
           onClick={handleRequestPickup}
+          style={{fontSize : "14px"}}
         >
           Request Pickup
         </Button>

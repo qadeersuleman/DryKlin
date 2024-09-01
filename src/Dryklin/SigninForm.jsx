@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"; // Import axios for HTTP requests
 import CustomNavbar from "./CustomNavbar";
-import { Box, Flex } from "@chakra-ui/react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';;
 
@@ -68,7 +67,7 @@ const SigninForm = () => {
       setErrors({});
       try {
         // Fetch CSRF token
-        const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/login/");
+        const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/");
         const csrfToken = csrfResponse.data.csrfToken;
         console.warn("CSRF Token:", csrfToken);
         console.warn("Form Data:", formData);
@@ -395,7 +394,7 @@ const SigninForm = () => {
               </Tab>
 
               {/* That is a Phone Tab */}
-              <Tab eventKey="phone" title="Phone Number">
+              <Tab eventKey="phone" title="Phone Number" >
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formPhoneNumber">
                     <Form.Label className="input-labels">
@@ -462,13 +461,13 @@ const SigninForm = () => {
                 type="checkbox"
                 label="Save us for Now"
                 className=""
-                style={{ fontSize: "15px" }}
+                style={{ fontSize: "13px" }}
               />
               <span>
                 <Link
                   to="/forgetpass"
                   className="text-orange "
-                  style={{ textDecoration: "none", paddingLeft: "150px" }}
+                  style={{ textDecoration: "none", paddingLeft: "100px",fontSize : "13px" }}
                 >
                   Forgot Password?
                 </Link>

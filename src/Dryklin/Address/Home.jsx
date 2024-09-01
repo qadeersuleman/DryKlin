@@ -1,8 +1,8 @@
 import ModalFlowManager from "../Request/ModalFlowManager";
 import { Button, Row, Col, Card, ListGroup } from "react-bootstrap";
-import FundWallet from "./FundWallet";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import PaymentTypes from "./PaymentTypes";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -97,7 +97,7 @@ const Home = () => {
               <Button className="btn-click bg-orange" onClick={handleShow}>
                 <i className="fas fa-plus mx-1 "></i>Add Money
               </Button>
-              <FundWallet show={showModal} handleClose={handleClose} />
+              <PaymentTypes show={showModal} handleClose={handleClose} />
             </Card.Body>
           </Card>
         </Col>
@@ -131,13 +131,13 @@ const Home = () => {
         </Col>
       </Row>
 
-      <Card className="p-3 transaction-history-card">
+      <Card className="p-3 transaction-history-card card-pc-view">
         <h5>History</h5>
         <ListGroup variant="flush">
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <span>Description</span>
-            <span>Status</span>
-            <span>Date</span>
+            <span style={{paddingRight : "50px"}}>Status</span>
+            <span style={{paddingRight : "50px"}}>Date</span>
           </ListGroup.Item>
           {[
             {
@@ -165,6 +165,46 @@ const Home = () => {
                 {item.status}
               </span>
               <span>{item.date}</span>
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Card>
+
+      <Card className="p-3 transaction-history-card card-mob-view" style={{display : "none"}}>
+        <h5>History</h5>
+        <ListGroup variant="flush">
+          <ListGroup.Item className="d-flex justify-content-between align-items-center">
+            <span style={{fontSize : "12px"}}>Description</span>
+            <span style={{fontSize : "12px",paddingRight : "50px"}}>Status</span>
+            <span style={{fontSize : "12px"}}>Date</span>
+          </ListGroup.Item>
+          {[
+            {
+              description: "Free Pickup",
+              status: "Ongoing",
+              date: "Dec 30, 09:42 PM",
+            },
+            {
+              description: "Free Pickup",
+              status: "Successful",
+              date: "Dec 30, 09:42 PM",
+            },
+            // ...more items
+          ].map((item, index) => (
+            <ListGroup.Item
+              key={index}
+              className="d-flex justify-content-between align-items-center"
+            >
+              <span style={{fontSize : "12px"}}>{item.description}</span>
+              <span
+                className={
+                  item.status === "Ongoing" ? "text-warning" : "text-success"
+                }
+                style={{fontSize : "12px"}}
+              >
+                {item.status}
+              </span>
+              <span style={{fontSize : "12px"}}>{item.date}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>

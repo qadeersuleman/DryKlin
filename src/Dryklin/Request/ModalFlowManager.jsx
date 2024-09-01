@@ -31,9 +31,9 @@ const ModalFlowManager = ({ buttonText = "Request Pickup", buttonClass = "get-st
 
   return (
     <>
-      <Button className={buttonClass} onClick={startFlow}>
-        {buttonText} 
-        { ShowIcon && <i className='fas fa-arrow-right'></i>}
+      <Button className={buttonClass} onClick={startFlow} style={{fontSize : "10px"}}>
+        {buttonText}  
+        { ShowIcon && <i className='fas fa-arrow-right mx-1' style={{fontSize : "10px"}}></i>}
       </Button>
 
       {step === 1 && (
@@ -53,6 +53,7 @@ const ModalFlowManager = ({ buttonText = "Request Pickup", buttonClass = "get-st
       {step === 3 && (
         <RequestOrder 
           show={step === 3} 
+          handleNext={handleNext} 
           handleClose={handleClose} 
           pickupData={pickupData} 
           deliveryData={deliveryData}

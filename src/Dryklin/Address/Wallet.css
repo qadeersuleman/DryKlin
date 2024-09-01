@@ -291,4 +291,44 @@
   {
     display: none !important;
   }
+  .card-mob-view
+  {
+    display: block !important;
+  }
+  .card-pc-view
+  {
+    display: none !important;
+  }
+  .loc-mob-view , .loc-pc
+  {
+    display: none;
+
+  }
+  .loc-mob
+  {
+    display: block !important;
+  }
+  .account-mob-head
+  {
+    margin-bottom: 30px;
+  }
+  .btn-set-mob
+  {
+    border-color: #e86317;
+    color: #e86317;
+  }
+  .btn-set-mob:hover
+  {
+    color: #fff;
+  }
+  .mob-change-btn
+  {
+    font-size: 13px;
+  }
+}
+
+@media (min-width : 580px) {
+  .mobile-view{
+    display: none !important;
+  }
 }

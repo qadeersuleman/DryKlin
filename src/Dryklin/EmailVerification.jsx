@@ -5,7 +5,7 @@ import './SigninForm.css'; // Assuming you create this file for custom CSS
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import CustomNavbar from './CustomNavbar';
 const EmailVerification = () => {
   // State for countdown timer
   const [seconds, setSeconds] = useState(60);
@@ -96,11 +96,7 @@ const EmailVerification = () => {
 
   return (
     <>
-      <div className="top-bar">
-        <span>helpdesk@dryklin.com</span>
-        <span>234 700 000 9274</span>
-        <span>Customer Support</span>
-      </div>
+      <CustomNavbar />
       <Container fluid className="signup-container">
         <Row>
           <Col md={6} className="d-flex align-items-center justify-content-center img-container">
@@ -153,6 +149,49 @@ const EmailVerification = () => {
           </Col>
         </Row>
       </Container>
+
+      <Container className="forgot-mobile my-5 mx-1" style={{display : "none"}}>
+            <div className="form-heading">
+              <Link to="/">
+                <button style={{ border: 'none', backgroundColor: 'white' }}>
+                  <i className="fas fa-chevron-left pt-3"></i>
+                </button>
+              </Link>
+              <span className="mx-3 text-orange" style={{fontSize : "20px", fontWeight : "500"}}>Email Authentication</span>
+              
+              <p style={{fontSize : "13px"}} className='mt-3'>Enter the 6-digit code sent to the email address you provided below for verification</p>
+            </div>
+
+            <Form onSubmit={handleOtpVerification}>
+              <Form.Group controlId="formEmail">
+                <Form.Label className="input-labels">One Time Password</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter your OTP"
+                  className="input-data"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)} // Bind input to state
+                />
+              </Form.Group>
+
+              <Button variant="primary" type="submit" className="signup-button mt-5">
+                Verify
+              </Button>
+            </Form>
+
+            <p className="login-link">
+              Didn’t get the code?
+              {isTimerActive ? (
+                <span className="px-2 text-orange">
+                  Resend {`00:${seconds.toString().padStart(2, '0')}`}
+                </span>
+              ) : (
+                <Link to="/forgetpass" className="px-2" onClick={handleResendCode}>
+                  Resend Code
+                </Link>
+              )}
+            </p>
+          </Container>
       <ToastContainer />
     </>
   );

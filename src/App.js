@@ -23,6 +23,11 @@ import PrivacyPolicy from './Dryklin/PrivacyPolicy';
 import Faq from './Dryklin/Faq';
 import Profile from './Dryklin/Address/Profile';
 
+
+
+import ImageUpload from './Dryklin/New/ImageUpload';
+import ImageViewer from './Dryklin/New/ImageViewer';
+
 function App() {
   
 
@@ -30,6 +35,7 @@ function App() {
 
        <div>
         <Routes>
+        <Route path="/view/:imageName" element={<ImageViewer />} />
           <Route path="/" element={<Index />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/signin" element={<SigninForm />} />
@@ -46,8 +52,11 @@ function App() {
           <Route path='/customcare' element={<CustomCare />} />
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path='/imageupload' element={<ImageUpload />} />
+
           <Route path='*' element={<Page404 /> } />
         </Routes>
+
       </div>
   );
 }

@@ -35,11 +35,12 @@ const times = ['10AM - 12PM', '12PM - 2PM', '2PM - 4PM', '4PM - 6PM'];
 
 const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [location, setLocation] = useState('');
-  const [selectedDate, setSelectedDate] = useState('18');
+  const [selectedDate, setSelectedDate] = useState(''); // Initialize with an empty string
   const [selectedTime, setSelectedTime] = useState(times[0]);
   const [dates, setDates] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [errors, setErrors] = useState({}); // State for storing error messages
 
   useEffect(() => {
     setDates(generateUpcomingDates());
@@ -47,6 +48,20 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Reset errors
+    const newErrors = {};
+    if (!firstName) newErrors.firstName = 'First Name is required';
+    if (!lastName) newErrors.lastName = 'Last Name is required';
+    if (!location) newErrors.location = 'Location is required';
+    if (!selectedDate) newErrors.selectedDate = 'Date is required'; // Add date validation
+
+    // If there are errors, set the errors state and don't proceed
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     const data = {
       firstName,
       lastName,
@@ -78,7 +93,11 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="Enter first name"
               className="input-data"
+              isInvalid={!!errors.firstName} // Set isInvalid to true if there's an error
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.firstName}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Last Name */}
@@ -90,7 +109,11 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Enter last name"
               className="input-data"
+              isInvalid={!!errors.lastName} // Set isInvalid to true if there's an error
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.lastName}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Location Input */}
@@ -101,12 +124,16 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               className="input-data"
+              isInvalid={!!errors.location} // Set isInvalid to true if there's an error
             >
               <option value="" disabled>Select your location</option>
               {locations.map((loc, index) => (
                 <option key={index} value={loc}>{loc}</option>
               ))}
             </Form.Control>
+            <Form.Control.Feedback type="invalid">
+              {errors.location}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Save for Future Use */}
@@ -139,6 +166,10 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
                 </div>
               ))}
             </div>
+            {/* Error message for date selection */}
+            {errors.selectedDate && (
+              <div style={{ color: 'red', marginTop: '5px' }}>{errors.selectedDate}</div>
+            )}
           </div>
 
           {/* Time Slot Picker */}

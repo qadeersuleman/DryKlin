@@ -12,6 +12,7 @@ const RequestOrder = ({ show, handleNext, handleClose, deliveryOption, paymentOp
 
   const handleSelect = (option) => {
     setSelectedOption(option);
+    handleNext();
   };
 
   return (

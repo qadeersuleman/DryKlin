@@ -7,14 +7,14 @@ import { Col, Row, Card, Image } from "react-bootstrap";
 
 const testimonials = [
   {
-    image: "/girl.webp",
+    image: "/1.png",
     name: "Damilola Falodun",
     review:
       "DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!",
     rating: 5,
   },
   {
-    image: "/sa.jpg",
+    image: "/2.png",
     name: "Fu’ad Oladipupo",
     review:
       "DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!",
@@ -31,7 +31,7 @@ const NextArrow = (props) => {
       style={{ ...style }}
       onClick={onClick}
     >
-        <i className="fas fa-chevron-right"></i>
+      <i className="fas fa-chevron-right"></i>
     </div>
   );
 };
@@ -65,75 +65,88 @@ const Testimonials = () => {
       <div className="header">
         <div className="badge">1K+ HAPPY DRYKLIN USERS ⭐</div>
         <h2>
-          What People are <span className="highlight" style={ { color : "#e86317"} }>Saying</span> <span role="img" aria-label="smile">🥰</span>
+          What People are{" "}
+          <span className="highlight" style={{ color: "#e86317" }}>
+            Saying
+          </span>{" "}
+          <span role="img" aria-label="smile">
+            🥰
+          </span>
         </h2>
-        <p > Check out reviews and what people are saying about our services.</p>
+        <p> Check out reviews and what people are saying about our services.</p>
       </div>
       <div className="testimonial-slider">
-      <Slider {...settings} >
-        {testimonials.map((testimonial, index) => (
+        <Slider {...settings}>
+          {testimonials.map((testimonial, index) => (
             <div key={index} className="testimonial-slide">
-            <Row>
+              <Row>
                 <Col md={6}>
-                <img
+                  <img
                     src={testimonial.image}
                     alt={testimonial.name}
                     className="testimonial-image"
-                    style={ {maxHeight : "200px"}}
-                />
+                    style={{ maxHeight: "200px" }}
+                  />
                 </Col>
                 <Col md={6}>
-                <div className="testimonial-content">
-              <div className="stars">
-                {"⭐".repeat(testimonial.rating)}
-              </div>
-              <p className="review-text">{testimonial.review}</p>
-              <strong>- {testimonial.name}</strong>
-            </div>
-
+                  <div className="testimonial-content">
+                    <div className="stars">
+                      {"⭐".repeat(testimonial.rating)}
+                    </div>
+                    <p className="review-text">{testimonial.review}</p>
+                    <strong>- {testimonial.name}</strong>
+                  </div>
                 </Col>
-            </Row>
-                      </div>
-        ))}
-      </Slider>
+              </Row>
+            </div>
+          ))}
+        </Slider>
       </div>
-      <div className="testimonial-mobile" style={{display : "none"}}>
-      <Card className="text-center p-3 testimonial-card">
-      <Image 
-        src="./girl.webp" 
-        roundedCircle 
-        className="mx-auto mb-3 testimonial-image"
-      />
-      <div className="star-rating mb-2">
-        {[...Array(5)].map((_, i) => (
-          <span key={i} className="text-orange">&#9733;</span>
-        ))}
-      </div>
-      <Card.Text className="testimonial-text">
-        DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!
-      </Card.Text>
-      <Card.Text className="testimonial-author font-weight-bold">
-        - Mazeedat Afape
-      </Card.Text>
-    </Card> 
-    <Card className="text-center p-3 testimonial-card">
-      <Image 
-        src="./sa.jpg" 
-        roundedCircle 
-        className="mx-auto mb-3 testimonial-image"
-      />
-      <div className="star-rating mb-2">
-        {[...Array(5)].map((_, i) => (
-          <span key={i} className="text-orange">&#9733;</span>
-        ))}
-      </div>
-      <Card.Text className="testimonial-text">
-        DryKlin has been a game-changer for me! Their pick-up and delivery service is so convenient. My clothes have never looked and felt cleaner!
-      </Card.Text>
-      <Card.Text className="testimonial-author font-weight-bold">
-        - Fu'ad Oladipupo
-      </Card.Text>
-    </Card> 
+      <div className="testimonial-mobile" style={{ display: "none" }}>
+        <Card className="text-center p-3 testimonial-card">
+          <Image
+            src="./1.png"
+            roundedCircle
+            className="mx-auto mb-3 testimonial-image"
+          />
+          <div className="star-rating mb-2">
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className="text-orange">
+                &#9733;
+              </span>
+            ))}
+          </div>
+          <Card.Text className="testimonial-text">
+            DryKlin has been a game-changer for me! Their pick-up and delivery
+            service is so convenient. My clothes have never looked and felt
+            cleaner!
+          </Card.Text>
+          <Card.Text className="testimonial-author font-weight-bold">
+            - Mazeedat Afape
+          </Card.Text>
+        </Card>
+        <Card className="text-center p-3 testimonial-card">
+          <Image
+            src="./2.png"
+            roundedCircle
+            className="mx-auto mb-3 testimonial-image"
+          />
+          <div className="star-rating mb-2">
+            {[...Array(5)].map((_, i) => (
+              <span key={i} className="text-orange">
+                &#9733;
+              </span>
+            ))}
+          </div>
+          <Card.Text className="testimonial-text">
+            DryKlin has been a game-changer for me! Their pick-up and delivery
+            service is so convenient. My clothes have never looked and felt
+            cleaner!
+          </Card.Text>
+          <Card.Text className="testimonial-author font-weight-bold">
+            - Fu'ad Oladipupo
+          </Card.Text>
+        </Card>
       </div>
     </div>
   );

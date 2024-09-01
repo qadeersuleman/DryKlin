@@ -25,6 +25,7 @@ import { Container } from "react-bootstrap";
                     fontSize="14px" // Adjust font size
                     fontWeight="normal" // Adjust font weight if needed
                     backgroundColor="white"
+                    color="black"
                   >
                     <Box as="span" flex="1" textAlign="left">
                       {faq.question}
@@ -35,7 +36,7 @@ import { Container } from "react-bootstrap";
                     />
                   </AccordionButton>
                 </h2>
-                <AccordionPanel pb={4} fontSize="12px">{faq.answer}</AccordionPanel>
+                <AccordionPanel pb={4} fontSize="12px" color="black">{faq.answer}</AccordionPanel>
                 <hr/>
               </>
               

@@ -1,0 +1,30 @@
+/* styles.css */
+.upload-placeholder {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+  }
+  
+  .image-thumbnails {
+    display: flex;
+    margin-top: 10px;
+  }
+  
+  .image-thumbnail {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .image-thumbnail img {
+    object-fit: cover;
+  }
+  
+  .image-viewer img {
+    object-fit: contain;
+  }
+  

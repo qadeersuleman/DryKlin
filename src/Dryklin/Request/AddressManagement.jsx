@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Container, Card, Row, Col } from "react-bootstrap";
 import Address from "../Address/Address"
 import axios from "axios"
+import { Link } from "react-router-dom";
 const AddressManagement = () => {
   // Here we manage to get Addresses from django
   const [addresses, setAddresses] = useState([]);
@@ -11,7 +12,7 @@ const AddressManagement = () => {
     const fetchAddresses = async () => {
       if (user && user.email) {
         try {
-          const response = await axios.get('http://127.0.0.1:8000/api/addresses/', {
+          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/', {
             params: { email: user.email },
           });
           setAddresses(response.data.addresses);
@@ -37,10 +38,16 @@ const AddressManagement = () => {
   const handleClose = () => setShowModal(false);
   return (
     <>
+      <div className="d-flex mx-5 my-4">
+      <Link to="/">
+                <button style={{ border: "none" }} className="bg-light">
+                  <i className="fas fa-chevron-left pt-3"></i>
+                </button>
+              </Link>
+              
+              <h2 className="text-center text-orange my-3 mx-3 fs-6">Address Management</h2>
+      </div>
       <Row className="my-3">
-        <Col className="d-flex align-items-center" >
-          <h4 className="mb-0 mx-4 respo-text">Addres Management</h4>
-        </Col>
         <div className="col-auto">
           <Button variant="outline-warning mx-3 respo-btn btn1" onClick={handleShow}>
             <i className="fas fa-plus" /> Add New Address
