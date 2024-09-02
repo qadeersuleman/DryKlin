@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button, Card } from "react-bootstrap";
 import axios from "axios";
 
-const FundWallet = ({ show, handleClose }) => {
+const FundWallet = ({ show, handleClose, refresh }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [showCopyNotification, setShowCopyNotification] = useState(false);
 
@@ -23,8 +23,10 @@ const FundWallet = ({ show, handleClose }) => {
       }
     };
 
-    fetchUserProfile();
-  }, []);
+    if (show) {
+      fetchUserProfile(); // Fetch user profile only when the modal is shown
+    }
+  }, [refresh, show]); // Add refresh and show as dependencies to trigger refetch
 
   // For Copying
   const copyToClipboard = () => {
@@ -91,26 +93,24 @@ const FundWallet = ({ show, handleClose }) => {
                 >
                   {userProfile.virtual_account_number}
                 </h1>
-                {/* Display the notification when showCopyNotification is true */}
-                
-              </div>  
+              </div>
               {showCopyNotification && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "-0px", // Position it above the span
-                      left: "80%",
-                      transform: "translateX(-50%)",
-                      backgroundColor: "#ff6b00", // Your color choice
-                      color: "white",
-                      padding: "4px 4px",
-                      borderRadius: "4px",
-                      fontSize: "10px",
-                    }}
-                  >
-                    Text copied!
-                  </div>
-                )}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-0px",
+                    left: "80%",
+                    transform: "translateX(-50%)",
+                    backgroundColor: "#ff6b00",
+                    color: "white",
+                    padding: "4px 4px",
+                    borderRadius: "4px",
+                    fontSize: "10px",
+                  }}
+                >
+                  Text copied!
+                </div>
+              )}
             </Card.Body>
           </Card>
         ) : (
@@ -119,7 +119,7 @@ const FundWallet = ({ show, handleClose }) => {
         <Button
           type="submit"
           className="signup-button mt-2 bg-orange"
-          onClick={handleClose} // This closes the modal
+          onClick={handleClose}
         >
           <i className="fab fa-internet-explorer px-3"></i>
           Pay Online

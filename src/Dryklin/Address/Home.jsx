@@ -1,13 +1,15 @@
 import ModalFlowManager from "../Request/ModalFlowManager";
-import { Button, Row, Col, Card, ListGroup } from "react-bootstrap";
+import { Button, Row, Col, Card, ListGroup, Modal, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PaymentTypes from "./PaymentTypes";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showLocationModal, setShowLocationModal] = useState(false);
   const [user, setUser] = useState(null);
   const [walletBalance, setWalletBalance] = useState(0);
+  const [showBalance, setShowBalance] = useState(false);  // State to toggle balance visibility
 
   // Fetch user data from localStorage once when component mounts
   useEffect(() => {
@@ -57,6 +59,15 @@ const Home = () => {
   // Function to close the modal
   const handleClose = () => setShowModal(false);
 
+  // Function to toggle wallet balance visibility
+  const toggleBalanceVisibility = () => setShowBalance(!showBalance);
+
+  // Function to open the location change modal
+  const handleLocationShow = () => setShowLocationModal(true);
+
+  // Function to close the location change modal
+  const handleLocationClose = () => setShowLocationModal(false);
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center p-3 wallet-main mt-3">
@@ -90,9 +101,16 @@ const Home = () => {
             <Card.Body className="d-flex justify-content-between align-items-center">
               <div>
                 <span className="balance-type">
-                  Wallet Balance <i className="fas fa-eye-slash"></i>
+                  Wallet Balance{" "}
+                  <i 
+                    className={`fas ${showBalance ? "fa-eye-slash" : "fa-eye"}`}
+                    onClick={toggleBalanceVisibility}
+                    style={{ cursor: "pointer" }}
+                  ></i>
                 </span>
-                <h3>₦{walletBalance}</h3> {/* Display wallet balance dynamically */}
+                <h3 className="py-2">
+                  {showBalance ? `₦${walletBalance}` : '*******'} {/* Toggle balance visibility */}
+                </h3>
               </div>
               <Button className="btn-click bg-orange" onClick={handleShow}>
                 <i className="fas fa-plus mx-1 "></i>Add Money
@@ -117,7 +135,8 @@ const Home = () => {
                     </p>
                     <p
                       className="text-orange balance-type"
-                      style={{ marginTop: "-15px", marginBottom: "0px" }}
+                      style={{ marginTop: "-15px", marginBottom: "0px", cursor: "pointer" }}
+                      onClick={handleLocationShow}
                     >
                       Change Locations
                     </p>
@@ -131,13 +150,35 @@ const Home = () => {
         </Col>
       </Row>
 
+      {/* Modal for changing location */}
+      <Modal show={showLocationModal} onHide={handleLocationClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Location</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {/* Add form or content to change location */}
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>New Location</Form.Label>
+              <Form.Control type="text" value={"Ibadan Oyo State"} placeholder="Enter new location" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          
+          <Button className="bg-orange" style={{border : "none"}} onClick={handleLocationClose}>
+            Save Location
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Card className="p-3 transaction-history-card card-pc-view">
         <h5>History</h5>
         <ListGroup variant="flush">
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <span>Description</span>
-            <span style={{paddingRight : "50px"}}>Status</span>
-            <span style={{paddingRight : "50px"}}>Date</span>
+            <span style={{ paddingRight: "50px" }}>Status</span>
+            <span style={{ paddingRight: "50px" }}>Date</span>
           </ListGroup.Item>
           {[
             {
@@ -170,13 +211,13 @@ const Home = () => {
         </ListGroup>
       </Card>
 
-      <Card className="p-3 transaction-history-card card-mob-view" style={{display : "none"}}>
+      <Card className="p-3 transaction-history-card card-mob-view" style={{ display: "none" }}>
         <h5>History</h5>
         <ListGroup variant="flush">
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
-            <span style={{fontSize : "12px"}}>Description</span>
-            <span style={{fontSize : "12px",paddingRight : "50px"}}>Status</span>
-            <span style={{fontSize : "12px"}}>Date</span>
+            <span style={{ fontSize: "12px" }}>Description</span>
+            <span style={{ fontSize: "12px", paddingRight: "50px" }}>Status</span>
+            <span style={{ fontSize: "12px" }}>Date</span>
           </ListGroup.Item>
           {[
             {
@@ -195,16 +236,16 @@ const Home = () => {
               key={index}
               className="d-flex justify-content-between align-items-center"
             >
-              <span style={{fontSize : "12px"}}>{item.description}</span>
+              <span style={{ fontSize: "12px" }}>{item.description}</span>
               <span
                 className={
                   item.status === "Ongoing" ? "text-warning" : "text-success"
                 }
-                style={{fontSize : "12px"}}
+                style={{ fontSize: "12px" }}
               >
                 {item.status}
               </span>
-              <span style={{fontSize : "12px"}}>{item.date}</span>
+              <span style={{ fontSize: "12px" }}>{item.date}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>

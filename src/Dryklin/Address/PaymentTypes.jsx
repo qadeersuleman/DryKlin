@@ -4,14 +4,25 @@ import axios from "axios";
 import "./PaymentTypes.css";
 import FundWallet from "./FundWallet";
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';;
+import 'react-toastify/dist/ReactToastify.css';
+
+import QRPaymentModal from "../Payments/QRPaymentModal";
+import CardPaymentModal from "../Payments/CardPaymentModal";
+import USSDPaymentModal from "../Payments/USSDPaymentModal";
 
 const PaymentTypes = ({ show, handleClose }) => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
   const [selectedOption, setSelectedOption] = useState("Card");
   const [user, setUser] = useState(null);
-  const [accountDetails, setAccountDetails] = useState(null);
+  const [refresh, setRefresh] = useState(false); // Add state for refresh trigger
+
+  const [showCardModal, setShowCardModal] = useState(false);
+  const [showBankModal, setShowBankModal] = useState(false);
+  const [showUSSDModal, setShowUSSDModal] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
+
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -30,14 +41,12 @@ const PaymentTypes = ({ show, handleClose }) => {
 
   const New = async () => {
     setLoading(true); // Start loading when request begins
-    if (selectedOption === "Bank Transfer") {
-      try {
-        // Request CSRF token from Django backend
+    try {
+      if (selectedOption === "Bank Transfer") {
+        // Handle Bank Transfer
         const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/");
         const csrfToken = csrfResponse.data.csrfToken;
-        console.warn("CSRF Token:", csrfToken);
 
-        // Example formData to send (replace with actual data you need to send)
         const formData = {
           email: user.email,
           first_name: user.first_name,
@@ -45,34 +54,39 @@ const PaymentTypes = ({ show, handleClose }) => {
           number: user.phone_number,
         };
         const formDataJson = JSON.stringify(formData);
-        console.warn("Form Data:", formDataJson);
 
-        // Send bank transfer request to Django backend
         const response = await axios.post(
           "https://dryklin-e853d5ecea30.herokuapp.com/api/create-virtual-account/",
           formDataJson,
           {
             headers: {
               "Content-Type": "application/json",
-              "X-CSRFToken": csrfToken, // Include CSRF token in headers
+              "X-CSRFToken": csrfToken,
             },
           }
         );
 
-        setAccountDetails(response.data.data);
-        console.warn("Bank Transfer Response:", accountDetails);
-        alert("Bank transfer initiated successfully.");
+        setRefresh(!refresh); // Toggle refresh state to trigger data refetch
         setShowPaymentModal(true); // Open the FundWallet modal
         handleClose(); // Close the PaymentTypes modal
-      
-        
-      } catch (error) {
-        console.error("Error initiating bank transfer:", error);
-        alert("Failed to initiate bank transfer. Please try again.");
+
+      } else if (selectedOption === "USSD") {
+        // Handle USSD logic
+        handleClose();
+        setShowUSSDModal(true);
+
+      } else if (selectedOption === "QR Code") {
+        // Handle QR Code logic
+        handleClose();
+        setShowQRModal(true)
+
+      } else {
+        handleClose()
+        setShowCardModal(true)
       }
-    } else {
-      // If any other option is selected, just proceed with alert and close modal
-      alert(`Proceed with ${selectedOption}`);
+    } catch (error) {
+      console.error("Error during payment processing:", error);
+      alert("Failed to process payment. Please try again.");
     }
     setLoading(false); // Stop loading when request is complete
   };
@@ -127,6 +141,7 @@ const PaymentTypes = ({ show, handleClose }) => {
               </div>
             </Form.Group>
 
+            {/* New USSD Option */}
             <Form.Group className="my-2">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
@@ -143,6 +158,7 @@ const PaymentTypes = ({ show, handleClose }) => {
               </div>
             </Form.Group>
 
+            {/* New QR Code Option */}
             <Form.Group className="my-2">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
@@ -159,24 +175,29 @@ const PaymentTypes = ({ show, handleClose }) => {
               </div>
             </Form.Group>
           </Form>
-
-          {loading ? ( // Conditionally render spinner or button
-            <div className="d-flex justify-content-center mt-5">
-              <Spinner animation="border" className="text-orange" />
-            </div>
-          ) : (
-            <Button className="w-100 mt-3 mt-5 Payment-Type-btn" onClick={New}>
-              Proceed to pay
-            </Button>
-          )}
+          <Button
+            className="signup-button bg-orange"
+            onClick={New}
+            disabled={loading} // Disable button during loading
+          >
+            {loading ? (
+              <>
+                <Spinner animation="border" size="sm" className="text-white"/> Processing...
+              </>
+            ) : (
+              "Continue"
+            )}
+          </Button>
         </Modal.Body>
       </Modal>
-
-      {/* FundWallet Modal */}
       <FundWallet
         show={showPaymentModal}
         handleClose={handleClosePaymentModal}
+        refresh={refresh} // Pass refresh state to FundWallet
       />
+      <QRPaymentModal show={showQRModal} handleClose={() => setShowQRModal(false)} />
+      <CardPaymentModal show={showCardModal} handleClose={() => setShowCardModal(false)} />
+      <USSDPaymentModal show={showUSSDModal} handleClose={() => setShowUSSDModal(false)} />
     </>
   );
 };

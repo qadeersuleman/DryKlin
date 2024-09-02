@@ -141,13 +141,18 @@ const Address = ({ show, handleClose }) => {
             </ListGroup>
           </Form.Group>
         </Modal.Body>
+        <div className='btn-pc-view'>
         <Button 
           className="Request-button bg-orange" 
           onClick={handleRequestPickup}
-          style={{fontSize : "14px"}}
+          style={{fontSize : "14px", paddingInline : "120px"}}
         >
           Request Pickup
         </Button>
+        </div>
+        <div className='btn-mob-view' style={{display : "none"}}>
+
+        </div>
       </Container>
     </Modal>
   );
