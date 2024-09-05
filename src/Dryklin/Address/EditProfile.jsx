@@ -3,13 +3,6 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';;
-const locations = [
-  'Ibadan, Nigeria',
-  'Los Angeles, CA',
-  'Chicago, IL',
-  'Houston, TX',
-  'Phoenix, AZ'
-];
 
 const EditProfile = ({ show, handleNext, handleClose }) => {
   const [location, setLocation] = useState('');
