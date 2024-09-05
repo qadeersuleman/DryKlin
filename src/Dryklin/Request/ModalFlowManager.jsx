@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import RequestPickup from './RequestPickup';
 import RequestDelivery from './RequestDelivery';
 import RequestOrder from './RequestOrder';
 import RequestSuccess from './RequestSuccess';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-const ModalFlowManager = ({ buttonText = "Request Pickup", buttonClass = "get-started-btn px-3", ShowIcon = true }) => {
+const ModalFlowManager = ({ 
+  buttonText = "Request Pickup", 
+  buttonClass = "get-started-btn px-3", 
+  ShowIcon = true,
+  fontSize = "10px"
+}) => {
   const [step, setStep] = useState(0);
   const [pickupData, setPickupData] = useState({});
   const [deliveryData, setDeliveryData] = useState({});
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const startFlow = () => {
     setStep(1); // Start from the first modal (RequestPickup)
@@ -29,42 +45,52 @@ const ModalFlowManager = ({ buttonText = "Request Pickup", buttonClass = "get-st
     setDeliveryData({});
   };
 
+  const showNotLoggedInAlert = () => {
+    Swal.fire({
+      title: 'Not Logged In',
+      text: 'You need to sign in to continue!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sign In',
+      cancelButtonText: 'Cancel',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate('/signin'); // Redirect to your sign-in page
+      }
+    });
+  };
+
   return (
     <>
-      <Button className={buttonClass} onClick={startFlow} style={{fontSize : "10px"}}>
-        {buttonText}  
-        { ShowIcon && <i className='fas fa-arrow-right mx-1' style={{fontSize : "10px"}}></i>}
-      </Button>
+      {user ? (
+        <Button className={buttonClass} onClick={startFlow} style={{ fontSize }}>
+          {buttonText}
+          {ShowIcon && <i className="fas fa-arrow-right mx-1" style={{ fontSize }}></i>}
+        </Button>
+      ) : (
+        <Button className={buttonClass} onClick={showNotLoggedInAlert} style={{ fontSize }}>
+          {buttonText}
+          {ShowIcon && <i className="fas fa-arrow-right mx-1" style={{ fontSize }}></i>}
+        </Button>
+      )}
 
       {step === 1 && (
-        <RequestPickup 
-          show={step === 1} 
-          handleNext={handleNext} 
-          handleClose={handleClose} 
-        />
+        <RequestPickup show={step === 1} handleNext={handleNext} handleClose={handleClose} />
       )}
       {step === 2 && (
-        <RequestDelivery 
-          show={step === 2} 
-          handleNext={handleNext} 
-          handleClose={handleClose} 
-        />
+        <RequestDelivery show={step === 2} handleNext={handleNext} handleClose={handleClose} />
       )}
       {step === 3 && (
-        <RequestOrder 
-          show={step === 3} 
-          handleNext={handleNext} 
-          handleClose={handleClose} 
-          pickupData={pickupData} 
+        <RequestOrder
+          show={step === 3}
+          handleNext={handleNext}
+          handleClose={handleClose}
+          pickupData={pickupData}
           deliveryData={deliveryData}
         />
       )}
-      {step === 4 && (
-        <RequestSuccess 
-          show={step === 4} 
-          handleClose={handleClose} 
-        />
-      )}
+      {step === 4 && <RequestSuccess show={step === 4} handleClose={handleClose} />}
     </>
   );
 };

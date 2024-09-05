@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-
-const locations = [
-  'New York, NY',
-  'Los Angeles, CA',
-  'Chicago, IL',
-  'Houston, TX',
-  'Phoenix, AZ'
-];
+import axios from 'axios';
 
 const getDayName = (date) => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -18,7 +11,7 @@ const generateUpcomingDates = () => {
   const dates = [];
   const today = new Date();
 
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 7; i++) {
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + i);
 
@@ -34,6 +27,7 @@ const generateUpcomingDates = () => {
 const times = ['10AM - 12PM', '12PM - 2PM', '2PM - 4PM', '4PM - 6PM'];
 
 const RequestPickup = ({ show, handleNext, handleClose }) => {
+  const [addresses, setAddresses] = useState([]);
   const [location, setLocation] = useState('');
   const [selectedDate, setSelectedDate] = useState(''); // Initialize with an empty string
   const [selectedTime, setSelectedTime] = useState(times[0]);
@@ -41,6 +35,30 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [errors, setErrors] = useState({}); // State for storing error messages
+  const user = JSON.parse(localStorage.getItem('user'));
+
+
+  // Through this get addresses
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      if (user && user.email) {
+        try {
+          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/', {
+            params: { email: user.email },
+          });
+          setAddresses(response.data.addresses);
+        } catch (error) {
+          console.error('Error fetching addresses:', error.response ? error.response.data : error.message);
+        }
+      } else {
+        console.error('User data not found in localStorage.');
+      }
+    };
+
+    fetchAddresses();
+  }, [user]);
+
+
 
   useEffect(() => {
     setDates(generateUpcomingDates());
@@ -51,9 +69,9 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
     // Reset errors
     const newErrors = {};
-    if (!firstName) newErrors.firstName = 'First Name is required';
-    if (!lastName) newErrors.lastName = 'Last Name is required';
-    if (!location) newErrors.location = 'Location is required';
+    if (firstName === null) newErrors.firstName = 'First Name is required';
+    if (lastName === null) newErrors.lastName = 'Last Name is required';
+    if (location === null) newErrors.location = 'Location is required';
     if (!selectedDate) newErrors.selectedDate = 'Date is required'; // Add date validation
 
     // If there are errors, set the errors state and don't proceed
@@ -89,7 +107,7 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
             <Form.Label className="input-labels">First Name</Form.Label>
             <Form.Control
               type="text"
-              value={firstName}
+              value={user.first_name}
               onChange={(e) => setFirstName(e.target.value)}
               placeholder="Enter first name"
               className="input-data"
@@ -105,7 +123,7 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
             <Form.Label className="input-labels">Last Name</Form.Label>
             <Form.Control
               type="text"
-              value={lastName}
+              value={user.last_name}
               onChange={(e) => setLastName(e.target.value)}
               placeholder="Enter last name"
               className="input-data"
@@ -121,14 +139,14 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
             <Form.Label className="input-labels">City, State</Form.Label>
             <Form.Control
               as="select"
-              value={location}
+              value={addresses}
               onChange={(e) => setLocation(e.target.value)}
               className="input-data"
               isInvalid={!!errors.location} // Set isInvalid to true if there's an error
             >
               <option value="" disabled>Select your location</option>
-              {locations.map((loc, index) => (
-                <option key={index} value={loc}>{loc}</option>
+              {addresses.map((address, index) => (
+                <option key={index} value={address.address}>{address.address}</option>
               ))}
             </Form.Control>
             <Form.Control.Feedback type="invalid">

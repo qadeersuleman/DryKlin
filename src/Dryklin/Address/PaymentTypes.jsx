@@ -3,7 +3,7 @@ import { Modal, Button, Form, Spinner } from "react-bootstrap"; // Import Spinne
 import axios from "axios";
 import "./PaymentTypes.css";
 import FundWallet from "./FundWallet";
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import QRPaymentModal from "../Payments/QRPaymentModal";
@@ -18,7 +18,7 @@ const PaymentTypes = ({ show, handleClose }) => {
   const [refresh, setRefresh] = useState(false); // Add state for refresh trigger
 
   const [showCardModal, setShowCardModal] = useState(false);
-  const [showBankModal, setShowBankModal] = useState(false);
+  // const [showBankModal, setShowBankModal] = useState(false);
   const [showUSSDModal, setShowUSSDModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
 
@@ -65,7 +65,7 @@ const PaymentTypes = ({ show, handleClose }) => {
             },
           }
         );
-
+        console.warn(response)
         setRefresh(!refresh); // Toggle refresh state to trigger data refetch
         setShowPaymentModal(true); // Open the FundWallet modal
         handleClose(); // Close the PaymentTypes modal

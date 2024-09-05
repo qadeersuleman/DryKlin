@@ -16,7 +16,6 @@ import ForgotPassword from './Dryklin/ForgotPassword';
 
 import Page404 from "./Dryklin/Page404"
 import BillingModal from './Dryklin/BillingModal';
-import MyForm from './MyForm';
 import TermsAndConditions from './Dryklin/TermsAndConditions';
 import CustomCare from "./Dryklin/CustomerCare"
 import PrivacyPolicy from './Dryklin/PrivacyPolicy';
@@ -29,7 +28,7 @@ import ImageUpload from './Dryklin/New/ImageUpload';
 import ImageViewer from './Dryklin/New/ImageViewer';
 
 function App() {
-  
+ 
 
   return (
 

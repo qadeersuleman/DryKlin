@@ -6,18 +6,18 @@ import ModalFlowManager from "./Request/ModalFlowManager";
 
 const PriceCalculator = () => {
   const [items, setItems] = useState([
-    { id: 1, name: "Shirt/Blouse", price: 1000, quantity: 1 },
-    { id: 2, name: "Pant Trouser", price: 1200, quantity: 1 },
-    { id: 3, name: "Shorts/Skirts", price: 1000, quantity: 1 },
-    { id: 4, name: "Jean Trouser", price: 1000, quantity: 1 },
-    { id: 5, name: "Sweatshirt", price: 1200, quantity: 1 },
-    { id: 6, name: "Iro and Buba", price: 1500, quantity: 1 },
-    { id: 1, name: "Shirt/Blouse", price: 1000, quantity: 1 },
-    { id: 2, name: "Pant Trouser", price: 1200, quantity: 1 },
-    { id: 3, name: "Shorts/Skirts", price: 1000, quantity: 1 },
-    { id: 4, name: "Jean Trouser", price: 1000, quantity: 1 },
-    { id: 5, name: "Sweatshirt", price: 1200, quantity: 1 },
-    { id: 6, name: "Iro and Buba", price: 1500, quantity: 1 },
+    { id: 1, name: "Shirt/Blouse", price: 1000, quantity: 0 },
+    { id: 2, name: "Pant Trouser", price: 1200, quantity: 0 },
+    { id: 3, name: "Shorts/Skirts", price: 1000, quantity: 0 },
+    { id: 4, name: "Jean Trouser", price: 1000, quantity: 0 },
+    { id: 5, name: "Sweatshirt", price: 1200, quantity: 0 },
+    { id: 6, name: "Iro and Buba", price: 1500, quantity: 0 },
+    { id: 1, name: "Shirt/Blouse", price: 1000, quantity: 0 },
+    { id: 2, name: "Pant Trouser", price: 1200, quantity: 0 },
+    { id: 3, name: "Shorts/Skirts", price: 1000, quantity: 0 },
+    { id: 4, name: "Jean Trouser", price: 1000, quantity: 0 },
+    { id: 5, name: "Sweatshirt", price: 1200, quantity: 0 },
+    { id: 6, name: "Iro and Buba", price: 1500, quantity: 0 },
   ]);
 
   const deliveryFee = 1000;
@@ -109,6 +109,7 @@ const PriceCalculator = () => {
             buttonText="Proceed to wash "
             buttonClass="proceed-btn mt-4"
             ShowIcon ={false}
+            fontSize = "18px"
           />
         </Col>
       </Row>
