@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button, Container, Card } from "react-bootstrap";
+import { Button, Container, Card, Alert } from "react-bootstrap";
 import EditProfile from "./EditProfile";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import "./Wallet.css";
-import CustomNavbar from "../CustomNavbar";
+import Swal from 'sweetalert2';
+
 
 const Profile = () => {
   const fileInputRef = useRef(null);
@@ -12,6 +13,7 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [csrfToken, setCsrfToken] = useState('');
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false); // New state for success alert
   const baseUrl = "https://dryklin-e853d5ecea30.herokuapp.com"; // Adjust accordingly
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const Profile = () => {
       const formData = new FormData();
       formData.append('profile_image', file);
       formData.append('email', user.email);
-
+  
       try {
         const response = await axios.post(`${baseUrl}/api/upload-profile-image/`, formData, {
           headers: {
@@ -52,8 +54,7 @@ const Profile = () => {
             "X-CSRFToken": csrfToken,
           },
         });
-        console.log('Image uploaded successfully:', response.data);
-
+  
         if (response.data.profile_image_url) {
           const updatedProfileImageUrl = `${baseUrl}${response.data.profile_image_url}`;
           setProfileImageUrl(updatedProfileImageUrl); // Update profile image URL
@@ -62,12 +63,24 @@ const Profile = () => {
           const updatedUser = { ...user, profile_image: response.data.profile_image_url };
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
+  
+          // Display success alert using SweetAlert
+          Swal.fire({
+            title: 'Success!',
+            text: 'Profile image uploaded successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+          });
         }
       } catch (error) {
         console.error('Error uploading image:', error);
       }
     }
   };
+  
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
@@ -155,6 +168,15 @@ const Profile = () => {
           </Card.Body>
         </Card>
       </Container>
+
+      {/* Success Alert */}
+      {showSuccessAlert && (
+        <div className="alert-wrapper">
+          <Alert variant="success" className="text-center">
+            Profile image updated successfully!
+          </Alert>
+        </div>
+      )}
     </>
   );
 };

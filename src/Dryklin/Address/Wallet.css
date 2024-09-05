@@ -354,3 +354,14 @@
 .profile-image-wrapper:hover .camera-icon-overlay {
   opacity: 1;
 }
+
+
+
+/* THat is for alert style */
+.alert-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}

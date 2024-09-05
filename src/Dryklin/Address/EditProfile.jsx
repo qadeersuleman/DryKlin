@@ -14,6 +14,8 @@ const locations = [
 const EditProfile = ({ show, handleNext, handleClose }) => {
   const [location, setLocation] = useState('');
   const [user, setUser] = useState(null);
+  const [addresses, setAddresses] = useState([]);
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -22,6 +24,26 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
       console.warn(storedUser);
     }
   }, []);
+
+   // Through this get addresses
+   useEffect(() => {
+    const fetchAddresses = async () => {
+      if (user && user.email) {
+        try {
+          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/', {
+            params: { email: user.email },
+          });
+          setAddresses(response.data.addresses);
+        } catch (error) {
+          console.error('Error fetching addresses:', error.response ? error.response.data : error.message);
+        }
+      } else {
+        console.error('User data not found in localStorage.');
+      }
+    };
+
+    fetchAddresses();
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -165,8 +187,8 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
               className="input-data"
             >
               <option value="" disabled>Select your location</option>
-              {locations.map((loc, index) => (
-                <option key={index} value={loc}>{loc}</option>
+              {addresses.map((address, index) => (
+                <option key={index} value={address.address}>{address.address}</option>
               ))}
             </Form.Control>
           </Form.Group>

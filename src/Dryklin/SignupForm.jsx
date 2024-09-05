@@ -33,14 +33,14 @@ const SignupForm = () => {
   };
 
   const validateForm = () => {
-    const errors = {};
-    if (!formData.email.includes("@")) {
-      errors.email = "Please enter a valid email address.";
-    }
-    if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = "Passwords do not match.";
-    }
-    return errors;
+    const newErrors = {};
+    if (!formData.first_name) newErrors.first_name = "First Name is required";
+    if (!formData.last_name) newErrors.last_name = "Last Name is required";
+    if (!formData.email.includes("@")) newErrors.email = "Please enter a valid email address.";
+    if (!formData.phone_number) newErrors.phone_number = "Phone number is required.";
+    if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters long.";
+    if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
@@ -154,7 +154,11 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.first_name}
                 onChange={handleChange}
+                isInvalid={!!errors.first_name}
               />
+              <Form.Control.Feedback type="invalid">
+                  {errors.first_name}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formLastName">
@@ -166,7 +170,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.last_name}
                 onChange={handleChange}
+                isInvalid={!!errors.last_name}
+                
               />
+              <Form.Control.Feedback type="invalid">
+                  {errors.last_name}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formCityState">
@@ -191,8 +200,11 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.email}
                 onChange={handleChange}
+                isInvalid={!!errors.email}
               />
-              {errors.email && <p className="error-text">{errors.email}</p>}
+              <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formPhoneNumber">
@@ -204,11 +216,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.phone_number}
                 onChange={handleChange}
-              />
-              {errors.phoneNumber && (
-                <p className="error-text">{errors.phoneNumber}</p>
-              )}
-            </Form.Group>
+                isInvalid={!!errors.phone_number}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.phone_number}
+                  </Form.Control.Feedback>
+              </Form.Group>
 
             <Form.Group controlId="formPassword">
               <Form.Label className="input-labels">Create Password</Form.Label>
@@ -219,11 +232,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.password}
                 onChange={handleChange}
-              />
-              {errors.password && (
-                <p className="error-text">{errors.password}</p>
-              )}
-            </Form.Group>
+                isInvalid={!!errors.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+              </Form.Group>
 
             <Form.Group controlId="formConfirmPassword">
               <Form.Label className="input-labels">Confirm Password</Form.Label>
@@ -234,26 +248,20 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-              />
-              {errors.confirmPassword && (
-                <p className="error-text">{errors.confirmPassword}</p>
-              )}
-            </Form.Group>
-            {/* {  show ? 
-            <Alert variant="warning" onClose={() => setShow(false)} dismissible className="py-5">
-              <Alert.Heading>Warning!</Alert.Heading>
-                <p>
-                  This is a warning alert—checkn.
-                </p>
-              </Alert> 
-             : "" 
-            } */}
+                isInvalid={!!errors.confirmPassword}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.confirmPassword}
+                  </Form.Control.Feedback>
+              </Form.Group>
   
             <Form.Group controlId="formTerms">
               <Form.Check
                 type="checkbox"
+                style={{fontSize : "13px", marginBlock :"10px" }}
                 label={
                   <>
+                  
                     By clicking on 'Proceed', you agree to{" "}
                     <span style={{ color: "#e86317" }}>
                       <b>our Terms of Use</b>
@@ -305,8 +313,11 @@ const SignupForm = () => {
                 placeholder="Enter first name"
                 className="input-data"
                 value={formData.first_name}
-                onChange={handleChange}
+                isInvalid={!!errors.first_name}
               />
+              <Form.Control.Feedback type="invalid">
+                  {errors.first_name}
+                </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formLastName">
@@ -318,8 +329,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.last_name}
                 onChange={handleChange}
-              />
-            </Form.Group>
+                isInvalid={!!errors.last_name}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.last_name}
+                  </Form.Control.Feedback>
+              </Form.Group>
 
             <Form.Group controlId="formCityState">
               <Form.Label className="input-labels">City, State</Form.Label>
@@ -343,9 +358,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.email}
                 onChange={handleChange}
-              />
-              {errors.email && <p className="error-text">{errors.email}</p>}
-            </Form.Group>
+                isInvalid={!!errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.email}
+                  </Form.Control.Feedback>
+              </Form.Group>
 
             <Form.Group controlId="formPhoneNumber">
               <Form.Label className="input-labels">Phone Number</Form.Label>
@@ -356,11 +374,13 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.phone_number}
                 onChange={handleChange}
-              />
-              {errors.phoneNumber && (
-                <p className="error-text">{errors.phoneNumber}</p>
-              )}
-            </Form.Group>
+                isInvalid={!!errors.phone_number}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.phone_number}
+                  </Form.Control.Feedback>
+              </Form.Group>
+
 
             <Form.Group controlId="formPassword">
               <Form.Label className="input-labels">Create Password</Form.Label>
@@ -371,11 +391,13 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.password}
                 onChange={handleChange}
-              />
-              {errors.password && (
-                <p className="error-text">{errors.password}</p>
-              )}
-            </Form.Group>
+                isInvalid={!!errors.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.password}
+                  </Form.Control.Feedback>
+              </Form.Group>
+
 
             <Form.Group controlId="formConfirmPassword">
               <Form.Label className="input-labels">Confirm Password</Form.Label>
@@ -386,11 +408,12 @@ const SignupForm = () => {
                 className="input-data"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-              />
-              {errors.confirmPassword && (
-                <p className="error-text">{errors.confirmPassword}</p>
-              )}
-            </Form.Group>
+                isInvalid={!!errors.confirmPassword}
+                />
+                <Form.Control.Feedback type="invalid">
+                    {errors.confirmPassword}
+                  </Form.Control.Feedback>
+              </Form.Group>
             {/* {  show ? 
             <Alert variant="warning" onClose={() => setShow(false)} dismissible className="py-5">
               <Alert.Heading>Warning!</Alert.Heading>

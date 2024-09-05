@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, NavDropdown, Image, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import './Navbar.css'; // Import your custom CSS for styling
 
 const CustomNavbar = () => {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate(); // Correctly invoke useNavigate
+  const navigate = useNavigate();
 
   // Fetch user data from localStorage once when component mounts
   useEffect(() => {
@@ -22,8 +23,16 @@ const CustomNavbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove the token from localStorage
     localStorage.removeItem('user'); // Remove the user data from localStorage
-    alert('User Successfully Logged out');  
-    navigate('/signin'); // Redirect to the login page
+    Swal.fire({
+      title: 'Success!',
+      text: 'User Logout Successfully!',
+      icon: 'success',
+      confirmButtonText: 'OK',
+      timer: 3000,
+      timerProgressBar: true,
+      showConfirmButton: true,
+    });
+    navigate('/signin');
   };
 
   return (
@@ -35,23 +44,22 @@ const CustomNavbar = () => {
       </div>
       <div className="top-bar mobile-view" style={{ display: 'none' }}>
         <span style={{ fontSize: '11px' }}>helpdesk@dryklin.com</span>
-        <span style={{ fontSize: '11px' }} className='mx-3'>234 700 000 9274</span>
+        <span style={{ fontSize: '11px' }} className="mx-3">
+          234 700 000 9274
+        </span>
         <span style={{ fontSize: '11px' }}>Customer Support</span>
       </div>
       <Navbar expand="lg" className="custom-navbar">
         <Container>
           <Navbar.Brand href="#home" className="navbar-logo">
-            <Image
-              src="./Dryklin/PNGS/12.png"
-              style={{ width: '80px', height: '20px' }}
-            />
+            <Image src="./Dryklin/PNGS/12.png" style={{ width: '80px', height: '20px' }} />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
-              <Nav.Link href="/" className='nav-item'>Home</Nav.Link>
-              <Nav.Link href="/aboutus" className='nav-item'>About Us</Nav.Link>
-              <Nav.Link href="/contactus" className='nav-item'>Contact Us</Nav.Link>
+              <Nav.Link href="/" className="nav-item">Home</Nav.Link>
+              <Nav.Link href="/aboutus" className="nav-item">About Us</Nav.Link>
+              <Nav.Link href="/contactus" className="nav-item">Contact Us</Nav.Link>
             </Nav>
             <Nav className="ml-auto profile-dropdown">
               <NavDropdown
@@ -70,15 +78,35 @@ const CustomNavbar = () => {
                 <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
                 <NavDropdown.Divider />
                 {user ? (
-                  <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleLogout}>
+                    <i className="fas fa-sign-out-alt"></i> Logout
+                  </NavDropdown.Item>
                 ) : (
-                  <NavDropdown.Item href="/signin">Login</NavDropdown.Item>
+                  <NavDropdown.Item href="/signin">
+                    <i className="fas fa-sign-in-alt"></i> Login
+                  </NavDropdown.Item>
                 )}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      {/* Static Bar for Not Logged-in Users */}
+      {!user && (
+        <Navbar fixed="bottom" bg="dark" variant="dark" className="justify-content-center">
+        <Container className="d-flex justify-content-center align-items-center" style={{ height: '60px' }}>
+          <Navbar.Text className="text-center" style={{ color: 'white' }}>
+            <i className="fas fa-user-circle mx-2"></i> Please{' '}
+            <Link to="/signup" style={{ color: '#ffc107', textDecoration: 'none' }}>
+             SignUp
+            </Link>{' '}
+            to access full features.
+          </Navbar.Text>
+        </Container>
+      </Navbar>
+      
+      )}
     </>
   );
 };
