@@ -13,11 +13,12 @@ import USSDPaymentModal from "../Payments/USSDPaymentModal";
 const PaymentTypes = ({ show, handleClose }) => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
-  const [selectedOption, setSelectedOption] = useState("Card");
+  // const [selectedOption, setSelectedOption] = useState("Card");
   const [user, setUser] = useState(null);
   const [refresh, setRefresh] = useState(false); // Add state for refresh trigger
 
   const [showCardModal, setShowCardModal] = useState(false);
+  const [amount, setAmount] = useState("")
   // const [showBankModal, setShowBankModal] = useState(false);
   const [showUSSDModal, setShowUSSDModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
@@ -31,9 +32,9 @@ const PaymentTypes = ({ show, handleClose }) => {
     }
   }, []);
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
-  };
+  // const handleOptionChange = (e) => {
+  //   setSelectedOption(e.target.value);
+  // };
 
   const handleClosePaymentModal = () => {
     setShowPaymentModal(false);
@@ -42,7 +43,7 @@ const PaymentTypes = ({ show, handleClose }) => {
   const New = async () => {
     setLoading(true); // Start loading when request begins
     try {
-      if (selectedOption === "Bank Transfer") {
+      // if (selectedOption === "Bank Transfer") {
         // Handle Bank Transfer
         const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/");
         const csrfToken = csrfResponse.data.csrfToken;
@@ -70,20 +71,20 @@ const PaymentTypes = ({ show, handleClose }) => {
         setShowPaymentModal(true); // Open the FundWallet modal
         handleClose(); // Close the PaymentTypes modal
 
-      } else if (selectedOption === "USSD") {
-        // Handle USSD logic
-        handleClose();
-        setShowUSSDModal(true);
+    //   } else if (selectedOption === "USSD") {
+    //     // Handle USSD logic
+    //     handleClose();
+    //     setShowUSSDModal(true);
 
-      } else if (selectedOption === "QR Code") {
-        // Handle QR Code logic
-        handleClose();
-        setShowQRModal(true)
+    //   } else if (selectedOption === "QR Code") {
+    //     // Handle QR Code logic
+    //     handleClose();
+    //     setShowQRModal(true)
 
-      } else {
-        handleClose()
-        setShowCardModal(true)
-      }
+    //   } else {
+    //     handleClose()
+    //     setShowCardModal(true)
+    //   }
     } catch (error) {
       console.error("Error during payment processing:", error);
       alert("Failed to process payment. Please try again.");
@@ -109,7 +110,7 @@ const PaymentTypes = ({ show, handleClose }) => {
             <p>Choose your preferred means to pay online.</p>
           </div>
           <Form>
-            <Form.Group>
+            {/* <Form.Group>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
                   <i className="fas fa-credit-card"></i>
@@ -123,9 +124,9 @@ const PaymentTypes = ({ show, handleClose }) => {
                   onChange={handleOptionChange}
                 />
               </div>
-            </Form.Group>
+            </Form.Group> */}
 
-            <Form.Group className="my-2">
+            {/* <Form.Group className="my-2">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
                   <i className="fas fa-university"></i>
@@ -139,10 +140,10 @@ const PaymentTypes = ({ show, handleClose }) => {
                   onChange={handleOptionChange}
                 />
               </div>
-            </Form.Group>
+            </Form.Group> */}
 
             {/* New USSD Option */}
-            <Form.Group className="my-2">
+            {/* <Form.Group className="my-2">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
                   <i className="fas fa-mobile-alt"></i>
@@ -156,10 +157,10 @@ const PaymentTypes = ({ show, handleClose }) => {
                   onChange={handleOptionChange}
                 />
               </div>
-            </Form.Group>
+            </Form.Group> */}
 
             {/* New QR Code Option */}
-            <Form.Group className="my-2">
+            {/* <Form.Group className="my-2">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
                   <i className="fas fa-qrcode"></i>
@@ -173,8 +174,19 @@ const PaymentTypes = ({ show, handleClose }) => {
                   onChange={handleOptionChange}
                 />
               </div>
-            </Form.Group>
+            </Form.Group> */}
+            <Form.Group controlId="formAmount" className="my-5">
+                <Form.Label>Amount</Form.Label>
+                <Form.Control
+                  type="number"
+                  placeholder="Enter Amount"
+                  className="contact-input"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </Form.Group>
           </Form>
+          
           <Button
             className="signup-button bg-orange"
             onClick={New}
@@ -185,7 +197,7 @@ const PaymentTypes = ({ show, handleClose }) => {
                 <Spinner animation="border" size="sm" className="text-white"/> Processing...
               </>
             ) : (
-              "Continue"
+              "Pay Now"
             )}
           </Button>
         </Modal.Body>
@@ -194,6 +206,7 @@ const PaymentTypes = ({ show, handleClose }) => {
         show={showPaymentModal}
         handleClose={handleClosePaymentModal}
         refresh={refresh} // Pass refresh state to FundWallet
+        amount={amount}
       />
       <QRPaymentModal show={showQRModal} handleClose={() => setShowQRModal(false)} />
       <CardPaymentModal show={showCardModal} handleClose={() => setShowCardModal(false)} />

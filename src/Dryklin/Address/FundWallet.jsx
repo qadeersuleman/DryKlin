@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Card } from "react-bootstrap";
+import { Modal, Button, Card, Spinner } from "react-bootstrap";
 import axios from "axios";
 
-const FundWallet = ({ show, handleClose, refresh }) => {
+const FundWallet = ({ show, handleClose, refresh, amount }) => {
   const [userProfile, setUserProfile] = useState(null);
   const [showCopyNotification, setShowCopyNotification] = useState(false);
+  const [loading, setLoading] = useState(false); // Add loading state
 
+  // That is for payment gateway
+  
+  const [paymentUrl, setPaymentUrl] = useState("");
+  const [paymentRef, setPaymentRef] = useState("");
+  
   // Fetch user profile data from Django backend
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -22,7 +28,7 @@ const FundWallet = ({ show, handleClose, refresh }) => {
         }
       }
     };
-
+    
     if (show) {
       fetchUserProfile(); // Fetch user profile only when the modal is shown
     }
@@ -49,6 +55,65 @@ const FundWallet = ({ show, handleClose, refresh }) => {
     // Hide the copy notification after 2 seconds
     setTimeout(() => setShowCopyNotification(false), 2000);
   };
+ 
+  const PayOnline = async () =>
+  {
+    setLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      alert("User not logged in!");
+      return;
+    }
+    try {
+      const csrfResponse = await axios.get(
+        "https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/"
+      );
+      const csrfToken = csrfResponse.data.csrfToken;
+
+      const response = await axios.post(
+        "https://dryklin-e853d5ecea30.herokuapp.com/initiate-payment/",
+        { amount: amount, email: user.email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        }
+      );
+
+      setPaymentUrl(response.data.payment_url);
+      setPaymentRef(response.data.reference); // Store the payment reference
+    } catch (error) {
+      console.error("Payment initiation failed:", error);
+    }
+    handleClose()
+    setLoading(false);
+  }
+
+
+const verifyPayment = async (reference) => {
+  try {
+    const response = await axios.post(
+      "https://dryklin-e853d5ecea30.herokuapp.com/paystack/verify-payment/",
+      { reference: reference },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (response.data.message) {
+      alert("Payment verified and transaction saved!");
+      // You can also update the wallet UI or redirect user after verification
+    } else {
+      alert("Payment verification failed: " + response.data.error);
+    }
+  } catch (error) {
+    console.error("Payment verification failed:", error);
+  }
+}
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -119,11 +184,39 @@ const FundWallet = ({ show, handleClose, refresh }) => {
         <Button
           type="submit"
           className="signup-button mt-2 bg-orange"
-          onClick={handleClose}
+          onClick={PayOnline}
         >
-          <i className="fab fa-internet-explorer px-3"></i>
-          Pay Online
+          
+          {loading ? (
+              <>
+                <Spinner animation="border" size="sm" className="text-white"/> Processing...
+              </>
+            ) : (
+              <>
+              <i className="fab fa-internet-explorer px-3"></i>
+                Pay Online
+              </>
+            )}
         </Button>
+
+        {paymentUrl && (
+        <div>
+          <p>Redirecting to payment...</p>
+          {/* Redirect to Paystack and then verify payment */}
+          {setTimeout(() => {
+            window.location.href = paymentUrl;
+          }, 3000)}
+        </div>
+      )}
+
+
+        {paymentRef && (
+        <div>
+          <button onClick={() => verifyPayment(paymentRef)}>
+            Verify Payment
+          </button>
+        </div>
+      )}
       </Modal.Body>
     </Modal>
   );

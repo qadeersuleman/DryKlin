@@ -4,8 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./SignupForm.css";
 import CustomNavbar from "./CustomNavbar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';;
+import Swal from 'sweetalert2';
 
 const SignupForm = () => {
   const navigate = useNavigate()
@@ -76,38 +75,42 @@ const SignupForm = () => {
   
         // Check response status instead of response.ok
         if (response.status === 200 && response.data.success) {
-          toast.success('User Created Successfully', {
-            position: 'top-center', // Use string 'top-center' here
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            onClose: () => navigate("/"),
+          Swal.fire({
+            title: 'Success!',
+            text: 'Account Registered Successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            willClose : () => {
+              navigate("/")
+            }
           });
+          
         } else {
-          toast.error('Failed to submit the form. Please try again.', {
-            position: 'top-center',
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
+          Swal.fire({
+            title: 'error!',
+            text: 'Failed to Submit the Form!',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
             
           });
         }
         } catch (error) {
-            toast.error('An error occurred. Please try again later.', {
-                position: 'top-center',
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-            });
+          Swal.fire({
+            title: 'Error!',
+            text: 'Internal Server Issue!',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            
+          });
         }
     }
 };
@@ -313,6 +316,7 @@ const SignupForm = () => {
                 placeholder="Enter first name"
                 className="input-data"
                 value={formData.first_name}
+                onChange={handleChange}
                 isInvalid={!!errors.first_name}
               />
               <Form.Control.Feedback type="invalid">
@@ -456,7 +460,6 @@ const SignupForm = () => {
             Already have an account? <Link to="/signin">Log In</Link>
           </p>
     </Container>
-    <ToastContainer />
     </>
   );
 };

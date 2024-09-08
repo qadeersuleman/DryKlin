@@ -27,12 +27,18 @@ import Profile from './Dryklin/Address/Profile';
 import ImageUpload from './Dryklin/New/ImageUpload';
 import ImageViewer from './Dryklin/New/ImageViewer';
 
+import AddToWallet from './Dryklin/Payments/AddToWallet';
+
+
+import PaymentSuccess from './Dryklin/Address/PaymentSuccess';
+
 function App() {
  
 
   return (
 
        <div>
+        {/* <AddToWallet />  */}
         <Routes>
         <Route path="/view/:imageName" element={<ImageViewer />} />
           <Route path="/" element={<Index />} />
@@ -52,6 +58,12 @@ function App() {
           <Route path='/privacy' element={<PrivacyPolicy />} />
           <Route path="/faq" element={<Faq />} />
           <Route path='/imageupload' element={<ImageUpload />} />
+
+
+          {/* Wnadoo */}
+
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+
 
           <Route path='*' element={<Page404 /> } />
         </Routes>

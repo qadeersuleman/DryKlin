@@ -17,8 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"; // Import axios for HTTP requests
 import CustomNavbar from "./CustomNavbar";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';;
+import Swal from "sweetalert2";
 
 
 const SigninForm = () => {
@@ -94,38 +93,41 @@ const SigninForm = () => {
   
         // Check response status instead of response.ok
         if (response.status === 200 && response.data.success) {
-          toast.success('Successfully Logged In!', {
-            position: 'top-center', // Use string 'top-center' here
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: false,
-            progress: undefined,
-            onClose: () => navigate("/"),
+          Swal.fire({
+            title: 'Success!',
+            text: 'User Logged in Successfully!',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
+            willClose : () => {
+              navigate("/")
+            }
           });
         } else {
-          toast.error(response.data.message || 'Failed to submit the form. Please try again.', {
-            position: 'top-center',
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
+          Swal.fire({
+            title: 'error!',
+            text: 'Failed to Submit the Form!',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: true,
             
           });
         }
       } catch (error) {
         console.error("Error during form submission:", error);
-        toast.error('An error occurred. Please try again later.', {
-          position: 'top-center',
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
+        Swal.fire({
+          title: 'Error!',
+          text: 'Failed to Submit the Form!',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          timer: 3000,
+          timerProgressBar: true,
+          showConfirmButton: true,
+          
         });
       }
     }
@@ -478,9 +480,6 @@ const SigninForm = () => {
               Don't have an account? <Link to="/signup">Sign Up</Link>
             </p>
           </Container>
-
-
-      <ToastContainer />
     </>
   );
 };

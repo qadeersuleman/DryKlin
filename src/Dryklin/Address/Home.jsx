@@ -29,17 +29,14 @@ const Home = () => {
           });
   
           console.log('API Response:', response.data);
-  
-          if (response.data && response.data.wallet) {
-            const walletData = response.data.wallet;
-  
-            // Check if walletData is an array and has elements
-            if (Array.isArray(walletData) && walletData.length > 0) {
-              setWalletBalance(walletData[0].balance);  // Adjust based on actual data structure
-            } else {
-              console.error('No wallet data available for this user.');
-            }
-          } else {
+
+if (response.data && response.data.wallet) {
+  const walletData = response.data.wallet;  // Directly use the wallet amount
+
+  // Set the wallet balance directly, since walletData is not an array
+  setWalletBalance(walletData);  
+} 
+           else {
             console.error('Unexpected response structure:', response.data);
           }
         } catch (error) {
