@@ -69,7 +69,7 @@ const SigninForm = () => {
         const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/");
         const csrfToken = csrfResponse.data.csrfToken;
         console.warn("CSRF Token:", csrfToken);
-        console.warn("Form Data:", formData);
+        
   
         // Convert formData to JSON if it's not already
         const formDataJson = JSON.stringify(formData);

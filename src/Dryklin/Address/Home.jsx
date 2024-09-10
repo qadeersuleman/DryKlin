@@ -1,5 +1,13 @@
 import ModalFlowManager from "../Request/ModalFlowManager";
-import { Button, Row, Col, Card, ListGroup, Modal, Form } from "react-bootstrap";
+import {
+  Button,
+  Row,
+  Col,
+  Card,
+  ListGroup,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PaymentTypes from "./PaymentTypes";
@@ -9,7 +17,8 @@ const Home = () => {
   const [showLocationModal, setShowLocationModal] = useState(false);
   const [user, setUser] = useState(null);
   const [walletBalance, setWalletBalance] = useState(0);
-  const [showBalance, setShowBalance] = useState(false);  // State to toggle balance visibility
+  const [showBalance, setShowBalance] = useState(false); // State to toggle balance visibility
+  const [orders, setOrders] = useState([]);
 
   // Fetch user data from localStorage once when component mounts
   useEffect(() => {
@@ -19,35 +28,42 @@ const Home = () => {
     }
   }, []);
 
-  // Fetch wallet data if user exists
+  // Fetch wallet and order data if user exists
   useEffect(() => {
-    const fetchWalletData = async () => {
+    const fetchWalletAndOrderData = async () => {
       if (user && user.email) {
         try {
-          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/wallet/', {
-            params: { email: user.email },
-          });
-  
+          const response = await axios.get(
+            'https://dryklin-e853d5ecea30.herokuapp.com/api/wallet/',  // Make sure it's pointing to your Django server
+            {
+              params: { email: user.email },
+            }
+          );
+
           console.log('API Response:', response.data);
 
-if (response.data && response.data.wallet) {
-  const walletData = response.data.wallet;  // Directly use the wallet amount
-
-  // Set the wallet balance directly, since walletData is not an array
-  setWalletBalance(walletData);  
-} 
-           else {
-            console.error('Unexpected response structure:', response.data);
+          // Set wallet balance
+          if (response.data && response.data.wallet) {
+            setWalletBalance(response.data.wallet);
           }
+
+          // Set orders data
+          if (response.data && response.data.orders) {
+            setOrders(response.data.orders);
+          }
+
         } catch (error) {
-          console.error('Error fetching wallet data:', error.response ? error.response.data : error.message);
+          console.error(
+            'Error fetching wallet and order data:',
+            error.response ? error.response.data : error.message
+          );
         }
       } else {
         console.error('User data not found in localStorage.');
       }
     };
-  
-    fetchWalletData();
+
+    fetchWalletAndOrderData();
   }, [user]);
 
   // Function to open the modal
@@ -64,6 +80,30 @@ if (response.data && response.data.wallet) {
 
   // Function to close the location change modal
   const handleLocationClose = () => setShowLocationModal(false);
+
+
+  // Formating Data
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+
+  // Function to format time like '04:30 AM'
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
+  // Function to capitalize the first letter of delivery type
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   return (
     <>
@@ -99,14 +139,15 @@ if (response.data && response.data.wallet) {
               <div>
                 <span className="balance-type">
                   Wallet Balance{" "}
-                  <i 
+                  <i
                     className={`fas ${showBalance ? "fa-eye-slash" : "fa-eye"}`}
                     onClick={toggleBalanceVisibility}
                     style={{ cursor: "pointer" }}
                   ></i>
                 </span>
                 <h3 className="py-2">
-                  {showBalance ? `₦${walletBalance}` : '*******'} {/* Toggle balance visibility */}
+                  {showBalance ? `₦${walletBalance}` : "*******"}{" "}
+                  {/* Toggle balance visibility */}
                 </h3>
               </div>
               <Button className="btn-click bg-orange" onClick={handleShow}>
@@ -132,7 +173,11 @@ if (response.data && response.data.wallet) {
                     </p>
                     <p
                       className="text-orange balance-type"
-                      style={{ marginTop: "-15px", marginBottom: "0px", cursor: "pointer" }}
+                      style={{
+                        marginTop: "-15px",
+                        marginBottom: "0px",
+                        cursor: "pointer",
+                      }}
                       onClick={handleLocationShow}
                     >
                       Change Locations
@@ -157,13 +202,20 @@ if (response.data && response.data.wallet) {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>New Location</Form.Label>
-              <Form.Control type="text" value={"Ibadan Oyo State"} placeholder="Enter new location" />
+              <Form.Control
+                type="text"
+                value={"Ibadan Oyo State"}
+                placeholder="Enter new location"
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          
-          <Button className="bg-orange" style={{border : "none"}} onClick={handleLocationClose}>
+          <Button
+            className="bg-orange"
+            style={{ border: "none" }}
+            onClick={handleLocationClose}
+          >
             Save Location
           </Button>
         </Modal.Footer>
@@ -177,72 +229,58 @@ if (response.data && response.data.wallet) {
             <span style={{ paddingRight: "50px" }}>Status</span>
             <span style={{ paddingRight: "50px" }}>Date</span>
           </ListGroup.Item>
-          {[
-            {
-              description: "Free Pickup",
-              status: "Ongoing",
-              date: "Dec 30, 09:42 PM",
-            },
-            {
-              description: "Free Pickup",
-              status: "Successful",
-              date: "Dec 30, 09:42 PM",
-            },
-            // ...more items
-          ].map((item, index) => (
+          {
+          orders.map((item, index) => (
             <ListGroup.Item
               key={index}
               className="d-flex justify-content-between align-items-center"
             >
-              <span>{item.description}</span>
+              <span >{capitalizeFirstLetter(item.delivery_type)}</span>
               <span
                 className={
-                  item.status === "Ongoing" ? "text-warning" : "text-success"
+                  item.is_completed ? "text-success" : "text-warning"
+                  
                 }
               >
-                {item.status}
+                {
+                  item.is_completed ? "Successfull" : "Ongoing"
+                }
               </span>
-              <span>{item.date}</span>
+              <span>{formatDate(item.created_at)}-{formatTime(item.created_at)}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>
       </Card>
 
-      <Card className="p-3 transaction-history-card card-mob-view" style={{ display: "none" }}>
+      <Card
+        className="p-3 transaction-history-card card-mob-view"
+        style={{ display: "none" }}
+      >
         <h5>History</h5>
         <ListGroup variant="flush">
           <ListGroup.Item className="d-flex justify-content-between align-items-center">
             <span style={{ fontSize: "12px" }}>Description</span>
-            <span style={{ fontSize: "12px", paddingRight: "50px" }}>Status</span>
+            <span style={{ fontSize: "12px", paddingRight: "50px" }}>
+              Status
+            </span>
             <span style={{ fontSize: "12px" }}>Date</span>
           </ListGroup.Item>
-          {[
-            {
-              description: "Free Pickup",
-              status: "Ongoing",
-              date: "Dec 30, 09:42 PM",
-            },
-            {
-              description: "Free Pickup",
-              status: "Successful",
-              date: "Dec 30, 09:42 PM",
-            },
-            // ...more items
-          ].map((item, index) => (
+          {
+          orders.map((item, index) => (
             <ListGroup.Item
               key={index}
               className="d-flex justify-content-between align-items-center"
             >
-              <span style={{ fontSize: "12px" }}>{item.description}</span>
+              <span style={{ fontSize: "12px" }}>{capitalizeFirstLetter(item.delivery_type)}</span>
               <span
                 className={
-                  item.status === "Ongoing" ? "text-warning" : "text-success"
+                  item.is_completed ? "text-success" : "text-warning"
                 }
                 style={{ fontSize: "12px" }}
               >
-                {item.status}
+                {item.is_completed ? "Successfull" : "Ongoing"}
               </span>
-              <span style={{ fontSize: "12px" }}>{item.date}</span>
+              <span style={{ fontSize: "12px" }}>{formatDate(item.created_at)}-{formatTime(item.created_at)}</span>
             </ListGroup.Item>
           ))}
         </ListGroup>

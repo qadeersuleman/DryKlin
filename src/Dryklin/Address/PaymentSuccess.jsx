@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom"; // Use react-router for getting query params
+import { useEffect, useCallback } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -8,17 +8,11 @@ const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const reference = searchParams.get("reference"); // Get the reference from the URL
 
-  useEffect(() => {
-    if (reference) {
-      // Verify the payment when the user lands on this page
-      verifyPayment(reference);
-    }
-  }, [reference]);
-
-  const verifyPayment = async (reference) => {
+  // Wrapping verifyPayment in useCallback to avoid unnecessary re-renders and dependency issues
+  const verifyPayment = useCallback(async (reference) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/paystack/verify-payment/",
+        "https://dryklin-e853d5ecea30.herokuapp.com/paystack/verify-payment/",
         { reference: reference },
         {
           headers: {
@@ -26,23 +20,24 @@ const PaymentSuccess = () => {
           },
         }
       );
+
       if (response.data.message) {
         Swal.fire({
           title: "Success!",
-          text: "Payment Recieved Successfully!",
+          text: "Payment Received Successfully!",
           icon: "success",
           confirmButtonText: "OK",
           timer: 3000,
           timerProgressBar: true,
           showConfirmButton: true,
           willClose: () => {
-            navigate("/");
+            navigate("/wallet"); 
           },
         });
       } else {
         Swal.fire({
-          title: "error!",
-          text: "Failed to Submit the Form!",
+          title: "Error!",
+          text: "Failed to verify payment!",
           icon: "error",
           confirmButtonText: "OK",
           timer: 3000,
@@ -61,9 +56,15 @@ const PaymentSuccess = () => {
         showConfirmButton: true,
       });
     }
-  };
+  }, [navigate]);
 
-  return <></>;
+  useEffect(() => {
+    if (reference) {
+      verifyPayment(reference); // Call verifyPayment when the reference is available
+    }
+  }, [reference, verifyPayment]);
+
+  return null; // This component doesn't return any visible elements
 };
 
 export default PaymentSuccess;

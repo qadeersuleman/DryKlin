@@ -11,13 +11,16 @@ const ModalFlowManager = ({
   buttonText = "Request Pickup", 
   buttonClass = "get-started-btn px-3", 
   ShowIcon = true,
-  fontSize = "10px"
+  fontSize = "10px",
+  selectedItems = [], 
+  total = 0,
+  orderData = {} // Accept orderData as a prop
 }) => {
   const [step, setStep] = useState(0);
   const [pickupData, setPickupData] = useState({});
   const [deliveryData, setDeliveryData] = useState({});
   const [user, setUser] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -26,14 +29,13 @@ const ModalFlowManager = ({
         setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error('Error parsing user data:', error);
-        // Optionally, you can remove the invalid data from localStorage
         localStorage.removeItem('user');
       }
     }
   }, []);
 
   const startFlow = () => {
-    setStep(1); // Start from the first modal (RequestPickup)
+    setStep(1);
   };
 
   const handleNext = (data) => {
@@ -46,7 +48,7 @@ const ModalFlowManager = ({
   };
 
   const handleClose = () => {
-    setStep(0); // Close all modals and reset the flow
+    setStep(0);
     setPickupData({});
     setDeliveryData({});
   };
@@ -62,7 +64,7 @@ const ModalFlowManager = ({
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {
-        navigate('/signin'); // Redirect to your sign-in page
+        navigate('/signin');
       }
     });
   };
@@ -94,6 +96,9 @@ const ModalFlowManager = ({
           handleClose={handleClose}
           pickupData={pickupData}
           deliveryData={deliveryData}
+          selectedItems={selectedItems}
+          total={total}
+          orderData={orderData} // Pass orderData to RequestOrder
         />
       )}
       {step === 4 && <RequestSuccess show={step === 4} handleClose={handleClose} />}

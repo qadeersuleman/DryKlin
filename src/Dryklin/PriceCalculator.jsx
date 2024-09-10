@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import "./PriceCalculator.css"; // Custom CSS for styling
-
-import ModalFlowManager from "./Request/ModalFlowManager";
+import React, { useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import ModalFlowManager from './Request/ModalFlowManager';
+import "./PriceCalculator.css";
 
 const PriceCalculator = () => {
   const [items, setItems] = useState([
@@ -12,12 +11,12 @@ const PriceCalculator = () => {
     { id: 4, name: "Jean Trouser", price: 1000, quantity: 0 },
     { id: 5, name: "Sweatshirt", price: 1200, quantity: 0 },
     { id: 6, name: "Iro and Buba", price: 1500, quantity: 0 },
-    { id: 1, name: "Shirt/Blouse", price: 1000, quantity: 0 },
-    { id: 2, name: "Pant Trouser", price: 1200, quantity: 0 },
-    { id: 3, name: "Shorts/Skirts", price: 1000, quantity: 0 },
-    { id: 4, name: "Jean Trouser", price: 1000, quantity: 0 },
-    { id: 5, name: "Sweatshirt", price: 1200, quantity: 0 },
-    { id: 6, name: "Iro and Buba", price: 1500, quantity: 0 },
+    { id: 7, name: "Shirt/Blouse", price: 1000, quantity: 0 },
+    { id: 8, name: "Pant Trouser", price: 1200, quantity: 0 },
+    { id: 9, name: "Shorts/Skirts", price: 1000, quantity: 0 },
+    { id: 10, name: "Jean Trouser", price: 1000, quantity: 0 },
+    { id: 11, name: "Sweatshirt", price: 1200, quantity: 0 },
+    { id: 12, name: "Iro and Buba", price: 1500, quantity: 0 },
   ]);
 
   const deliveryFee = 1000;
@@ -44,9 +43,19 @@ const PriceCalculator = () => {
   );
   const total = subTotal + deliveryFee;
 
+  const selectedItems = items.filter((item) => item.quantity > 0);
+  console.warn(selectedItems)
+
+  const orderData = {
+    subTotal,
+    deliveryFee,
+    serviceCharge: 500,
+    total,
+  };
+
   return (
     <Container className="price-calculator mt-5">
-      <Row className="justify-content-center text-center mb-4">
+       <Row className="justify-content-center text-center mb-4">
         <Col md={12}>
           <h3 className="text-center">
             Price <span className="text-orange">Calculator</span>
@@ -102,19 +111,22 @@ const PriceCalculator = () => {
             <span className="text-orange">Terms of Use</span> and{" "}
             <span className="text-orange">Privacy Policy</span>.
           </p>
-          {/* <Button className=" proceed-btn" onClick={handleRequestPickupClick}>Proceed to was </Button>
-                    {showFlow && <Washbnt openFlow={showFlow} />} */}
-
-          <ModalFlowManager
-            buttonText="Proceed to wash "
-            buttonClass="proceed-btn mt-4"
-            ShowIcon ={false}
-            fontSize = "18px"
-          />
-        </Col>
+      <ModalFlowManager
+        buttonText="Proceed to wash"
+        buttonClass="proceed-btn mt-4"
+        ShowIcon={false}
+        fontSize="18px"
+        selectedItems={selectedItems}
+        total={total}
+        orderData={orderData} // Pass orderData here
+      />
+      </Col>
       </Row>
     </Container>
   );
 };
 
 export default PriceCalculator;
+
+
+
