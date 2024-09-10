@@ -69,6 +69,9 @@ const Profile = () => {
             title: 'Success!',
             text: 'Profile image uploaded successfully!',
             icon: 'success',
+            customClass: {
+              popup: 'my-swal',
+            },
             confirmButtonText: 'OK',
             timer: 3000,
             timerProgressBar: true,

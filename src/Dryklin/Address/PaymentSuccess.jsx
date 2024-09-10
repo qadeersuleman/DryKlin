@@ -2,30 +2,35 @@ import { useEffect, useCallback } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import "./Wallet.css"
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const reference = searchParams.get("reference"); // Get the reference from the URL
+  const data = localStorage.getItem("online")
 
   // Wrapping verifyPayment in useCallback to avoid unnecessary re-renders and dependency issues
   const verifyPayment = useCallback(async (reference) => {
     try {
       const response = await axios.post(
         "https://dryklin-e853d5ecea30.herokuapp.com/paystack/verify-payment/",
-        { reference: reference },
+        { reference: reference , data : data},
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
+      localStorage.removeItem('online');
 
       if (response.data.message) {
         Swal.fire({
           title: "Success!",
           text: "Payment Received Successfully!",
           icon: "success",
+          customClass: {
+            popup: 'my-swal',
+          },
           confirmButtonText: "OK",
           timer: 3000,
           timerProgressBar: true,

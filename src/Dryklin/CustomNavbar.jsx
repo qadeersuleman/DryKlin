@@ -25,14 +25,19 @@ const CustomNavbar = () => {
     localStorage.removeItem('user'); // Remove the user data from localStorage
     Swal.fire({
       title: 'Success!',
-      text: 'User Logout Successfully!',
+      text: 'User Logged in Successfully!',
       icon: 'success',
+      customClass: {
+        popup: 'my-swal',
+      },
       confirmButtonText: 'OK',
       timer: 3000,
       timerProgressBar: true,
       showConfirmButton: true,
+      willClose: () => {
+        navigate('/signin');
+      }
     });
-    navigate('/signin');
   };
 
   return (

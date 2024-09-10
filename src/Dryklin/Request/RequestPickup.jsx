@@ -141,27 +141,28 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
 
           {/* Location Input */}
           <Form.Group controlId="formCityState">
-            <Form.Label className="input-labels">City, State</Form.Label>
-            <Form.Control
-              as="select"
-              value={addresses}
-              onChange={(e) => setLocation(e.target.value)}
-              className="input-data"
-              isInvalid={!!errors.location} // Set isInvalid to true if there's an error
-            >
-              <option value="" disabled>
-                Select your location
-              </option>
-              {addresses.map((address, index) => (
-                <option key={index} value={address.address}>
-                  {address.address}
-                </option>
-              ))}
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              {errors.location}
-            </Form.Control.Feedback>
-          </Form.Group>
+  <Form.Label className="input-labels">City, State</Form.Label>
+  <Form.Control
+    as="select"
+    value={location || ""} // Ensure value is the selected location, not addresses
+    onChange={(e) => setLocation(e.target.value)} // Update selected location
+    className="input-data"
+    isInvalid={!!errors.location} // Display validation error if present
+  >
+    <option value="" disabled>
+      Select your location
+    </option>
+    {addresses.map((address, index) => (
+      <option key={index} value={address.address}>
+        {address.address}
+      </option>
+    ))}
+  </Form.Control>
+  <Form.Control.Feedback type="invalid">
+    {errors.location}
+  </Form.Control.Feedback>
+</Form.Group>
+
 
           {/* Save for Future Use */}
           <Form.Group>

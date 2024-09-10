@@ -365,3 +365,13 @@
   transform: translate(-50%, -50%);
   z-index: 9999;
 }
+
+
+.my-swal .swal2-success .swal2-success-ring {
+  border-color: #e65c00 !important; /* Outer ring color */
+}
+
+.my-swal .swal2-success .swal2-success-line-tip,
+.my-swal .swal2-success .swal2-success-line-long {
+  background-color: #e65c00 !important; /* Checkmark color */
+}

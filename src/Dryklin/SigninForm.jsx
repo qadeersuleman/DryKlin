@@ -97,6 +97,9 @@ const SigninForm = () => {
             title: 'Success!',
             text: 'User Logged in Successfully!',
             icon: 'success',
+            customClass: {
+              popup: 'my-swal',
+            },
             confirmButtonText: 'OK',
             timer: 3000,
             timerProgressBar: true,
@@ -107,14 +110,16 @@ const SigninForm = () => {
           });
         } else {
           Swal.fire({
-            title: 'error!',
-            text: 'Failed to Submit the Form!',
+            title: 'Error!',
+            text: 'There was an error logging in!',
             icon: 'error',
-            confirmButtonText: 'OK',
+            customClass: {
+              popup: 'my-swal-error', // Custom class for error styling
+            },
+            confirmButtonText: 'Try Again',
             timer: 3000,
             timerProgressBar: true,
             showConfirmButton: true,
-            
           });
         }
       } catch (error) {

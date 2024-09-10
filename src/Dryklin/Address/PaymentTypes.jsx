@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Form, Spinner } from "react-bootstrap"; // Import Spinner
+import { Modal, Button, Form, Spinner, Alert } from "react-bootstrap"; // Import Spinner
 import axios from "axios";
 import "./PaymentTypes.css";
 import FundWallet from "./FundWallet";
@@ -11,6 +11,7 @@ import CardPaymentModal from "../Payments/CardPaymentModal";
 import USSDPaymentModal from "../Payments/USSDPaymentModal";
 
 const PaymentTypes = ({ show, handleClose }) => {
+  const [error, setError] = useState("");
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [loading, setLoading] = useState(false); // Add loading state
   // const [selectedOption, setSelectedOption] = useState("Card");
@@ -41,6 +42,13 @@ const PaymentTypes = ({ show, handleClose }) => {
   };
 
   const New = async () => {
+    // Validate amount
+    if (!amount || isNaN(amount) || amount <= 0) {
+      setError("Please enter a valid amount.");
+      return;
+    }
+
+    setError("");
     setLoading(true); // Start loading when request begins
     try {
       // if (selectedOption === "Bank Transfer") {
@@ -185,6 +193,7 @@ const PaymentTypes = ({ show, handleClose }) => {
                   onChange={(e) => setAmount(e.target.value)}
                 />
               </Form.Group>
+              {error && <Alert variant="danger" className="text-center">{error}</Alert>}
           </Form>
           
           <Button

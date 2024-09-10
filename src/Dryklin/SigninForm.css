@@ -121,3 +121,24 @@
     }
   }
 
+  .my-swal .swal2-success .swal2-success-ring {
+    border-color: #e65c00 !important; /* Outer ring color */
+  }
+  
+  .my-swal .swal2-success .swal2-success-line-tip,
+  .my-swal .swal2-success .swal2-success-line-long {
+    background-color: #e65c00 !important; /* Checkmark color */
+  }
+
+
+ /* Change the color of the error icon */
+/* Change the color of the error icon */
+.my-swal-error .swal2-error .swal2-x-mark-line-left,
+.my-swal-error .swal2-error .swal2-x-mark-line-right {
+  background-color: #e65c00 !important; /* X-mark color */
+}
+
+.my-swal-error .swal2-error .swal2-error-ring {
+  border-color: #e65c00 !important; /* Outer ring color */
+}
+

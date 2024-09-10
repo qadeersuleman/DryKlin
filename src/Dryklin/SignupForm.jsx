@@ -79,6 +79,9 @@ const SignupForm = () => {
             title: 'Success!',
             text: 'Account Registered Successfully!',
             icon: 'success',
+            customClass: {
+              popup: 'my-swal',
+            },
             confirmButtonText: 'OK',
             timer: 3000,
             timerProgressBar: true,
@@ -93,6 +96,9 @@ const SignupForm = () => {
             title: 'error!',
             text: 'Failed to Submit the Form!',
             icon: 'error',
+            customClass: {
+              popup: 'my-swal',
+            },
             confirmButtonText: 'OK',
             timer: 3000,
             timerProgressBar: true,
@@ -105,6 +111,9 @@ const SignupForm = () => {
             title: 'Error!',
             text: 'Internal Server Issue!',
             icon: 'error',
+            customClass: {
+              popup: 'my-swal',
+            },
             confirmButtonText: 'OK',
             timer: 3000,
             timerProgressBar: true,
