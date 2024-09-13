@@ -27,9 +27,24 @@
   background-color: #e65c00;
 }
 
-@media (min-width : "600px") {
-.btn-pc-view
-{
-  display: none !important;
-}
+@media (max-width: 576px) {
+  .Address-modal
+  {
+    padding-inline: 20px;
+    
+  }
+  .Request-button
+  {
+    font-size: 20px !important;
+  }
+  .Request-button
+  {
+    margin-left: 30px;
+    padding-block: 10px !important;
+    padding-inline: 60px !important;
+  }
+  .sizeloc
+  {
+    font-size: 15px !important;
+  }
 }

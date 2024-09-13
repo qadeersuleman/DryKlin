@@ -56,3 +56,9 @@
     display: none;
   }
 }
+
+
+.nav-item:hover {
+  color : #e65c00 !important; /* Optional: changes the text color to white for contrast */
+  transition: color 0.3s ease; /* Optional: adds a smooth transition */
+}

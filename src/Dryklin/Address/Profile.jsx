@@ -2,17 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { Button, Container, Card, Alert } from "react-bootstrap";
 import EditProfile from "./EditProfile";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 import "./Wallet.css";
-import Swal from 'sweetalert2';
-
+import Swal from "sweetalert2";
 
 const Profile = () => {
   const fileInputRef = useRef(null);
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
-  const [csrfToken, setCsrfToken] = useState('');
+  const [csrfToken, setCsrfToken] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false); // New state for success alert
   const baseUrl = "https://dryklin-e853d5ecea30.herokuapp.com"; // Adjust accordingly
 
@@ -22,7 +21,7 @@ const Profile = () => {
         const csrfResponse = await axios.get(`${baseUrl}/api/csrfs/`);
         setCsrfToken(csrfResponse.data.csrfToken);
       } catch (error) {
-        console.error('Error fetching CSRF Token:', error);
+        console.error("Error fetching CSRF Token:", error);
       }
     };
 
@@ -44,51 +43,59 @@ const Profile = () => {
     const file = event.target.files[0];
     if (file && user) {
       const formData = new FormData();
-      formData.append('profile_image', file);
-      formData.append('email', user.email);
-  
+      formData.append("profile_image", file);
+      formData.append("email", user.email);
+
       try {
-        const response = await axios.post(`${baseUrl}/api/upload-profile-image/`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            "X-CSRFToken": csrfToken,
-          },
-        });
-  
+        const response = await axios.post(
+          `${baseUrl}/api/upload-profile-image/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              "X-CSRFToken": csrfToken,
+            },
+          }
+        );
+
         if (response.data.profile_image_url) {
           const updatedProfileImageUrl = `${baseUrl}${response.data.profile_image_url}`;
           setProfileImageUrl(updatedProfileImageUrl); // Update profile image URL
-          
+
           // Update user in state and localStorage
-          const updatedUser = { ...user, profile_image: response.data.profile_image_url };
+          const updatedUser = {
+            ...user,
+            profile_image: response.data.profile_image_url,
+          };
           setUser(updatedUser);
           localStorage.setItem("user", JSON.stringify(updatedUser));
-  
+
           // Display success alert using SweetAlert
           Swal.fire({
-            title: 'Success!',
-            text: 'Profile image uploaded successfully!',
-            icon: 'success',
+            title: "Success!",
+            text: "Profile image uploaded successfully!",
+            icon: "success",
             customClass: {
-              popup: 'my-swal',
+              popup: "my-swal",
             },
-            confirmButtonText: 'OK',
+            confirmButtonText: "OK",
             timer: 3000,
             timerProgressBar: true,
             showConfirmButton: true,
           });
         }
       } catch (error) {
-        console.error('Error uploading image:', error);
+        console.error("Error uploading image:", error);
       }
     }
   };
-  
 
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
 
-  const timestampedImageUrl = profileImageUrl ? `${profileImageUrl}?t=${new Date().getTime()}` : "./girls.jpeg";
+  const timestampedImageUrl = profileImageUrl
+    ? `${profileImageUrl}?t=${new Date().getTime()}`
+    : "./girls.jpeg";
 
   return (
     <>
@@ -106,7 +113,11 @@ const Profile = () => {
           <Card.Body>
             <div className="position-relative">
               <div className="d-flex">
-                <div className="profile-image-wrapper" onClick={handleImageClick} style={{ position: 'relative', cursor: 'pointer' }}>
+                <div
+                  className="profile-image-wrapper"
+                  onClick={handleImageClick}
+                  style={{ position: "relative", cursor: "pointer" }}
+                >
                   <img
                     src={timestampedImageUrl}
                     alt="Profile"
@@ -118,7 +129,10 @@ const Profile = () => {
                     }}
                   />
                   <div className="camera-icon-overlay d-flex justify-content-center align-items-center">
-                    <i className="fas fa-camera text-light text-center" style={{ paddingRight: "25px" }}></i>
+                    <i
+                      className="fas fa-camera text-light text-center"
+                      style={{ paddingRight: "25px" }}
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -126,11 +140,28 @@ const Profile = () => {
             <input
               type="file"
               ref={fileInputRef}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
               accept="image/*"
               onChange={handleFileChange}
             />
 
+
+             {/* Virtual Account Details Section */}
+             <div className="d-flex justify-content-between align-items-center my-5">
+              <div>
+                <b>
+                  <p>Virtual Account Number</p>
+                </b>
+                <p>1234567890</p> {/* Dummy Virtual Account Number */}
+              </div>
+              <div>
+                <b>
+                  <p>Virtual Bank Name</p>
+                </b>
+                <p>Paystack-Titan</p> {/* Dummy Virtual Bank Name */}
+              </div>
+            </div>
+            {/* Password Section */}
             <div className="d-flex justify-content-between align-items-center my-5">
               <div>
                 <b>
@@ -142,10 +173,14 @@ const Profile = () => {
                 variant="link"
                 className="text-decoration-none text-orange profile-change-btn mob-change-btn"
               >
-                <i className="fas fa-edit profile-change-btn mob-change-btn" /> Change
+                <i className="fas fa-edit profile-change-btn mob-change-btn" />{" "}
+                Change
               </Button>
             </div>
 
+           
+
+            {/* PC View Button */}
             <div className="pc-view d-flex justify-content-center align-items-center">
               <Button
                 variant="warning"
@@ -157,6 +192,7 @@ const Profile = () => {
               </Button>
             </div>
 
+            {/* Mobile View Button */}
             <div className="mobile-view d-flex gap-2">
               <Button
                 variant="warning"
@@ -167,6 +203,7 @@ const Profile = () => {
                 <i className="fas fa-edit" /> Edit details
               </Button>
             </div>
+
             <EditProfile show={showModal} handleClose={handleClose} />
           </Card.Body>
         </Card>

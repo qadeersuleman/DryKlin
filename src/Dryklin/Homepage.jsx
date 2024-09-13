@@ -43,7 +43,7 @@ function Homepage() {
       </header> */}
 
       <main className="main-content container">
-        <div className="badge">NO1 LAUNDARY SERVICE BRAND ⭐</div>
+        <div className="badge">NO1 LAUNDRY SERVICE BRAND ⭐</div>
         <h2>We make your</h2> <h2>clothes feel 
           {
             showclothes && (

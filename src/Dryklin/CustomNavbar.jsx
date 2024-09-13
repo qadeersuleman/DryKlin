@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Nav, NavDropdown, Image, Container } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Image, Container, Button } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import './Navbar.css'; // Import your custom CSS for styling
@@ -65,9 +65,12 @@ const CustomNavbar = () => {
               <Nav.Link href="/" className="nav-item">Home</Nav.Link>
               <Nav.Link href="/aboutus" className="nav-item">About Us</Nav.Link>
               <Nav.Link href="/contactus" className="nav-item">Contact Us</Nav.Link>
+              <Nav.Link href="/wallet" className="nav-item">Profile</Nav.Link>
+              <Nav.Link href="/wallet" className="nav-item">Wallet </Nav.Link>
+              <Nav.Link href="/orders" className="nav-item">Orders</Nav.Link>
             </Nav>
             <Nav className="ml-auto profile-dropdown">
-              <NavDropdown
+              {/* <NavDropdown
                 alignRight
                 title={
                   <Image
@@ -77,21 +80,17 @@ const CustomNavbar = () => {
                   />
                 }
                 id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                <NavDropdown.Item href="/wallet">Wallet</NavDropdown.Item>
-                <NavDropdown.Item href="/orders">Orders</NavDropdown.Item>
-                <NavDropdown.Divider />
+              > */}
                 {user ? (
-                  <NavDropdown.Item onClick={handleLogout}>
+                  <Button onClick={handleLogout} className='bg-orange'>
                     <i className="fas fa-sign-out-alt"></i> Logout
-                  </NavDropdown.Item>
+                  </Button>
                 ) : (
-                  <NavDropdown.Item href="/signin">
+                  <Button className='bg-orange' href="/signin" style={{border : "none"}}>
                     <i className="fas fa-sign-in-alt"></i> Login
-                  </NavDropdown.Item>
+                  </Button>
                 )}
-              </NavDropdown>
+              {/* </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
         </Container>

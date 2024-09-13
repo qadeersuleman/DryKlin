@@ -32,6 +32,7 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [selectedDate, setSelectedDate] = useState(""); // Initialize with an empty string
   const [selectedTime, setSelectedTime] = useState(times[0]);
   const [dates, setDates] = useState([]);
+  
   // const [firstName, setFirstName] = useState('');
   // const [lastName, setLastName] = useState('');
   const [errors, setErrors] = useState({}); // State for storing error messages
@@ -143,25 +144,31 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
           <Form.Group controlId="formCityState">
   <Form.Label className="input-labels">City, State</Form.Label>
   <Form.Control
-    as="select"
+    type="text"
     value={location || ""} // Ensure value is the selected location, not addresses
-    onChange={(e) => setLocation(e.target.value)} // Update selected location
+    onChange={(e) => setLocation(e.target.value)} // Update input field value
     className="input-data"
     isInvalid={!!errors.location} // Display validation error if present
-  >
-    <option value="" disabled>
-      Select your location
-    </option>
-    {addresses.map((address, index) => (
-      <option key={index} value={address.address}>
-        {address.address}
-      </option>
-    ))}
-  </Form.Control>
+    placeholder="Enter your city or state"
+    list="location-suggestions" // Connect to the datalist
+  />
+  
+  {/* Datalist for auto-suggestions */}
+  <datalist id="location-suggestions">
+    {addresses
+      .filter((address) => 
+        address.address.toLowerCase().includes(location?.toLowerCase() || "")
+      ) // Filter addresses based on user input
+      .map((address, index) => (
+        <option key={index} value={address.address} />
+      ))}
+  </datalist>
+
   <Form.Control.Feedback type="invalid">
     {errors.location}
   </Form.Control.Feedback>
 </Form.Group>
+
 
 
           {/* Save for Future Use */}

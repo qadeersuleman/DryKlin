@@ -124,9 +124,9 @@ const Address = ({ show, handleClose }) => {
                 action 
                 onClick={getCurrentLocation} 
                 style={{ border: 'none', fontSize : "13px",paddingTop : "15px" }} 
-                
+                className='sizeloc'
               >
-                <i className="fas fa-location-crosshairs text-orange" style={{ paddingRight: "10px" }}></i>  Use current location
+                <i className="fas fa-location-crosshairs text-orange sizeloc" style={{ paddingRight: "10px" }}></i>  Use current location
               </ListGroup.Item>
               {suggestions.map((suggestion, index) => (
                 <ListGroup.Item
@@ -134,8 +134,10 @@ const Address = ({ show, handleClose }) => {
                   action
                   onClick={() => handleSelectSuggestion(suggestion)}
                   style={{ border: 'none', fontSize : "13px" }}
+                  className='sizeloc'
                 >
-                  <i className="fas fa-map-marker-alt text-orange" style={{ paddingRight: "10px" }}></i>{suggestion}
+                  <i className="fas fa-map-marker-alt text-orange sizeloc" style={{ paddingRight: "10px" }}></i>{suggestion}
+                  
                 </ListGroup.Item>
               ))}
             </ListGroup>

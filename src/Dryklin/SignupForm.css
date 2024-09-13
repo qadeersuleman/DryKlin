@@ -115,3 +115,80 @@
 .my-swal .swal2-success .swal2-success-line-long {
   background-color: #e65c00 !important; /* Checkmark color */
 }
+
+
+/* For dropdown */
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  transition: border-color 0.3s, padding 0.3s; /* Smooth transition for border color and padding */
+}
+
+.prefix-container {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #ced4da;
+  padding: 0 10px;
+  border-radius: 4px 0 0 4px;
+}
+
+.flag-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.country-code-dropdown {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  outline: none;
+  color: #495057;
+}
+
+.phone-input-field {
+  border: none;
+  border-radius: 0 4px 4px 0;
+  padding: 12px;
+  flex: 1;
+  transition: padding 0.3s; /* Smooth transition for padding */
+}
+
+/* Show border color when container is hovered or focused */
+.phone-input-container:hover,
+.phone-input-container:focus-within {
+  
+  padding: 2px; /* Reduce padding from top and bottom */
+}
+
+.phone-input-field:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.new-btnsss:hover
+{
+  border: none !important;
+  outline: none;
+  border-right: none;
+}
+
+.new-btnsss:focus
+{
+  border: 1px solid;
+  border-color: #e65c00 !important;
+}
+
+
+/* Ensure the input field takes up the remaining space and has no gap */
+.prefix-container + .phone-input-field {
+  margin-left: -1px !important; /* Remove the gap between prefix and input field */
+}
+
+/* Show orange border color when container is hovered or focused */
+.phone-input-container:hover,
+.phone-input-container:focus-within {
+  border-color: orange;
+}

@@ -138,7 +138,7 @@ const Home = () => {
             <Card.Body className="d-flex justify-content-between align-items-center">
               <div>
                 <span className="balance-type">
-                  Wallet Balance{" "}
+                  Amount in Wallet{" "}
                   <i
                     className={`fas ${showBalance ? "fa-eye-slash" : "fa-eye"}`}
                     onClick={toggleBalanceVisibility}

@@ -37,7 +37,7 @@ const Wallet = () => {
   };
 
   return (
-    <Container fluid className="p-3">
+    <Container fluid className="p-3" >
       {user ? (
         <Row>
           {/* Sidebar */}
@@ -48,11 +48,14 @@ const Wallet = () => {
             style={{ borderRight: "1px solid #c5c5c5" }}
           >
             <div className="logo mb-4 text-center">
+              <Link to="/">
               <Image
                 src="/Dryklin/PNGS/12.png"
                 alt="DryKlin Logo"
                 className="wallet-img pl-2"
+
               />
+              </Link>
             </div>
             <ListGroup className="w-100">
               <ListGroup.Item
@@ -123,11 +126,13 @@ const Wallet = () => {
             style={{ borderRight: "1px solid #c5c5c5", display: "none" }}
           >
             <div className="logo mb-4">
+              <Link to="/">
               <Image
                 src="/Dryklin/PNGS/12.png"
                 alt="DryKlin Logo"
                 className="wallet-img"
               />
+              </Link>
             </div>
             <ListGroup className="w-100">
               <ListGroup.Item

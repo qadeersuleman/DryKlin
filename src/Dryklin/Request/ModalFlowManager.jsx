@@ -8,10 +8,11 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const ModalFlowManager = ({ 
-  buttonText = "Request Pickup", 
+  buttonText = "Request Quick Pickup", 
   buttonClass = "get-started-btn px-3", 
   ShowIcon = true,
-  fontSize = "10px",
+  fontSize = "12px",
+  fontWeight = "500",
   selectedItems = [], 
   total = 0,
   orderData = {} // Accept orderData as a prop
@@ -72,9 +73,9 @@ const ModalFlowManager = ({
   return (
     <>
       {user ? (
-        <Button className={buttonClass} onClick={startFlow} style={{ fontSize }}>
+        <Button className={buttonClass} onClick={startFlow} style={{ fontSize, fontWeight }}>
           {buttonText}
-          {ShowIcon && <i className="fas fa-arrow-right mx-1" style={{ fontSize }}></i>}
+          {/* {ShowIcon && <i className="fas fa-arrow-right mx-1" style={{ fontSize }}></i>} */}
         </Button>
       ) : (
         <Button className={buttonClass} onClick={showNotLoggedInAlert} style={{ fontSize }}>
