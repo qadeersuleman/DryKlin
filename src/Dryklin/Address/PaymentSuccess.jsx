@@ -13,7 +13,7 @@ const PaymentSuccess = () => {
   const verifyPayment = useCallback(async (reference) => {
     try {
       const response = await axios.post(
-        "https://dryklin-e853d5ecea30.herokuapp.com/paystack/verify-payment/",
+        "https://dryklins-1a9d97937409.herokuapp.com/paystack/verify-payment/",
         { reference: reference , data : data},
         {
           headers: {

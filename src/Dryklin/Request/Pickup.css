@@ -1,0 +1,27 @@
+.suggestions-dropdown {
+    border: 1px solid #ccc;
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  
+  .suggestion-item {
+    padding: 10px;
+    font-size: 12px !important;
+    cursor: pointer;
+    padding-left: 10px !important;
+  }
+  
+  .suggestion-item:hover {
+    background-color: #2a73e1;
+    color: white !important;
+  }
+  
+
+  .click_btnes:active
+  {
+    background-color: #e65c00 !important;
+  }

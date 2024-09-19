@@ -12,7 +12,7 @@ const AddressManagement = () => {
     const fetchAddresses = async () => {
       if (user && user.email) {
         try {
-          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/', {
+          const response = await axios.get('https://dryklins-1a9d97937409.herokuapp.com/api/addresses/', {
             params: { email: user.email },
           });
           setAddresses(response.data.addresses);

@@ -1,0 +1,59 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff; /* Adjust to your theme */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .loader-logo {
+    width: 250px; /* Adjust the size of your logo */
+    height: auto;
+    animation: logo-animation 2s ease-in-out;
+  }
+  
+  .loader-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #ff6b00; /* Adjust to your design */
+    animation: text-animation 2s ease-in-out;
+  }
+  
+  /* Logo Animation */
+  @keyframes logo-animation {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Text Animation */
+  @keyframes text-animation {
+    0% {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    50% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

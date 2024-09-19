@@ -34,7 +34,7 @@ const ContactUs = () => {
     
     try {
       // CSRF token fetching logic, if your Django backend requires it.
-      const csrfResponse = await axios.get('http://127.0.0.1:8000/api/csrfs/');
+      const csrfResponse = await axios.get('https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/');
       setCsrfToken(csrfResponse.data.csrfToken);
       console.warn('CSRF Token:', csrfResponse.data.csrfToken);
       alert(userEmail)
@@ -47,7 +47,7 @@ const ContactUs = () => {
       };
 
       // Sending data to backend
-      const response = await axios.post('https://dryklin-e853d5ecea30.herokuapp.com/api/contactus/', data, {
+      const response = await axios.post('https://dryklins-1a9d97937409.herokuapp.com/api/contactus/', data, {
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': csrfToken, // Add CSRF token if required by Django

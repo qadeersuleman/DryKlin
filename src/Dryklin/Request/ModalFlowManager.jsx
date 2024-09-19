@@ -6,10 +6,11 @@ import RequestOrder from './RequestOrder';
 import RequestSuccess from './RequestSuccess';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import "./Pickup.css"
 
 const ModalFlowManager = ({ 
   buttonText = "Request Quick Pickup", 
-  buttonClass = "get-started-btn px-3", 
+  buttonClass = "get-started-btn px-3 click_btnes", 
   ShowIcon = true,
   fontSize = "12px",
   fontWeight = "500",
@@ -62,6 +63,11 @@ const ModalFlowManager = ({
       showCancelButton: true,
       confirmButtonText: 'Sign In',
       cancelButtonText: 'Cancel',
+      customClass: {
+        confirmButton: 'custom-confirm-button',
+        cancelButton: 'custom-cancel-button'
+        
+    },
       reverseButtons: true
     }).then((result) => {
       if (result.isConfirmed) {

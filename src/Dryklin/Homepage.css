@@ -1,202 +1,312 @@
-
-
 .homepage {
-    font-family: Arial, sans-serif;
-  }
-  
-  .top-bar {
-    background-color: #e86317;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-  }
-  
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-  }
-  
- .imge {
-    width: 10%;
-    height: 10%;
-  }
-  
-  .nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  li :hover {
-    font: #e86317;
-  }
+  font-family: Arial, sans-serif;
+}
 
-  .auth-buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
-  .auth-buttons button {
-    cursor: pointer;
+.top-bar {
+  background-color: #e86317;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
 
-  }
-  
-  .logins-btn {
-    background-color: #ffffff;
-    color: #e86317;
-    border: 2px solid #e86317;
-    font-size: 15px;
-    text-align: center;
-    font-weight: 700;
-  
-  }
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-  .logins-btn:hover
-  {
-    background-color: #e86317;
-    color: #ffffff;
-  }
+.imge {
+  width: 10%;
+  height: 10%;
+}
 
-  .fa-user
-  {
-    font-size: 15px;
-  }
-  
-  .get-started-btn {
-    background-color: #e86317;
-    color: #ffffff;
-    font-size: 15px;
-    border: none;
-    font-weight: 400;
-  }
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
 
-  .get-started-btn:hover
-  {
-    background-color: #e86317;
-    color: #ffffff;
-  }
+li :hover {
+  font: #e86317;
+}
 
-  .fa-arrow-right
-  {
-    
-    font-size: 14px;
-    font-weight: 600;
-  }
-  
-  
-  .main-content {
-    text-align: center;
-    padding: 100px 20px;
-  }
-  
-  .main-content h2 {
-    font-size: 45px;
-    color: black;
-    font-weight: 700;
-  }
-  
-  .main-content .brand-new {
-    color: #e86317;
-    font-style: italic;
-    animation: shine 2s ease-out;
-  }
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
 
-  @keyframes shine {
-    0% 
-    {
-      opacity: 0;
-      transform : translateY(-20px);
+.auth-buttons button {
+  cursor: pointer;
+}
+
+.logines-btn {
+  background-color: #ffffff;
+  color: #e86317;
+  border: 2px solid #e86317;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.logines-btn:hover {
+  background-color: #e86317 !important;
+  border-color: #e86317 !important;
+  color: #ffffff;
+}
+
+.fa-user {
+  font-size: 15px;
+}
+
+.get-started-btn {
+  background-color: #e86317;
+  color: #ffffff;
+  font-size: 15px;
+  border: none;
+  font-weight: 400;
+}
+
+.get-started-btn:hover {
+  background-color: #e86317;
+  color: #ffffff;
+}
+
+.fa-arrow-right {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.main-content {
+  text-align: center;
+  padding: 100px 20px;
+  position: relative; /* Add this to allow image positioning */
+}
+
+/* New styling for the images and their positions around the h2 */
+.heading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  position: relative;
+}
+
+.left-image,
+.right-image {
+  width: 60px;
+  height: auto;
+  margin: 0 -60px;
+}
+
+.left-image {
+  position: absolute;
+  left: 450px;
+  top: -70px;
+}
+
+.right-image {
+  position: absolute;
+  right: 460px;
+  top: -70px;
+}
+
+.brand-new {
+  color: #e86317;
+  font-style: italic;
+  animation: shine 2s ease-out;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  100%
-  {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  position: relative; /* Added for third image positioning */
+}
+
+/* Third image in the button row */
+.third-image {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  left: 400px;
+  top: -150px;
+  transform: translateY(-50%);
+  
+}
+
+.ilzam{
+  top: -150px;
+}
+
+.cta-buttons button {
+  cursor: pointer;
+}
+
+.containes {
+  background-color: #f9dbb8;
+  color: #e86317;
+  margin-inline: 400px;
+  font-size: 14px;
+  padding: 3px;
+}
+
+.nav-item {
+  position: relative;
+  text-decoration: none;
+  color: rgb(54, 53, 53);
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+  color: #e86317;
+}
+
+.nav-item::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #e86317;
+  bottom: -5px;
+  left: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+main .badge {
+  background-color: #fae0b2;
+  color: #e86317;
+  padding: 8px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+@media (max-width: 656px) {
+  .home-btns {
+    width: 100px !important;
+    height: 50px;
+    font-size: 12px;
+  }
+
+  .resp-btn {
+    font-size: 10px;
+  }
+
+  .imge {
+    width: 100px;
+  }
+  .left-image{
+    left: 50px !important;
+    top : -60px;
+  }
+  .right-image{
+    right: 50px !important;
+    top : -60px !important;
+
+  }
+  .third-image {
+    left: 0px !important;
+    top: -120px !important;
   }
   
-  .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-  }
-  
-  .cta-buttons button {
-    cursor: pointer;
-  }
-  
-  .containes
+  .ilzam
   {
-    background-color: #f9dbb8;
-    color: #e86317;
-    margin-inline: 400px;
-    font-size: 14px;
-    padding: 3px;
+    right: 60px !important;
+    top: -120px !important;
   }
-
-  .nav-item
+  .badge{
+    font-size: 15px !important;
+  }
+  .h2-data
   {
-    position: relative;
-    text-decoration: none;
-    color: rgb(54, 53, 53);
-    transition: color o.3s ease-in-out;
+    font-size: 30px !important;
   }
-
-  .nav-item:hover
+  .package
   {
-    color: #e86317;
+    font-size: 18px !important;
   }
+}
 
-  .nav-item::after
-  {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: #e86317;
-    bottom: -5px;
-    left: 0;
-    transition: width .3s ease-in-out;
+@media (min-width: 1000px) {
+  .main-content {
+    margin-left: 100px !important;
   }
+}
 
-  .nav-item:hover::after
-  {
-    width: 100%;
-  }
+.logins-btn :hover
+{
+  border: none !important;
+}
 
-  main .badge {
-    background-color: #fae0b2;
-    color: #e86317;
-    padding: 8px 15px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
 
-  @media  (max-width: 656px){ 
-    .home-btns
-    {
-      width: 100px !important;
-     height: 50px;
-     font-size: 12px;
-    }
-    .resp-btn
-    {
-      font-size: 10px;
-    }
-    .imge
-    {
-      width: 100px;
-    }
-    
-  }
 
-  @media (min-width : 1000px) {
-    .main-content
-    {
-      margin-left: 100px !important;
-    }
-  }
+
+.homepage {
+  /* background-image: url('/back.jpeg'); Path to your background image */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 90vh;
+  margin-bottom: 40px !important;
+}
+
+.homepage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Add shadow effect */
+  backdrop-filter: blur(2px);
+  z-index: 1; /* Ensure this overlay is below content */
+}
+
+.main-content {
+  position: relative;
+  z-index: 2; /* Ensure the content is above the shadow */
+  color: white; /* Text color to contrast with the background */
+  text-align: center;
+}
+
+.heading-container h2, .brand-new, .cta-buttons {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add subtle shadow to text */
+}
+
+.left-image, .right-image, .third-image, .ilzam {
+  filter: drop-shadow(3px 3px 8px rgba(0, 0, 0, 0.7)); /* Apply shadow to images */
+}
+
+.cta-buttons {
+  margin-top: 50px;
+}
+
+
+
+.shape {
+  position: absolute;
+  font-size: 50px;
+  /* Hidden by default */
+  transition: opacity 1s ease-in-out, transform 3s ease-in-out;  /* Smooth animation */
+  color: #e86317;
+  z-index: 2;
+}
+

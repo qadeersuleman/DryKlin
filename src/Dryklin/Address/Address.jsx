@@ -15,7 +15,7 @@ const Address = ({ show, handleClose }) => {
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
-        const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/');
+        const response = await axios.get('https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/');
         setCsrfToken(response.data.csrfToken);
         console.warn('CSRF Token:', response.data.csrfToken);
       } catch (error) {
@@ -80,7 +80,7 @@ const Address = ({ show, handleClose }) => {
         address: address,
       };
       const response = await axios.post(
-        'https://dryklin-e853d5ecea30.herokuapp.com/api/address/',
+        'https://dryklins-1a9d97937409.herokuapp.com/api/address/',
         data,
         {
           headers: {
@@ -101,16 +101,28 @@ const Address = ({ show, handleClose }) => {
     <Modal show={show} onHide={handleClose} centered>
       <Container className='Address-modal'>
         <Modal.Body>
-          <div className="form-heading">
-            <button 
-              style={{ border: "none" }} 
-              className="bg-light" 
+          
+
+
+          <div className="form-heading" style={{ textAlign: "left" }}>
+            <button
+              style={{ border: "none", backgroundColor: "white" }}
               onClick={handleClose}
             >
               <i className="fas fa-chevron-left pt-3"></i>
             </button>
             <span className="mx-3">Back</span>
-            <h3 className='mt-2'>Add New Address</h3>
+            <h3
+              style={{
+                marginTop: "15px",
+                marginBottom: "5px",
+                fontSize: "20px",
+              }}
+              className="text-orange"
+            >
+              Add New Address
+            </h3>
+            
           </div>
           <Form.Group controlId="formAddress">
             <Form.Control

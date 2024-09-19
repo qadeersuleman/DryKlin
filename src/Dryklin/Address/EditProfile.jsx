@@ -23,7 +23,7 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
     const fetchAddresses = async () => {
       if (user && user.email) {
         try {
-          const response = await axios.get('https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/', {
+          const response = await axios.get('https://dryklins-1a9d97937409.herokuapp.com/api/addresses/', {
             params: { email: user.email },
           });
           setAddresses(response.data.addresses);
@@ -42,7 +42,7 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
     event.preventDefault();
   
     try {
-      const response = await axios.put('https://dryklin-e853d5ecea30.herokuapp.com/api/update_profile/', {
+      const response = await axios.put('https://dryklins-1a9d97937409.herokuapp.com/api/update_profile/', {
         first_name: user.first_name,
         last_name: user.last_name,
         email: user.email,
@@ -92,14 +92,30 @@ const EditProfile = ({ show, handleNext, handleClose }) => {
     <>
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
-        <div className="form-heading">
-          <button style={{ border: "none" }} className="bg-light" onClick={handleClose}>
-            <i className="fas fa-chevron-left pt-1"></i>
-          </button>
-          <span className="mx-3">Back</span>
-          <h3 className='mt-2'>Edit Account</h3>
-          <p style={{fontSize : "14px"}}>Edit your profile by clicking on the field you want to make changes to.</p>
-        </div>
+        
+
+        <div className="form-heading" style={{ textAlign: "left" }}>
+            <button
+              style={{ border: "none", backgroundColor: "white" }}
+              onClick={handleClose}
+            >
+              <i className="fas fa-chevron-left pt-3"></i>
+            </button>
+            <span className="mx-3">Back</span>
+            <h3
+              style={{
+                marginTop: "15px",
+                marginBottom: "5px",
+                fontSize: "20px",
+              }}
+              className="text-orange"
+            >
+              Edit Account
+            </h3>
+            <p style={{ marginBottom: "10px", color: "#666", fontSize : "14px" }}>
+            Edit your profile if you want to make changes.
+            </p>
+          </div>
         <Form className='Request-form' style={{marginTop : "-40px"}} onSubmit={handleSubmit}>
           {/* First Name */}
           <Form.Group controlId="formFirstName">

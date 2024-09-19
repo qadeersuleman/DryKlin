@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { City } from 'country-state-city';
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
+import "./Pickup.css"
 
 const getDayName = (date) => {
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fir", "Sat"];
   return daysOfWeek[date.getDay()];
 };
 
@@ -11,7 +13,7 @@ const generateUpcomingDates = () => {
   const dates = [];
   const today = new Date();
 
-  for (let i = 1; i < 8; i++) {
+  for (let i = 0; i < 7; i++) {
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + i);
 
@@ -24,17 +26,72 @@ const generateUpcomingDates = () => {
   return dates;
 };
 
-const times = ["10AM - 12PM", "12PM - 2PM", "2PM - 4PM", "4PM - 6PM"];
+// That is used for time
+const generateTimeSlots = () => {
+  const now = new Date();
+  let currentHour = now.getHours(); // Get current hour
+  const timeSlots = [];
+
+  // Loop to generate time ranges (each 2-hour slot)
+  for (let i = 0; i < 6; i++) {
+    const startHour = currentHour;
+    const endHour = (currentHour + 2) % 24; // Calculate end hour, wrap around 24
+    const startPeriod = startHour >= 12 ? "PM" : "AM"; // AM or PM for start
+    const endPeriod = endHour >= 12 ? "PM" : "AM"; // AM or PM for end
+
+    // Convert to 12-hour format for both start and end times
+    const startFormatted = startHour % 12 === 0 ? 12 : startHour % 12;
+    const endFormatted = endHour % 12 === 0 ? 12 : endHour % 12;
+
+    // Format the time slot as "1 to 3 AM"
+    const timeSlot = `${startFormatted}${startPeriod} - ${endFormatted}${endPeriod}`;
+    timeSlots.push(timeSlot);
+
+    // Move to the next slot
+    currentHour += 2;
+  }
+
+  return timeSlots;
+};
+
+// Example usage:
+const timeSlots = generateTimeSlots();
+console.log(timeSlots);
+
+
+
+
 
 const RequestPickup = ({ show, handleNext, handleClose }) => {
   const [addresses, setAddresses] = useState([]);
-  const [location, setLocation] = useState("");
   const [selectedDate, setSelectedDate] = useState(""); // Initialize with an empty string
-  const [selectedTime, setSelectedTime] = useState(times[0]);
+  const [selectedTime, setSelectedTime] = useState(timeSlots[0]);
   const [dates, setDates] = useState([]);
+  const [location, setLocation] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  // Handle input change
+  const handleInputChange = (e) => {
+    const input = e.target.value;
+    setLocation(input);
   
-  // const [firstName, setFirstName] = useState('');
-  // const [lastName, setLastName] = useState('');
+    // Fetch cities from Oyo State, Nigeria
+    const citiesInOyoState = City.getCitiesOfState("NG", "OY"); // "OY" is the state code for Oyo
+  
+    // Filter cities based on input
+    const filteredCities = citiesInOyoState.filter((city) =>
+      city.name.toLowerCase().includes(input.toLowerCase())
+    );
+  
+    // Update suggestions based on the input
+    setSuggestions(filteredCities);
+  };
+
+  // Handle suggestion click
+  const handleSuggestionClick = (cityName) => {
+    setLocation(cityName);
+    setSuggestions([]); // Clear the suggestions after selection
+  };
   const [errors, setErrors] = useState({}); // State for storing error messages
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -44,7 +101,7 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
       if (user && user.email) {
         try {
           const response = await axios.get(
-            "https://dryklin-e853d5ecea30.herokuapp.com/api/addresses/",
+            "https://dryklins-1a9d97937409.herokuapp.com/api/addresses/",
             {
               params: { email: user.email },
             }
@@ -95,18 +152,28 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Body>
-        <div className="form-heading">
-          <button
-            style={{ border: "none" }}
-            className="bg-light"
-            onClick={handleClose}
-          >
-            <i className="fas fa-chevron-left pt-1"></i>
-          </button>
-          <span className="mx-3">Back</span>
-          <h3 className="">Request Pickup</h3>
-          <p>Fill in your details below to request a pickup.</p>
-        </div>
+        <div className="form-heading" style={{ textAlign: "left" }}>
+            <button
+              style={{ border: "none", backgroundColor: "white" }}
+              onClick={handleClose}
+            >
+              <i className="fas fa-chevron-left pt-3"></i>
+            </button>
+            <span className="mx-3">Back</span>
+            <h3
+              style={{
+                marginTop: "15px",
+                marginBottom: "5px",
+                fontSize: "20px",
+              }}
+              className="text-orange"
+            >
+              Request Pickup
+            </h3>
+            <p style={{ marginBottom: "10px", color: "#666" }}>
+            Fill in your details below to request a pickup.
+            </p>
+          </div>
         <Form onSubmit={handleSubmit} className="Request-form">
           {/* First Name */}
           {/* <Form.Group controlId="formFirstName">
@@ -141,34 +208,35 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
           </Form.Group> */}
 
           {/* Location Input */}
-          <Form.Group controlId="formCityState">
-  <Form.Label className="input-labels">City, State</Form.Label>
-  <Form.Control
-    type="text"
-    value={location || ""} // Ensure value is the selected location, not addresses
-    onChange={(e) => setLocation(e.target.value)} // Update input field value
-    className="input-data"
-    isInvalid={!!errors.location} // Display validation error if present
-    placeholder="Enter your city or state"
-    list="location-suggestions" // Connect to the datalist
-  />
-  
-  {/* Datalist for auto-suggestions */}
-  <datalist id="location-suggestions">
-    {addresses
-      .filter((address) => 
-        address.address.toLowerCase().includes(location?.toLowerCase() || "")
-      ) // Filter addresses based on user input
-      .map((address, index) => (
-        <option key={index} value={address.address} />
-      ))}
-  </datalist>
+          <Form.Group controlId="formCityState" className="position-relative">
+      <Form.Label className="input-labels">City, State</Form.Label>
+      <Form.Control
+        type="text"
+        value={location}
+        onChange={handleInputChange}
+        className="input-data"
+        isInvalid={!!errors.location}
+        autoComplete="off" // Disable browser's default autocomplete
+      />
+      <Form.Control.Feedback type="invalid">
+        {errors.location}
+      </Form.Control.Feedback>
 
-  <Form.Control.Feedback type="invalid">
-    {errors.location}
-  </Form.Control.Feedback>
-</Form.Group>
-
+      {/* Suggestions Dropdown */}
+      {suggestions.length > 0 && (
+        <div className="suggestions-dropdown">
+          {suggestions.map((suggestion, index) => (
+            <div
+              key={index}
+              className="suggestion-item"
+              onClick={() => handleSuggestionClick(suggestion.name)} // Use city name
+            >
+              {suggestion.name}, {suggestion.stateCode} {/* Display city with state */}
+            </div>
+          ))}
+        </div>
+      )}
+    </Form.Group>
 
 
           {/* Save for Future Use */}
@@ -232,7 +300,7 @@ const RequestPickup = ({ show, handleNext, handleClose }) => {
               onChange={(e) => setSelectedTime(e.target.value)}
               className="input-data"
             >
-              {times.map((time, index) => (
+              {timeSlots.map((time, index) => (
                 <option key={index} value={time}>
                   {time}
                 </option>

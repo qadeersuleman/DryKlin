@@ -21,12 +21,12 @@ const FundWallet = ({ show, handleClose, amount }) => {
 
         try {
           const csrfResponse = await axios.get(
-            "https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/"
+            "https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/"
           );
           const csrfToken = csrfResponse.data.csrfToken;
 
           const response = await axios.post(
-            "https://dryklin-e853d5ecea30.herokuapp.com/initiate-payment/",
+            "https://dryklins-1a9d97937409.herokuapp.com/initiate-payment/",
             { amount: amount, email: user.email },
             {
               headers: {

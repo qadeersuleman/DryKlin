@@ -13,7 +13,7 @@ const Profile = () => {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [csrfToken, setCsrfToken] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false); // New state for success alert
-  const baseUrl = "https://dryklin-e853d5ecea30.herokuapp.com"; // Adjust accordingly
+  const baseUrl = "https://dryklins-1a9d97937409.herokuapp.com"; // Adjust accordingly
 
   useEffect(() => {
     const fetchCsrfToken = async () => {

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import './AboutUs.css'; // Import custom CSS
 import Footer from './Footer';
-import CustomNavbar from './CustomNavbar';
+import CustomNavbar from './Authentication/CustomNavbar';
 
 const AboutUs = () => {
   return (

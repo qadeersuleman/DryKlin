@@ -20,6 +20,7 @@ const RequestOrder = ({
   const navigate = useNavigate();
   const [selectedPaymentOption, setSelectedPaymentOption] = useState("");
   const [walletBalance, setWalletBalance] = useState(0);
+  const [balance, setBalance] = useState(0);
   const [paymentUrl, setPaymentUrl] = useState("");
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const RequestOrder = ({
       if (user && user.email) {
         try {
           const response = await axios.get(
-            "https://dryklin-e853d5ecea30.herokuapp.com/api/wallet/",
+            "https://dryklins-1a9d97937409.herokuapp.com/api/wallet/",
             {
               params: { email: user.email },
             }
@@ -82,17 +83,49 @@ const RequestOrder = ({
       setUser(JSON.parse(storedUser));
     }
   }, []);
-  let deliveryFee = 0;
+  let deliveryFee = 1000;
+  let Servicefee = 0;
   if (deliveryData === "express") {
-    deliveryFee = total * 0.25; // 25% of the total amount
-  } else {
-    deliveryFee = 1000; // Or some other logic for standard delivery
+    Servicefee = orderData.subTotal * 0.25; // 25% of the total amount
   }
 
-  var total_charge = deliveryFee + orderData.subTotal;
+  var total_charge = deliveryFee + orderData.subTotal + Servicefee;
   const handleSelectPaymentOption = (option) => {
     setSelectedPaymentOption(option);
   };
+
+  useEffect(() => {
+    const fetchWalletAndOrderData = async () => {
+      if (user && user.email) {
+        try {
+          const response = await axios.get(
+            "https://dryklins-1a9d97937409.herokuapp.com/api/wallet/", // Make sure it's pointing to your Django server
+            {
+              params: { email: user.email },
+            }
+          );
+
+          console.log("API Response:", response.data);
+
+          // Set wallet balance
+          if (response.data && response.data.wallet) {
+            setBalance(response.data.wallet);
+          }
+
+          // Set orders data
+        } catch (error) {
+          console.error(
+            "Error fetching wallet and order data:",
+            error.response ? error.response.data : error.message
+          );
+        }
+      } else {
+        console.error("User data not found in localStorage.");
+      }
+    };
+
+    fetchWalletAndOrderData();
+  }, [user]);
 
   const handleSubmit = async () => {
     const orderDetails = {
@@ -128,6 +161,10 @@ const RequestOrder = ({
         confirmButtonText: "Deposit Money", // Text for the "OK" button
         cancelButtonText: "Cancel", // Text for the "Cancel" button
         reverseButtons: true, // Reverse the order of the buttons (optional)
+        customClass: {
+          confirmButton: "custom-confirm-button",
+          cancelButton: "custom-cancel-button",
+        },
       }).then((result) => {
         if (result.isConfirmed) {
           // Handle the case when "Deposit Money" is clicked
@@ -144,7 +181,7 @@ const RequestOrder = ({
       try {
         // Fetch CSRF token
         const csrfResponse = await axios.get(
-          "https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/"
+          "https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/"
         );
         const csrfToken = csrfResponse.data.csrfToken;
         console.warn("CSRF Token:", csrfToken);
@@ -154,7 +191,7 @@ const RequestOrder = ({
 
         // Send login request
         const response = await axios.post(
-          "https://dryklin-e853d5ecea30.herokuapp.com/api/order/",
+          "https://dryklins-1a9d97937409.herokuapp.com/api/order/",
           orderDataJson,
           {
             headers: {
@@ -216,12 +253,12 @@ const RequestOrder = ({
 
     try {
       const csrfResponse = await axios.get(
-        "https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/"
+        "https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/"
       );
       const csrfToken = csrfResponse.data.csrfToken;
 
       const response = await axios.post(
-        "https://dryklin-e853d5ecea30.herokuapp.com/initiate-payment/",
+        "https://dryklins-1a9d97937409.herokuapp.com/initiate-payment/",
         { amount: total_charge, email: user.email },
         {
           headers: {
@@ -243,7 +280,6 @@ const RequestOrder = ({
     handleSubmit();
   } else if (selectedPaymentOption === "online") {
     initiatePayment();
-    
   }
 
   useEffect(() => {
@@ -256,7 +292,7 @@ const RequestOrder = ({
     <>
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Body>
-          <div className="form-heading">
+          <div className="form-heading" style={{ textAlign: "left" }}>
             <button
               style={{ border: "none", backgroundColor: "white" }}
               onClick={handleClose}
@@ -264,8 +300,17 @@ const RequestOrder = ({
               <i className="fas fa-chevron-left pt-3"></i>
             </button>
             <span className="mx-3">Back</span>
-            <h3 className="mt-4">Order Summary</h3>
-            <p style={{ fontSize: "14px" }}>
+            <h3
+              style={{
+                marginTop: "15px",
+                marginBottom: "5px",
+                fontSize: "20px",
+              }}
+              className="text-orange"
+            >
+              Order Summary
+            </h3>
+            <p style={{ marginBottom: "10px", color: "#666" }}>
               Check out the details of what you're paying below
             </p>
           </div>
@@ -282,6 +327,14 @@ const RequestOrder = ({
                 <span>Delivery Fee</span>
                 <span className="fw-bold">₦{deliveryFee.toFixed(2)}</span>
               </div>
+              {deliveryData === "express" ? (
+                <div className="d-flex justify-content-between mt-2">
+                  <span>Service Fee</span>
+                  <span className="fw-bold">₦{Servicefee.toFixed(2)}</span>
+                </div>
+              ) : (
+                ""
+              )}
               {deliveryData === "express" ? (
                 <div className="d-flex justify-content-between mt-2">
                   <span></span>
@@ -327,7 +380,7 @@ const RequestOrder = ({
                         </Col>
                         <Col md={8}>
                           <h3 style={{ fontSize: "14px" }} className="pt-2">
-                            Wallet (₦{total_charge})
+                            Wallet (₦{balance})
                           </h3>
                         </Col>
                       </Row>
@@ -408,7 +461,7 @@ const RequestOrder = ({
                     className="delivery-content-custom"
                     style={{ fontSize: "16px", margin: 0 }}
                   >
-                    Wallet (₦{total_charge})
+                    Wallet (₦{balance})
                   </p>
                 </Card>
 

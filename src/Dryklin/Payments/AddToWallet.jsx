@@ -15,12 +15,12 @@ const AddToWallet = () => {
     }
     try {
       const csrfResponse = await axios.get(
-        "https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/"
+        "https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/"
       );
       const csrfToken = csrfResponse.data.csrfToken;
 
       const response = await axios.post(
-        "http://localhost:8000/initiate-payment/",
+        "https://dryklins-1a9d97937409.herokuapp.com/initiate-payment/",
         { amount: amount, email: user.email },
         {
           headers: {
@@ -42,7 +42,7 @@ const AddToWallet = () => {
   const verifyPayment = async (reference) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/paystack/verify-payment/",
+        "https://dryklins-1a9d97937409.herokuapp.com/paystack/verify-payment/",
         { reference: reference },
         {
           headers: {

@@ -53,7 +53,7 @@ const PaymentTypes = ({ show, handleClose }) => {
     try {
       // if (selectedOption === "Bank Transfer") {
         // Handle Bank Transfer
-        const csrfResponse = await axios.get("https://dryklin-e853d5ecea30.herokuapp.com/api/csrfs/");
+        const csrfResponse = await axios.get("https://dryklins-1a9d97937409.herokuapp.com/api/csrfs/");
         const csrfToken = csrfResponse.data.csrfToken;
 
         const formData = {
@@ -65,7 +65,7 @@ const PaymentTypes = ({ show, handleClose }) => {
         const formDataJson = JSON.stringify(formData);
 
         const response = await axios.post(
-          "https://dryklin-e853d5ecea30.herokuapp.com/api/create-virtual-account/",
+          "https://dryklins-1a9d97937409.herokuapp.com/api/create-virtual-account/",
           formDataJson,
           {
             headers: {

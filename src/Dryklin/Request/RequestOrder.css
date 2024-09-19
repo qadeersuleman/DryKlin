@@ -57,3 +57,16 @@
     display: none !important;
 }
 }
+
+
+
+.custom-confirm-button {
+    background-color: #ff6b00 !important; /* Orange color */
+    border-color: #ff6b00 !important; /* Match the border color to the button background */
+    color: #ffffff !important; /* Text color inside the button */
+}
+
+.custom-confirm-button:hover {
+    background-color: #e65c00 !important; /* Darker orange for hover state */
+    border-color: #e65c00 !important;
+}

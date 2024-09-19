@@ -39,12 +39,12 @@
 
 .text-orange
 {
-  color : #e65c00;
+  color : #e65c00 !important;
 }
 
 .bg-orange
 {
-  background-color: #e65c00;
+  background-color: #e65c00 !important;
 }
 
 
